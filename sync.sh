@@ -3,7 +3,7 @@
 set -e  # Exit on error
 set -o pipefail  # Fail if any command in a pipeline fails
 
-REMOTE_HOST="root@217.114.11.70"
+REMOTE_HOST="root@217.114.5.53"
 BACKEND_SRC="./yacht_back/build/libs/yacht-0.0.1-SNAPSHOT.jar"
 BACKEND_DEST="/root/yacht/backend/yacht-0.0.1-SNAPSHOT.jar"
 FRONTEND_SRC="./yacht_front/dist/browser"
