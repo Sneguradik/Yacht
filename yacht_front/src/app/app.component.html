@@ -1,0 +1,7 @@
+<app-layout *ngIf="!blocker || (sessionService.user$ | async)?.roles.includes('ROLE_SUPERUSER'); else outlet">
+    <ng-container [ngTemplateOutlet]="outlet"></ng-container>
+</app-layout>
+
+<ng-template #outlet>
+    <router-outlet></router-outlet>
+</ng-template>

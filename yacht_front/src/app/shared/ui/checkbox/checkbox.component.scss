@@ -1,0 +1,53 @@
+@import 'src/styles/variables';
+
+:host {
+  .container {
+    cursor: pointer;
+    display: inline-block;
+    height: 14px;
+    position: relative;
+    user-select: none;
+    width: 14px;
+
+    input {
+      cursor: pointer;
+      height: 0;
+      opacity: 0;
+      position: absolute;
+      width: 0;
+
+      &:checked ~ .checkmark {
+        background-color: $primary;
+        border: 1px solid $primary;
+
+        &::after {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .checkmark {
+    border: 1px solid #b5b5be;
+    border-radius: 3px;
+    height: 14px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 14px;
+
+    &::after {
+      border: solid white;
+      border-radius: 2px;
+      border-width: 0 2px 2px 0;
+      content: '';
+      display: none;
+      height: 6px;
+      left: 4px;
+      position: absolute;
+      top: 2px;
+      transform: rotate(45deg);
+      width: 3px;
+    }
+  }
+}

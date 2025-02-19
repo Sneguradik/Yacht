@@ -1,0 +1,19 @@
+<div #main [ngClass]="{active: !collapsed}" tabindex="-1" (click)="textarea.focus()">
+  <div class="text">
+    <textarea [formControl]="commentFormControl"
+              #textarea class="subtitle-2"
+              [placeholder]="'COMMON.TO_WRITE' | translate"
+              (focus)="collapsed = false"
+    ></textarea>
+    <div class="close" (click)="close($event)">
+      <svg name="btn-cross"></svg>
+    </div>
+  </div>
+  <div class="controls v-center">
+    <button class="button-2 align-right"
+            [disabled]="commentFormControl.invalid"
+            (click)="submit()">
+            {{ 'COMMON.SEND' | translate}}
+    </button>
+  </div>
+</div>

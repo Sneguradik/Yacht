@@ -1,0 +1,169 @@
+<form *ngIf="data$ | async" class="admin-form">
+    <fieldset class="admin-form__fieldset">
+        <table class="admin-form__tab">
+            <thead>
+                <tr>
+                    <th>Параметр</th>
+                    <th>{{ 'COMMON.EVENT_' | translate }}</th>
+                    <th>{{ 'COMMON.VACANCIES_' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Где показывать</b></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>{{ 'COMMON.MY_NEWSFEED' | translate }}</td>
+                    <td>
+                        <label class="admin-check">
+                            <input type="checkbox"
+                                   name="feedEvents"
+                                   [ngModel]="(data$ | async).feed.events"
+                                   (ngModelChange)="changeData($event, 'feed', 'events')">
+                            <span class="admin-check__txt"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="admin-check">
+                            <input type="checkbox"
+                                   name="feedJobs"
+                                   [ngModel]="(data$ | async).feed.jobs"
+                                   (ngModelChange)="changeData($event, 'feed', 'jobs')">
+                            <span class="admin-check__txt"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'COMMON.PUBLICATIONS' | translate }}</td>
+                    <td>
+                        <label class="admin-check">
+                            <input type="checkbox"
+                                   name="publicationsEvents"
+                                   [ngModel]="(data$ | async).publications.events"
+                                   (ngModelChange)="changeData($event, 'publications', 'events')">
+                            <span class="admin-check__txt"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="admin-check">
+                            <input type="checkbox"
+                                   name="publicationsJobs"
+                                   [ngModel]="(data$ | async).publications.jobs"
+                                   (ngModelChange)="changeData($event, 'publications', 'jobs')">
+                            <span class="admin-check__txt"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ 'COMMON.POPULAR' | translate }}</td>
+                    <td>
+                        <label class="admin-check">
+                            <input type="checkbox"
+                                   name="popularEvents"
+                                   [ngModel]="(data$ | async).popular.events"
+                                   (ngModelChange)="changeData($event, 'popular', 'events')">
+                            <span class="admin-check__txt"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="admin-check">
+                            <input type="checkbox"
+                                   name="popularJobs"
+                                   [ngModel]="(data$ | async).popular.jobs"
+                                   (ngModelChange)="changeData($event, 'popular', 'jobs')">
+                            <span class="admin-check__txt"></span>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Под публикацией <br>[переключатель]</td>
+                    <td>
+                        <label class="admin-big-check">
+                            <input type="checkbox"
+                                   name="publicationsBottomEvents"
+                                   [ngModel]="(data$ | async).publicationsBottom"
+                                   (ngModelChange)="paramsSwitcher()">
+                            <span class="admin-big-check__txt"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <label class="admin-big-check">
+                            <input type="checkbox"
+                                   name="publicationsBottomJobs"
+                                   [ngModel]="!(data$ | async).publicationsBottom"
+                                   (ngModelChange)="paramsSwitcher()">
+                            <span class="admin-big-check__txt"></span>
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <fieldset class="admin-form__fieldset" *ngIf="viewForm" [formGroup]="viewForm">
+        <legend class="admin-form__legend">Показы в ленте <br><small>[после какой по счёту публикации сверху]</small></legend>
+        <table class="admin-form__tab">
+            <tbody>
+                <tr>
+                    <td>Первый показ</td>
+                    <td>
+                        <input type="number"
+                               class="admin-input"
+                               [min]="0"
+                               name="firstViewEvents"
+                               formControlName="firstViewEvents">
+                    </td>
+                    <td>
+                        <input type="number"
+                               class="admin-input"
+                               [min]="0"
+                               name="firstViewJobs"
+                               formControlName="firstViewJobs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Второй показ</td>
+                    <td>
+                        <input type="number"
+                               class="admin-input"
+                               [min]="0"
+                               name="secondViewEvents"
+                               formControlName="secondViewEvents">
+                    </td>
+                    <td>
+                        <input type="number"
+                               class="admin-input"
+                               [min]="0"
+                               name="secondViewJobs"
+                               formControlName="secondViewJobs">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Третий показ</td>
+                    <td>
+                        <input type="number"
+                               class="admin-input"
+                               [min]="0"
+                               name="thirdViewEvents"
+                               formControlName="thirdViewEvents">
+                    </td>
+                    <td>
+                        <input type="number"
+                               class="admin-input"
+                               [min]="0"
+                               name="thirdViewJobs"
+                               formControlName="thirdViewJobs">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </fieldset>
+    <div class="admin-form__bar">
+        <button class="btn admin-btn_white"
+                type="submit"
+                [disabled]="viewForm.invalid"
+                (click)="save()">{{ saved ? 'Изменения сохранены' : 'Сохранить изменения' }}</button>
+        <button class="btn admin-btn_blue" (click)="reset()">{{ 'COMMON.UNDO' | translate }}</button>
+    </div>
+</form>

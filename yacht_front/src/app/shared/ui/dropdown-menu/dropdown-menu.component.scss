@@ -1,0 +1,124 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+:host{
+  &.overflow-none{
+    .dropdown{
+      overflow: visible;
+    }
+  }
+
+  &.job-curents-left{
+    .dropdown{
+      right: auto;
+      &::after{
+        left: 86px;
+      }
+    }
+  }
+}
+
+.has-dropdown {
+  height: 24px;
+  position: relative;
+  &.open{
+    &::after {
+      border-bottom: 12px solid transparent;
+      border-bottom-color: white;
+      border-left: 11px solid transparent;
+      border-right: 11px solid transparent;
+      border-top: 19px solid transparent;
+      border-top: 0;
+      content: '';
+      height: 0;
+      right: 2px;
+      position: absolute;
+      top: 100%;
+      width: 0;
+      z-index: 5;
+      filter: drop-shadow(0 -3px 2px rgba(0, 0, 0, 0.1));
+    }
+  }
+}
+
+svg {
+  display: inline-block;
+}
+
+.dropdown {
+  background: white;
+  border-radius: 15px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  padding: 10px 20px;
+  position: absolute;
+  right: -15px;
+  top: 35px;
+  width: 210px;
+  overflow-y: auto;
+  -ms-overflow-style: auto !important;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    display: block;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #00b7ff;
+    background-color: #00b7ff;
+    border-radius: 2.5px;
+    border: 1px solid #00b7ff;
+
+    &:hover {
+      background: #00b7ff;
+      background-color: #00b7ff;
+    }
+  }
+
+  // &::after {
+  //   border-bottom: 19px solid transparent;
+  //   border-bottom-color: white;
+  //   border-left: 11px solid transparent;
+  //   border-right: 11px solid transparent;
+  //   border-top: 19px solid transparent;
+  //   border-top: 0;
+  //   content: '';
+  //   height: 0;
+  //   left: 89%;
+  //   margin-left: -15px;
+  //   margin-top: -15px;
+  //   position: absolute;
+  //   top: 0;
+  //   width: 0;
+  // }
+
+  &:focus {
+    outline: none;
+  }
+
+  @include media('<large') {
+    &__left{
+      right: -20px;
+      width: calc(100% + 40px);
+      &::after{
+        left: 78%;
+      }
+    }
+  }
+}
+
+ng-scrollbar {
+  --scrollbar-padding: 8px;
+  --scrollbar-color: transparent;
+  --scroll-view-color: transparent;
+  --scrollbar-size: 0;
+}

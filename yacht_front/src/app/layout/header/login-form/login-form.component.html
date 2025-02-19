@@ -1,0 +1,178 @@
+<div class="column-1">
+    <div class="logo-register">
+        <img src="assets/diskurs-media.png" class="logo">
+        <button class="button-1" (click)="registerMode === registerModeEnum.LOGIN ? setRegisterMode(registerModeEnum.REGISTER) : setRegisterMode(registerModeEnum.LOGIN)">
+            {{ registerMode === registerModeEnum.REGISTER ? ('COMMON.LOGIN' | translate) : ('COMMON.CREATE_AN_ACCOUNT' | translate) }}
+        </button>
+    </div>
+    <div class="body-1">
+        {{ 'COMMON.LOGIN_TEXT_1' | translate }}
+        <br>
+        <br>
+        {{ 'COMMON.LOGIN_TEXT_2' | translate }}
+        <br>
+        <br>
+        {{ 'COMMON.LOGIN_TEXT_3' | translate }}
+    </div>
+</div>
+<div class="column-2" [ngClass]="{ 'register-mode': registerMode }">
+    <ng-container [ngTemplateOutlet]="registerMode === registerModeEnum.REGISTER ? register : registerMode === registerModeEnum.LOGIN ? login : recover"></ng-container>
+</div>
+  
+<ng-template #login>
+    <div class="form-title">
+        {{ 'COMMON.LOGIN_' | translate }}
+        <svg name="btn-cross" (click)='toggleUserMenu()'></svg>
+    </div>
+    <ng-container [ngTemplateOutlet]="fastLogin"></ng-container>
+    <form [formGroup]="loginForm" (submit)="onSubmitLogin()">
+        <div class="input-group" [ngClass]="{ error: loginForm.controls.subject.invalid }">
+            <label class="caption">
+                {{ loginForm.controls.subject.errors?.wrongSubject ? ('COMMON.INVALID_LOGIN_EMAIL' | translate) : ('COMMON.EMAIL_OR_NAME' | translate) }}
+            </label>
+            <div class="v-center">
+                <input type="text" formControlName="subject" minlength="3">
+                <svg name="mail" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-group" [ngClass]="{ 'error': loginForm.controls['password'].invalid }">
+            <label class="caption">
+                {{ loginForm.controls['password'].errors?.wrongPassword ? ('COMMON.INVALID_PASSWORD' | translate) : ('COMMON.PASSWORD' | translate) }}
+            </label>
+            <div class="v-center">
+                <input type="password" formControlName="password" minlength="8" maxlength="128">
+                <svg name="lock" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="remember-me-container body-3">
+            <div>
+                <label class="control control-checkbox">
+                    {{ 'COMMON.REMEMBER_ME' | translate }}
+                    <input id="input-login-remember-me" type="checkbox" formControlName="remember" checked="checked">
+                    <div class="control_indicator"></div>
+                </label>
+            </div>
+            <div style="cursor: pointer;">
+                <span (click)="setRegisterMode(registerModeEnum.RECOVER); $event.stopPropagation()">{{ 'COMMON.FORGET_YOUR_PASSWORD' | translate }}</span>
+            </div>
+        </div>
+        <div class="input-submit">
+            <button id="input-login-submit" type="submit" class="button-1" [disabled]="!loginForm.valid || loginForm.pristine">
+                {{ 'COMMON.LOGIN' | translate }}
+            </button>
+        </div>
+    </form>
+    <div class="privacy">
+        <span class="caption">{{ 'COMMON.BY_USING_YACHTSMAN' | translate }}<a [routerLink]="['/news/11']" ><u>{{ 'COMMON.BY_USING_YACHTSMAN2' | translate }}</u></a></span>
+    </div>
+</ng-template>
+  
+<ng-template #fastLogin>
+    <div class="caption f-login-text center-lines">
+        {{ 'COMMON.FAST_LOGIN' | translate }}
+    </div>
+    <div class="social-login-buttons button-2">
+        <div class="sl-vk" (click)="socialLoginService.loginWithVk()">
+            <svg name="social/simple/vk"></svg>
+            <span>{{ 'COMMON.LOGIN_VIA' | translate }} VKontakte</span>
+        </div>
+        <div class="sl-tg" (click)="socialLoginService.goToTgAuthPage()">
+            <svg name="social/simple/tg"></svg>
+            <span>{{ 'COMMON.LOGIN_VIA' | translate }} Telegram</span>
+        </div>
+        <div class="register button-1" (click)="registerMode === registerModeEnum.REGISTER ? setRegisterMode(registerModeEnum.LOGIN) : setRegisterMode(registerModeEnum.REGISTER); $event.stopPropagation()">
+            <span>{{ registerMode === registerModeEnum.REGISTER ? ('COMMON.LOGIN' | translate)  : ('COMMON.CREATE_AN_ACCOUNT' | translate) }}</span>
+        </div>
+    </div>
+</ng-template>
+  
+<ng-template #register>
+    <div class="form-title">
+        {{ 'COMMON.CREATE_AN_ACCOUNT' | translate }}
+        <svg name="btn-cross" (click)='toggleUserMenu()'></svg>
+    </div>
+    <form [formGroup]="registerForm" (submit)="onSubmitRegister()">
+        <div class="input-group" [ngClass]="{ error: registerForm.controls['name'].invalid }">
+            <label class="caption">{{ 'COMMON.WHATS_YOUR_NAME' | translate }}</label>
+            <div class="v-center">
+                <input type="text" class="placehdr-light-gray" formControlName="name" minlength="5" maxlength="25" [placeholder]="'COMMON.ENTER_TWO_WORDS' | translate">
+                <svg name="user" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-group" [ngClass]="{ error: registerForm.controls['email'].invalid }">
+            <label class="caption">
+                {{ registerForm.controls['email'].errors?.taken ? ('COMMON.ACCOUNT_WITH_EMAIL_TAKEN' | translate) : ('COMMON.EMAIL' | translate) }}
+            </label>
+            <div class="v-center">
+                <input type="email" formControlName="email">
+                <svg name="mail" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-group" [ngClass]="{ error: registerForm.controls['username'].invalid }">
+            <label class="caption">
+                {{ registerForm.controls['username'].errors?.taken ? ('COMMON.USERNAME_TAKEN' | translate) : registerForm.controls['username'].invalid ? ('COMMON.LATIN_ONLY_MIN_3' | translate) : ('COMMON.ALIAS' | translate) }}
+            </label>
+            <div class="v-center">
+                <input type="text" formControlName="username" minlength="3" maxlength="26" [placeholder]="'COMMON.ALIAS' | translate">
+                <svg name="globe" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-group" [ngClass]="{ error: registerForm.controls['password'].invalid }">
+            <label class="caption" [for]="'input-login-password'">
+                {{ registerForm.controls['password'].invalid ? ('COMMON.MIN_8' | translate) : ('COMMON.PASSWORD' | translate) }}
+            </label>
+            <div class="v-center">
+                <input [attr.id]="'input-login-password'" type="password" style="font-size: 14px;" formControlName="password" minlength="8" maxlength="128" [placeholder]="'COMMON.PASSWORD_MUST_BE' | translate">
+                <svg name="lock" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-group" [ngClass]="{ error: registerForm.hasError('mismatch') }">
+            <label class="caption" [for]="'input-login-password'">{{ 'COMMON.CONFIRM_THE_PASSWORD' | translate }}</label>
+            <div class="v-center">
+                <input [attr.id]="'input-login-password'" type="password" formControlName="passwordRepeat" minlength="8" maxlength="128">
+                <svg name="lock" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-submit">
+            <button type="submit" class="button-1" [disabled]="!registerForm.valid || registerForm.pristine">
+                {{ 'COMMON.CREATE_AN_ACCOUNT' | translate }}
+            </button>
+        </div>
+    </form>
+    <ng-container [ngTemplateOutlet]="fastLogin"></ng-container>
+    <div class="privacy">
+        <span class="caption">{{ 'COMMON.BY_USING_YACHTSMAN' | translate }}<a [routerLink]="['/news/11']" ><u>{{ 'COMMON.BY_USING_YACHTSMAN2' | translate }}</u></a></span>
+    </div>
+</ng-template>
+  
+<ng-template #recover>
+    <div class="form-title">
+        {{ 'COMMON.PASSWORD_RECOVERY' | translate }}
+        <svg name="btn-cross" (click)="toggleUserMenu()"></svg>
+    </div>
+    <form [formGroup]="recoveryForm" (submit)="onSubmitRecovery()">
+        <div *ngIf="!recovered" class="input-group" [ngClass]="{ error: recoveryForm.controls['email'].invalid || recError }">
+            <label class="caption">
+                {{ recError ? ('COMMON.EMAIL_IS_INVALID' | translate) : ('COMMON.EMAIL_FOR_RECOVERY' | translate) }}
+            </label>
+            <div class="v-center">
+                <input type="email" formControlName="email">
+                <svg name="mail" class="f-gray"></svg>
+            </div>
+        </div>
+        <p *ngIf="!recovered" class="desc-recover">{{ 'COMMON.PLEASE_ENTER_YOUR_LOGIN' | translate }}</p>
+        <p *ngIf="recovered" class="desc-recover">{{ 'COMMON.RECOVERY_EMAIL' | translate }}</p>
+            <div class="input-submit">
+            <button type="submit" class="button-1" [disabled]="!recoveryForm.valid || recoveryForm.pristine" [hidden]="recovered">
+                {{ 'COMMON.FORGET_YOUR_PASSWORD' | translate }}
+            </button>
+            <button *ngIf="recovered" class="button-1" (click)="recovered = false; setRegisterMode(registerModeEnum.LOGIN);">
+                {{ 'COMMON.CLOSE' | translate }}
+            </button>
+        </div>
+    </form>
+    <ng-container [ngTemplateOutlet]="fastLogin"></ng-container>
+    <div class="privacy">
+        <span class="caption">{{ 'COMMON.BY_USING_YACHTSMAN' | translate }}<a [routerLink]="['/news/11']"><u>{{ 'COMMON.BY_USING_YACHTSMAN2' | translate }}</u></a></span>
+    </div>
+</ng-template>

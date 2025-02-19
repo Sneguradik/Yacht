@@ -1,0 +1,26 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+.button-1 {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+  &:not(:last-child) {
+    div {
+      white-space: nowrap;
+      border-bottom: 1px solid #f6f6f6;
+    }
+  }
+}
+
+:host(.selected){
+  color: $primary;
+}
+
+div:hover {
+  color: $primary;
+}

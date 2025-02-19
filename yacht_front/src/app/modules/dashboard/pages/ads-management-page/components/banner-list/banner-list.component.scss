@@ -1,0 +1,12 @@
+@import '../../../../shared/styles/admin.scss';
+@import '../../../../shared/styles/dashboard-base-styles.scss';
+
+.const-width {
+    width: 200px !important;
+}
+
+.table-container {
+    max-width: 100%;
+    overflow: scroll;
+    padding-bottom: 120px;
+}

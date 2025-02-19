@@ -1,0 +1,119 @@
+<ng-container *ngIf="(sidebarWrapperService.params$ | async).showSidebar; else contentOnly">
+    <div *ngIf="responsive.lt.large | async" class="overlay secondary-header scrollbar-none">
+        <div class="overlay-background" [ngClass]="{ 'shown': verticalMenu | call : isOpen }" (click)="closeVerticalMenu()"></div>
+        <app-toolbar>
+            <div class="btn" (click)="toggleVerticalMenu('left')">
+                <svg name="list" class="f-primary"></svg>
+            </div>
+            <app-feed-nav [isSecondHeader]="true"></app-feed-nav>
+            <div class="button-1 v-center fade-1 clickable hide-lt-medium" (click)="toggleVerticalMenu('right')">
+                <span class="margin-right-4">{{'COMMON.THE_MOST_CURRENT' | translate}}</span>
+                <svg name="dropdown" size="12" class="f-primary"></svg>
+            </div>
+            <div class="hide-ge-medium" (click)="toggleVerticalMenu('right')">
+                <svg name="comment" class="f-primary" size="25">
+                </svg>
+            </div>
+            <div class="left-sidebar inside" [ngClass]="{ 'hidden': !verticalMenu.left }">
+                <ng-container [ngTemplateOutlet]="(sidebarWrapperService.params$ | async).article ? articleSidebar : leftSidebar"></ng-container>
+            </div>
+            <div *ngIf="(sidebarWrapperService.params$ | async).trending" class="right-sidebar inside" [ngClass]="{ 'hidden': !verticalMenu.right }">
+                <ng-container [ngTemplateOutlet]="rightSidebar"></ng-container>
+            </div>
+        </app-toolbar>
+    </div>
+
+    <ng-container *ngIf="(responsive.lt.large | async) && !(responsive.lt.medium | async) && (sidebarWrapperService.params$ | async).article">
+        <div class="trending sidebar-article scrollbar-none"  [ngClass]="{ 'shown': verticalMenu.article }">
+            <div class="content">
+                <ng-scrollbar [appearance]="'standard'" class="empty-size">
+                    <div class="block">
+                        <ng-container [ngTemplateOutlet]="articleSidebar" style="width: 100%"></ng-container>
+                    </div>
+                </ng-scrollbar>
+            </div>
+            <div class="collapse" (click)="toggleVerticalMenu('article')">
+                <div class="icon-expand">
+                    <svg name="chevron/right" fill="white"></svg>
+                </div>
+                <div class="icon-collapse">
+                    <svg name="chevron/left" fill="white"></svg>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    
+    <ng-container *ngIf="(sidebarWrapperService.params$ | async) as params">
+        <div *ngIf="params.trending && (!params.article && (responsive.large | async) || params.article && !(responsive.lt.large | async))"
+            class="trending sidebar scrollbar-none"  [ngClass]="{ 'shown': verticalMenu.right }">
+            <div class="collapse" (click)="toggleVerticalMenu('right')">
+                <div class="icon-expand">
+                    <svg name="chevron/left" fill="white"></svg>
+                </div>
+                <div class="icon-collapse">
+                    <svg name="chevron/right" fill="white"></svg>
+                </div>
+            </div>
+            <div class="content">
+                <ng-scrollbar [appearance]="'standard'" class="empty-size">
+                    <div class="block">
+                        <ng-container [ngTemplateOutlet]="rightSidebar" style="width: 100%"></ng-container>
+                    </div>
+                </ng-scrollbar>
+            </div>
+        </div>
+    </ng-container>
+    
+    <div *ngIf="verticalMenu.right && (homeRoute === '/all' || homeRoute === '/') && !(responsive.lt.large | async)" class="temnota"></div>
+      
+    <app-live-content *ngIf="(sidebarWrapperService.params$ | async).live" class="scrollbar-none"></app-live-content>
+      
+    <div class="content">
+        <div *ngIf="(responsive.width$ | async) >= responsive.breakpoints.large" class="navigation block pos-sticky scroll-block scrollbar-none">
+            <ng-scrollbar [appearance]="'standard'">
+                <div *ngIf="(sidebarWrapperService.params$ | async) as params" class="block nav">
+                    <ng-container *ngIf="params.navigation" [ngTemplateOutlet]="leftSidebar"></ng-container>
+                    <ng-container *ngIf="params.article" [ngTemplateOutlet]="articleSidebar"></ng-container>
+                </div>
+            </ng-scrollbar>
+        </div>
+      
+        <div [ngClass]="(sidebarWrapperService.params$ | async).trending && !(sidebarWrapperService.params$ | async).article ? 'ng-content' : 'ng-content-wide'">
+            <div class="content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+      
+      
+        <div *ngIf="(responsive.width$ | async) >= responsive.breakpoints.xlarge && (sidebarWrapperService.params$ | async).trending && !(sidebarWrapperService.params$ | async).article" class="trending block pos-sticky scroll-block scrollbar-none">
+            <ng-scrollbar [appearance]="'standard'">
+                <div class="block">
+                    <div class="block trand">
+                        <ng-container [ngTemplateOutlet]="rightSidebar"></ng-container>
+                    </div>
+                </div>
+            </ng-scrollbar>
+        </div>
+    </div>
+</ng-container>
+  
+<ng-template #leftSidebar>
+    <app-navigation-sidebar></app-navigation-sidebar>
+    <ul class="structural sidebar-list mt-30 pos-sticky">
+        <li class="clickable pos-sticky bg-grey" (click)="scrollTop()">
+            <div class="v-center last-item-right">
+                <span class="subtitle-2 fade-2">{{ 'COMMON.UP' | translate }}</span>
+                <svg name="chevron/up" class="ui-icon"></svg>
+            </div>
+        </li>
+    </ul>
+</ng-template>
+<ng-template #rightSidebar>
+    <app-trending-sidebar></app-trending-sidebar>
+</ng-template>
+<ng-template #articleSidebar>
+    <app-article-info-sidebar [data$]="sidebarWrapperService.params$"></app-article-info-sidebar>
+</ng-template>
+<ng-template #contentOnly>
+    <router-outlet></router-outlet>
+</ng-template>

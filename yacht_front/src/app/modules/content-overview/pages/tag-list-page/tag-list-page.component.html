@@ -1,0 +1,47 @@
+<app-navbar class="margin-bottom-44" activeItem="# Теги" [searchPlaceholder]="'COMMON.SEARCH_BY_TAGS' | translate" (search)="handleSearch($event)"></app-navbar>
+<ul class="block-card tag-list">
+    <ng-container [ngSwitch]="hasSearchQuery$ | async">
+        <ng-container *ngSwitchCase="true">
+            <h2>Результаты поиска</h2>
+            <ul class="tags">
+                <li *ngFor="let tag of found.content">
+                    <a [routerLink]="['/tags', tag.meta.id]"># {{ tag.content }}</a>
+                </li>
+            </ul>
+            <button *ngIf="found.page != -1 && found.page < found.totalPages - 1" class="show-more" (click)="found.fetch()">
+                <span>{{ 'COMMON.SHOW_MORE' | translate}}</span>
+                <svg name="chevron/down"></svg>
+            </button>
+            <p *ngIf="found.totalPages == 0">{{ 'COMMON.TAGS_NOT_FOUND_' | translate}}</p>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="false">
+            <div class="tag-popular">
+                <h2>{{ 'COMMON.POPULAR_TAGS' | translate}}</h2>
+                <ul class="tags">
+                    <li *ngFor="let tag of popular.content">
+                        <a [routerLink]="['/tags', tag.meta.id]"># {{ tag.content }}</a>
+                    </li>
+                </ul>
+                <button *ngIf="popular.page < popular.totalPages - 1" class="show-more" (click)="popular.fetch()">
+                    <span>{{ 'COMMON.SHOW_MORE' | translate}}</span>
+                    <svg name="chevron/down"></svg>
+                </button>
+                <p *ngIf="popular.totalPages == 0">{{ 'COMMON.TAGS_NOT_FOUND_POPULAR' | translate}}</p>
+            </div>
+            <div *appLoggedIn class="tag-recent">
+                <h2>{{ 'COMMON.RECENTLY_VIEWED' | translate}}</h2>
+                <ul class="tags">
+                    <li *ngFor="let tag of recent.content">
+                        <a [routerLink]="['/tags', tag.meta.id]"># {{ tag.content }}</a>
+                    </li>
+                </ul>
+                <button *ngIf="recent.page < recent.totalPages - 1" class="show-more" (click)="recent.fetch()">
+                    <span>{{ 'COMMON.SHOW_MORE' | translate}}</span>
+                    <svg name="chevron/down"></svg>
+                </button>
+                <p *ngIf="recent.totalPages == 0">{{ 'COMMON.TAGS_NOT_FOUND_RECENT' | translate}}</p>
+            </div>
+        </ng-container>
+    </ng-container>
+</ul>

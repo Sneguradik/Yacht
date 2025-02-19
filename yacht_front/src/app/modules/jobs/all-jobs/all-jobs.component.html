@@ -1,0 +1,10 @@
+<app-ui-card class="title-card" [shadow]="false">
+  <h3 class="fade-0">{{ 'COMMON.VACANCIES_' | translate }}</h3>
+  <app-ui-dots-menu *appRoleGuard="'EDITOR$'">
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="star" [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate" (click)="showcase()"
+      ></app-ui-dots-menu-item>
+    </app-ui-dots-menu>
+  </app-ui-card>
+<section class="all-jobs">
+  <app-jobs-list></app-jobs-list>
+</section>

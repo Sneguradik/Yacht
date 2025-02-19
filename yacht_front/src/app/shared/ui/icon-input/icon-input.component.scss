@@ -1,0 +1,36 @@
+@import 'src/styles';
+@import 'src/styles/variables';
+
+div {
+  border-bottom: 2px solid $light-blue;
+  display: flex;
+  padding-bottom: 6px;
+  input {
+    @extend %font-1;
+
+    border: 0;
+    color: #44444f;
+    flex-grow: 1;
+    font-size: 16px;
+    line-height: 19px;
+    margin-right: 4px;
+    ::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  svg {
+    fill: $gray;
+  }
+  &:focus-within {
+    border-bottom-color: $primary;
+    svg {
+      fill: $primary;
+    }
+  }
+  &.ng-invalid:not(.ng-pristine) {
+    border-bottom-color: $error;
+    svg {
+      fill: $error;
+    }
+  }
+}

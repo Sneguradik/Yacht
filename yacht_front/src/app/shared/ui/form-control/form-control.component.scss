@@ -1,0 +1,25 @@
+@import 'src/styles/responsive';
+
+:host {
+    display: block;
+    width: 100%;    
+}
+
+.ui-form-control {
+    position: relative;
+    width: 100%;
+
+    &.iconed {
+        svg {
+            position: absolute;
+        }
+    }
+
+    .ui-input-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        width: 100%;
+    }
+}

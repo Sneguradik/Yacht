@@ -1,0 +1,75 @@
+@import 'src/styles/variables';
+
+:host {
+  background: white;
+  border: 0.5px solid $primary;
+  border-radius: 15px;
+  display: block;
+
+  > div {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 36px;
+    outline: none;
+    padding: 8px 8px 8px 20px;
+
+    > .text {
+      display: flex;
+      flex-grow: 1;
+      overflow: hidden;
+      padding-bottom: 5px;
+
+      textarea {
+        background: none;
+        border: 0;
+        display: block;
+        flex-grow: 1;
+        height: 100%;
+        outline: none;
+        resize: none;
+        text-wrap: wrap;
+        word-wrap: break-word;
+      }
+
+      > .close {
+        display: flex;
+        flex-direction: column;
+
+        button {
+          background: none;
+          border: 0 none;
+          padding: 0;
+        }
+      }
+    }
+
+    > .controls {
+      button {
+        background: $primary;
+        border: 0 none;
+        border-radius: 15px;
+        color: white;
+        padding: 6px 20px;
+      }
+    }
+
+    &:not(.active) {
+      > .text > .close {
+        display: none;
+      }
+
+      > .controls {
+        display: none;
+      }
+    }
+
+    &.active {
+      height: 150px;
+
+      > .text {
+        flex-grow: 1;
+      }
+    }
+  }
+}

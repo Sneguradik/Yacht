@@ -1,0 +1,64 @@
+.rec-container {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding-top: 50px;
+  width: 100%;
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 38px;
+    padding: 20px;
+    text-align: left;
+  }
+
+  form {
+    margin: 0 auto;
+    width: 375px;
+
+    label {
+      color: #d5d5dc;
+      display: block;
+      padding-bottom: 10px;
+    }
+
+    input {
+      background: none;
+      border: 0;
+      border-bottom: 1px solid #d5d5dc;
+      flex-grow: 1;
+      font-size: 14px;
+      line-height: 22px;
+      margin-bottom: 10px;
+
+      &:focus {
+        border-bottom: 1px solid black;
+      }
+    }
+
+    button {
+      border-radius: 15px;
+      //border: 1px solid #92929d;
+      color: #92929d;
+      font-size: 15px;
+      height: 46px;
+      padding: 0.5em;
+      transition: 1s;
+      width: 100%;
+
+      //&:hover {
+      //      //  border: 1px solid #00b7ff;
+      //      //  color: #00b7ff;
+      //      //  transition: 1s;
+      //      //}
+    }
+
+    .error {
+      color: red;
+      // error styles here
+    }
+  }
+}

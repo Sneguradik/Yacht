@@ -1,0 +1,155 @@
+@import 'src/styles/responsive';
+
+:host {
+    width: 100%;
+}
+
+.ad {
+  margin-bottom: 0px !important;
+
+  ::ng-deep {
+    .ad {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+.content {
+    > div {
+        margin-bottom: 40px;
+    }
+}
+
+.events {
+    background: rgba(0, 185, 250, 0.05);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      width: 660px;
+
+      app-events {
+        border-radius: 15px;
+        margin: 0 -20px;
+        padding: 20px;
+      }
+    }
+}
+
+.block {
+    background: white;
+    border-radius: 15px;
+    box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2), 3px 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.company-blogs {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 16px;
+
+    @include media('<medium') {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+}
+
+.suggestions {
+    padding-bottom: 15px;
+    width: 660px;
+    @include media('<medium') {
+      width: 100%;
+    }
+  
+    .border-bottom-zero {
+      border-bottom: 0 !important;
+    }
+  
+    .all-comp {
+      align-items: center;
+      display: flex;
+  
+      svg {
+        fill: rgba(0, 0, 0, 0.6);
+      }
+  
+      * {
+        vertical-align: middle;
+      }
+    }
+  
+    .cont {
+      width: 100%;
+  
+      &:not(:last-child) {
+        border-bottom: 2px solid #f6f6f6;
+      }
+  
+      &:not(:first-child) {
+        margin-top: 20px;
+      }
+  
+      .info {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+  
+        @include media('<medium') {
+          flex-wrap: wrap;
+        }
+  
+        .topics {
+          align-items: center;
+          display: flex;
+          margin-right: 30px;
+  
+          .names {
+            span:not(:last-child)::after {
+              content: '|';
+              margin-left: 5px;
+              margin-right: 5px;
+            }
+          }
+        }
+  
+        .time-author-actions {
+          align-content: center;
+          align-items: center;
+          display: flex;
+          flex-direction: row;
+          margin-left: auto;
+  
+          .author {
+            margin-right: 20px;
+  
+            @include media('<medium') {
+              margin-top: 10px;
+              order: 1;
+            }
+          }
+  
+          .time {
+            @include media('<medium') {
+              margin-left: 5px;
+              order: 2;
+            }
+          }
+        }
+      }
+  
+      .content {
+        justify-content: flex-start;
+        margin-bottom: 20px;
+  
+        h4 {
+          margin: 0 0 10px;
+        }
+      }
+    }
+}

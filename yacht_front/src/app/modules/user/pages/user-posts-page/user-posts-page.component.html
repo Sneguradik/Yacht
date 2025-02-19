@@ -1,0 +1,17 @@
+<app-user-header></app-user-header>
+
+<ul *ngIf="pinned" class="block-card item-space-20">
+    <li>
+        <app-feed-article-view [options]="{ pinnedMark: true, pictureOn: true, menuOn: !drafts }" [data]="pinned[0]" [topic]="pinned[1]" (pinned)="pinned[0].pinned = false; articles.push(pinned); pinned=$event;" (gone)="remove(pinned)"></app-feed-article-view>
+    </li>
+</ul>
+<div style="margin-bottom: 50px;"></div>
+
+<app-ranges [ranges]="ranges" [activeRange]="activeRange" (toggleRange)="rangeEvent($event)"></app-ranges>
+<ul class="block-card item-space-20">
+    <li *ngFor="let article of articles; let i = index">
+        <app-feed-article-view [data]="article[0]" [topic]="article[1]" [options]="{ pictureOn: true, menuOn: !drafts }" (gone)="remove(article)" (pinned)="pinned=$event; remove(article); pinned[0].pinned = true;"></app-feed-article-view>
+    </li>
+</ul>
+
+<app-pagination [pageable]="pageable" [fireFirstPage]="false"></app-pagination>

@@ -1,0 +1,130 @@
+<app-ui-card class="job-creation-form" [shadow]="false">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="job-name-wrapper" formGroupName="info">
+      <input class="job-name"
+             formControlName="name"
+             [placeholder]="'COMMON.VACANCYS_TITLE' | translate"
+             maxlength="100">
+      <span class="counter c-primary caption">{{ 100 - form.value.info.name.length + '/100' }}</span>
+    </div>
+
+    <hr class="blue-line margin-bottom-30">
+
+    <div class="fade-1 job-salary-wrapper margin-bottom-30" formGroupName="info">
+      <h6 class="margin-right-15">{{ 'COMMON.SALARY' | translate }}</h6>
+      <div class="from-wrapper v-center margin-right-4">
+        <app-ui-form-control class="v-center">
+          <app-ui-label class="subtitle-1 from-to" [normal]="true">{{ 'COMMON.FROM' | translate }}</app-ui-label>
+          <input type="number" class="job-salary-input" formControlName="minSalary" uiInput min="1" max="9999999">
+        </app-ui-form-control>
+      </div>
+      <div class="to-wrapper v-center">
+        <app-ui-form-control class="v-center">
+          <app-ui-label class="subtitle-1 from-to" [normal]="true">{{ 'COMMON.TO' | translate }}</app-ui-label>
+          <input type="number" class="job-salary-input" formControlName="maxSalary" uiInput min="1" max="9999999">
+        </app-ui-form-control>
+      </div>
+      <app-ui-dropdown-menu class="subtitle-1 fade-1 overflow-none job-curents-select">
+        <header class="head v-center clickable">
+          <h6 class="dropdown-currency margin-right-8">{{ CURRENCY[form.value.info.currency] }}</h6>
+          <svg class="f-primary" name="chevron/down"></svg>
+        </header>
+        <app-ui-dropdown-menu-item *ngFor="let kv of CURRENCY | keyvalue"
+                                   (click)="handleFormChange('info.currency', kv.key)"
+                                   [class.selected]="form.get('info.currency').value === kv.key">{{ kv.value }}</app-ui-dropdown-menu-item>
+      </app-ui-dropdown-menu>
+    </div>
+
+    <div class="v-center margin-bottom-30 type-zan" formGroupName="info">
+      <app-ui-dropdown-menu class="fade-1 margin-right-44 overflow-none job-curents-left">
+        <header class="head v-center clickable">
+          <h6 class="margin-right-8">{{ TYPE[form.value.info.type] || 'Тип занятости' }}</h6>
+          <svg class="f-primary" name="chevron/down"></svg>
+        </header>
+        <app-ui-dropdown-menu-item *ngFor="let kv of TYPE | keyvalue" (click)="handleFormChange('info.type', kv.key)"
+                                   [class.selected]="form.get('info.type').value === kv.key">
+          {{ kv.value }}</app-ui-dropdown-menu-item>
+      </app-ui-dropdown-menu>
+      <app-ui-dropdown-menu class="fade-1 margin-right-44 overflow-none job-curents-right">
+        <header class="head v-center clickable">
+          <h6 *ngIf="form.value.info.place === 'OFFICE'" class="margin-right-8">{{ 'COMMON.PLACE.OFFICE' | translate }}
+          </h6>
+          <h6 *ngIf="form.value.info.place === 'REMOTE'" class="margin-right-8">{{ 'COMMON.PLACE.REMOTE' | translate }}
+          </h6>
+          <h6 *ngIf="!form.value.info.place" class="margin-right-8">{{ 'COMMON.PLACE.DEFAULT' | translate }}</h6>
+          <svg class="f-primary" name="chevron/down"></svg>
+        </header>
+        <app-ui-dropdown-menu-item *ngFor="let kv of PLACE | keyvalue" (click)="handleFormChange('info.place', kv.key)"
+                                   [class.selected]="form.get('info.place').value === kv.key">
+          {{ kv.value }}</app-ui-dropdown-menu-item>
+        </app-ui-dropdown-menu>
+      <div class="to-wrapper">
+        <app-ui-form-control>
+          <h6 class="fade-1 margin-right-8">{{ 'COMMON.CITY'  | translate}}</h6>
+          <input class="job-salary-input city-input" formControlName="city" uiInput>
+        </app-ui-form-control>
+      </div>
+    </div>
+
+    <div class="fields-wrapper margin-bottom-20" formGroupName="body">
+      <div class="margin-bottom-30">
+        <h6 class="fade-1 margin-bottom-10" [class.c-primary]="inputTasks.focus">{{ 'COMMON.TASKS' | translate }}</h6>
+        <textarea #inputTasks formControlName="tasks" autosize [minRows]="1"
+          placeholder="{{ 'COMMON.DESCRIBE_THE_TASKS'  | translate}}..."></textarea>
+      </div>
+      <div class="margin-bottom-30">
+        <h6 class="fade-1 margin-bottom-10" [class.c-primary]="inputConditions.focus">
+          {{ 'COMMON.JOB_CONDITIONS' | translate }}</h6>
+        <textarea #inputConditions formControlName="workConditions" autosize [minRows]="1"
+          placeholder="{{ 'COMMON.DESCRIBE_THE_JOB'  | translate}}..."></textarea>
+      </div>
+      <div>
+        <h6 class="fade-1 margin-bottom-10" [class.c-primary]="inputRequirements.focus">
+          {{ 'COMMON.REQUIREMENTS' | translate }}</h6>
+        <textarea #inputRequirements formControlName="requirements" autosize [minRows]="1"
+          placeholder="{{ 'COMMON.DESCRIBE_THE_CANDIDATES'  | translate}}..."></textarea>
+      </div>
+    </div>
+
+    <div class="margin-bottom-20" formGroupName="body">
+      <input id="file-attachment" class="hidden" type="file" accept="image/*" (input)="handleUploadFile($event)">
+      <label class="button-1 v-center c-primary clickable" for="file-attachment">
+        <svg name="clip" class="f-primary margin-right-8"></svg>
+        <span
+          class="clickable">{{ uploadedImageName ? uploadedImageName : ('COMMON.ADD_OFFICE_PHOTO' | translate) }}</span>
+      </label>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap;">
+      <div class="contact-input-wrapper margin-bottom-20" style="width: 340px;" formGroupName="info">
+        <h6 class="fade-1 margin-bottom-20">{{ 'COMMON.CONTACTS' | translate }}</h6>
+        <span class="subtitle-1 fade-1 margin-bottom-15" [class.c-primary]="nameInput.focus"
+          [class.c-error]="nameInput.focus && form.controls.info['controls']['recruiterName'].invalid && form.controls.info['controls']['recruiterName'].dirty">{{ 'COMMON.CONTACT_PERSON' | translate }}</span>
+        <app-ui-icon-input #nameInput type="text" class="margin-bottom-20" icon="user" [placeholder]="'COMMON.ENTER_YOUR_NAME' | translate"
+                           [control]="form.controls.info['controls']['recruiterName']">
+        </app-ui-icon-input>
+        <span class="subtitle-1 fade-1 margin-bottom-15" [class.c-primary]="emailInput.focus"
+          [class.c-error]="emailInput.focus && form.controls.info['controls']['email'].invalid && form.controls.info['controls']['email'].dirty">{{ 'COMMON.EMAIL_ADDRESS' | translate }}</span>
+        <app-ui-icon-input #emailInput type="email" placeholder="example@gmail.com" icon="mail"
+                           [control]="form.controls.info['controls']['email']"></app-ui-icon-input>
+      </div>
+
+      <div *ngIf="src" style="margin-left: auto;">
+        <img [src]="src">
+      </div>
+    </div>
+
+    <div class="input-submit v-center space-between">
+      <button id="input-login-submit" type="submit" [disabled]="form.invalid" class="v-center button-1">
+        <span class="margin-right-15">{{ 'COMMON.PUBLISH' | translate }}</span>
+        <svg name="paper-airplane"></svg>
+      </button>
+      <div class="sub-info flex-item">
+        <span>{{ 'COMMON.VACANCIES_CAN_BE' | translate }}<a [routerLink]="['/news/508']"
+          style="color: inherit; padding: 0;">{{ 'COMMON.COMPANYS_BLOG' | translate }}</a>.</span>
+      </div>
+    </div>
+
+  </form>
+</app-ui-card>

@@ -1,0 +1,104 @@
+<div class="content" *appLet="data$ | async as data">
+    <div *ngIf="data" class=" block" style="display: flex; flex-direction: row;">
+        <div class="main-view"><!--  [style.padding.px]="!(responsive.lt.medium | async) ? '20' : '0'"  -->            
+            <div>
+                <h1 style="word-wrap: break-word;">{{ data.info.title }}</h1>
+                <div *ngIf="isBrowser" class="topics">
+                    <div *ngIf="topics[0]"
+                         class="compact clickable"
+                         [routerLink]="['/topics', topics[0].info.url ? topics[0].info.url : topics[0].meta.id]">
+                        <app-ui-icon class="margin-right-10"
+                                     [src]="topics[0].info.picture"
+                                     [textAlternative]="topics[0].info.name"
+                                     [size]="'small'">
+                        </app-ui-icon>
+                        <div class="subtitle-1">
+                            <span>{{ topics[0].info.name }}</span>
+                        </div>
+                    </div>
+                    <aside>
+
+                        <a class="author subtitle-2 fade-1 author-name" [class.color-primary]="data.author.info.company.isCompany" [routerLink]="data.author | accountUrl">{{ data.author.info | personName }}</a>
+
+                        <span class="timestamp caption fade-3">
+                            {{ data.status.publishedAt | customDate }}
+                        </span>
+                        <svg name="bookmark"
+                             class="f-gray"
+                             [ngClass]="{ 'active': hasBookmark }"
+                             size="20"
+                             (click)="toggleBookmark()">
+                        </svg>
+                        <app-share [url]="null | url"></app-share>
+                        <app-action-menu-article *appLoggedIn
+                                                 [isLogged]="isLogged"
+                                                 [user]="user"
+                                                 [data]="data"
+                                                 (gone)="getBack()">
+                        </app-action-menu-article>
+                    </aside>
+                </div>
+                <div class="content-desc">
+                    <p class="body-2" style="word-wrap: break-word;">{{ data.info.summary }}</p>
+                    <img *ngIf="data.info.cover" [src]="data.info.cover" [alt]="data.info.title">
+                </div>
+                <div *ngIf="data" class="content">
+                    <app-wysiwyg-editor *ngIf="data.html" [initialData]="data.html" [readOnly]="true"></app-wysiwyg-editor>
+                </div>
+                <blockquote *ngIf="platformService.isBrowser">
+                    <ul class="topics">
+                        <li *ngFor="let topic of topics.slice(0, 5)" class="topics__item">
+                            <app-ui-icon size="small" [src]="topic.info.picture" [textAlternative]="topic.info.name"></app-ui-icon>
+                            <span class="subtitle-2">{{ topic.info.name }}</span>
+                        </li>
+                    </ul>
+                    <div class="tags subtitle-2">
+                        <a *ngFor="let item of tags" class="clickable" [routerLink]="['/tags', item.meta.id]">#{{ item.content }}</a>
+                    </div>
+                    <app-share *ngIf="(responsive.lt.medium | async)" [url]="null | url" [spec]="true" class="quote-share"></app-share>
+                </blockquote>
+                <div *appLet="responsive.lt.medium | async as pesponsive" class="reactions">
+                    <app-article-reactions
+                        *appLet="(data$ | async) as data"
+                        [votes$]="votes$"
+                        [isBrowser]="isBrowser"
+                        [pesponsive]="pesponsive"
+                        [bookmarkCounter]="bookmarkCounter"
+                        [commentCounter]="data.commentCount"
+                        [watchCounter]="data.views.count"
+                        [hasBookmark]="hasBookmark"
+                        (toggleEmit)="toggleBookmark()"
+                        (doVoteEmit)="doVote($event)">
+                    </app-article-reactions>
+                </div>
+                <div class="separator"></div>
+            </div>
+            <div class="suggestions">
+                <div *ngFor="let i of articles; let k = index" class="cont">
+                    <div class="info">
+                        <div *ngIf="topics$[k] | async; let topics" class="topics">
+                            <app-ui-icon class="margin-right-10" [src]="topics[0].info.picture || ''"
+                                         [textAlternative]="topics[0].info.name || ''"
+                                         [size]="'small'"></app-ui-icon>
+                            <a class="names subtitle-1" [routerLink]="['/topics', topics[0].meta.id]">
+                                <span>{{ topics[0].info.name }}</span>
+                            </a>
+                        </div>
+                        <div class='time-author-actions'>
+                            <a class="author subtitle-2 fade-1" 
+                                [class.color-primary]="i.author.info.company.isCompany" 
+                                [routerLink]="i.author | accountUrl">{{ i.author.info | personName }}</a>
+                            <a class="time caption fade-3">{{ i.status.publishedAt | customDate }}</a>
+                        </div>
+                    </div>
+                    <a class="content" [routerLink]="['/news', i.meta.id]">
+                        <h4 style="word-wrap: break-word;" style="max-width: 100%;">{{ i.info.title || 'Статья без названия' }}</h4>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="banner-view" *ngIf="!(responsive.lt.xlarge | async)">
+            <app-ad-banner [place]="bannerPlaceEnum.PUBLICATION_SIDEBAR" [sidebar]="true"></app-ad-banner>
+        </div>
+    </div>
+</div>

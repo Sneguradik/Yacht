@@ -1,0 +1,7 @@
+<app-ui-dots-menu>
+    <app-ui-dots-menu-item appReport icon="report" text="{{ 'COMMON.TO_FILE_A_COMPLAINT' | translate}}" 
+                           [object]="{ type: reportEntityTypeEnum.TAG, id: data.meta.id }"
+                           (report)="gone.next(data)"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="star" [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate" (click)="showcase()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="report" text="{{ 'COMMON.REMOVE' | translate}}" (click)="delete()"></app-ui-dots-menu-item>
+</app-ui-dots-menu>

@@ -1,0 +1,6 @@
+<ul class="block-card item-space-40">
+    <li *ngFor="let job of jobs">
+        <app-job-preview [job]="job" (gone)="remove(job)"></app-job-preview>
+    </li>
+</ul>
+<app-pagination [pageable]="pageable"></app-pagination>

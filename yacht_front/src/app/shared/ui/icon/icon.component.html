@@ -1,0 +1,7 @@
+<div class="icon" [ngClass]="{ 'small': size === 'small', 'medium': size === 'medium', 'large': size === 'large', 'xlarge': size === 'xlarge' }">
+    <img *ngIf="src; else alt" [src]="src" [alt]="textAlternative">
+    <ng-template #alt>
+        <span>{{ iconText }}</span>
+    </ng-template>
+</div>
+  

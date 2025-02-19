@@ -1,0 +1,84 @@
+<div *ngIf="shown" class="root" (click)="cancel($event)">
+    <div class="card">
+        <ng-container *ngIf="showConnect" [ngTemplateOutlet]="connect"></ng-container>
+        <ng-container *ngIf="!showConnect" [ngTemplateOutlet]="choose"></ng-container>
+    </div>
+</div>
+
+<ng-template #choose>
+    <h3 class="c-primary margin-bottom-30 text-center">Вы первый раз на сайте?</h3>
+    <button class="css-block button-1 c-primary margin-bottom-20" (click)="register()">{{ 'COMMON.CREATE_AN_ACCOUNT' | translate }}</button>
+    <button class="css-block button-1 c-primary" (click)="showConnect = true">Привязать существующий</button>
+</ng-template>
+
+<ng-template #connect>
+    <h3 class="c-primary margin-bottom-30 text-center">Привязать аккаунт</h3>
+    <h5 class="fade-1 margin-bottom-20">
+        После того как вы привяжете аккаунт, вы сможете входить в него через эту социальную сеть.
+    </h5>
+    <h6 class="fade-2 margin-bottom-10">Войдите в существующий аккаунт</h6>
+    <ng-container [ngTemplateOutlet]="login"></ng-container>
+</ng-template>
+
+<ng-template #login>
+    <ng-container [ngTemplateOutlet]="fastLogin"></ng-container>
+    <form [formGroup]="loginForm" (submit)="onSubmitLogin()">
+        <div class="input-group" [ngClass]="{ 'error': loginForm.controls['subject'].invalid }">
+            <label class="caption">
+                {{ loginForm.controls['subject'].errors?.wrongSubject ? 'Неверная почта или имя пользователя' : 'COMMON.EMAIL_OR_NAME' | translate }}
+            </label>
+            <div class="v-center">
+                <input type="text" formControlName="subject" minlength="3">
+                <svg name="mail" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="input-group" [ngClass]="{ 'error': loginForm.controls['password'].invalid }">
+            <label class="caption">
+                {{ loginForm.controls['password'].errors?.wrongPassword ? 'Неверный пароль' : 'COMMON.PASSWORD' | translate }}
+            </label>
+            <div class="v-center">
+                <input type="password" formControlName="password" minlength="8" maxlength="128">
+                <svg name="lock" class="f-gray"></svg>
+            </div>
+        </div>
+        <div class="remember-me-container body-3">
+            <div>
+                <label class="control control-checkbox">
+                  {{ 'COMMON.REMEMBER_ME' | translate }}
+                    <input id="input-login-remember-me" type="checkbox" checked="checked" formControlName="remember">
+                    <div class="control_indicator"></div>
+                </label>
+            </div>
+            <div class="not-allowed">
+                <span>{{ 'COMMON.FORGET_YOUR_PASSWORD' | translate }}</span>
+            </div>
+        </div>
+        <div class="input-submit">
+            <button id="input-login-submit" type="submit" class="button-1" [disabled]="!loginForm.valid || loginForm.pristine">
+                {{ 'COMMON.LOGIN' | translate }}
+            </button>
+        </div>
+    </form>
+    <div class="privacy">
+        <span class="caption c-caption">Авторизуясь, вы соглашаетесь с <a href="/terms">правилами пользования сайтом</a> и даете согласие на обработку персональных данных.</span>
+    </div>
+</ng-template>
+
+<ng-template #fastLogin>
+    <div class="caption center-lines">
+        {{ 'COMMON.FAST_LOGIN' | translate }}
+    </div>
+    <div class="social-login-buttons button-2">
+        <div class="sl-vk" (click)="connectVk()">
+            <svg name="social/simple/vk"></svg>
+            <span>{{'COMMON.LOGIN_VIA' | translate }} VKontakte</span>
+        </div>
+        <div class="sl-tg" (click)="connectTg()">
+            <svg name="social/simple/tg"></svg>
+            <span>{{ 'COMMON.LOGIN_VIA' | translate }} Telegram</span>
+        </div>
+        <div class="register c-primary button-1" (click)="register()">
+            <span>Новый аккаунт</span>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,36 @@
+<ul class="block-card item-space-20 no-empty">
+    <li *ngFor="let item of pageable.content; let i = index">
+        <app-feed-article-view [data]="item[0]"
+                               [topic]="item[1]"
+                               [options]="{ pictureOn: true, menuOn: true }"
+                               (gone)="onHide($event)">
+        </app-feed-article-view>
+        <div #adElem1 (click)="adClicked(0)" class="ad" *ngIf="(ads && ads[0].content && ads[0].content[0]) && ads[0].content[adNums[0]].afterPublication - 1 === i">
+            <ng-container [ngTemplateOutlet]="addContainer" [ngTemplateOutletContext]="{ src: ads[0].content[adNums[0]].picture, text: ads[0].content[adNums[0]].text }"></ng-container>
+        </div>
+        <div #adElem2 (click)="adClicked(1)" class="ad" *ngIf="(ads && ads[1].content && ads[1].content[0]) && ads[1].content[adNums[1]].afterPublication - 1 === i">
+            <ng-container [ngTemplateOutlet]="addContainer" [ngTemplateOutletContext]="{ src: ads[1].content[adNums[1]].picture, text: ads[1].content[adNums[1]].text }"></ng-container>
+        </div>
+        <div #adElem3 (click)="adClicked(2)" class="ad" *ngIf="(ads && ads[2].content && ads[2].content[0]) && ads[2].content[adNums[2]].afterPublication - 1 === i">
+            <ng-container [ngTemplateOutlet]="addContainer" [ngTemplateOutletContext]="{ src: ads[2].content[adNums[2]].picture, text: ads[2].content[adNums[2]].text }"></ng-container>
+        </div>
+        <app-events *ngIf="(i + 1) === eventsJobs?.firstView.events && eventsJobs?.publications.events" [page]="0" [blueClass]="'blue-events'"></app-events>
+        <app-events *ngIf="(i + 1) === eventsJobs?.secondView.events && eventsJobs?.publications.events" [page]="1" [blueClass]="'blue-events'"></app-events>
+        <app-events *ngIf="(i + 1) === eventsJobs?.thirdView.events && eventsJobs?.publications.events" [page]="2" [blueClass]="'blue-events'"></app-events>
+        <app-jobs *ngIf="(i + 1) === eventsJobs?.firstView.jobs && eventsJobs?.publications.jobs" [page]="0"></app-jobs>
+        <app-jobs *ngIf="(i + 1) === eventsJobs?.secondView.jobs && eventsJobs?.publications.jobs" [page]="1"></app-jobs>
+        <app-jobs *ngIf="(i + 1) === eventsJobs?.thirdView.jobs && eventsJobs?.publications.jobs" [page]="2"></app-jobs>
+    </li>
+</ul>
+
+<app-pagination [pageable]="pageable" [fireFirstPage]="true"></app-pagination>
+
+<ng-template #addContainer let-src="src" let-text="text">
+    <img [src]="src" alt="">
+    <div class="ad-container">
+        <div class="ad-btn" *ngIf="!(responsive.lt.medium | async)">
+            <span>{{ text }}</span>
+            <svg name="chevron/right" size="25" fill="#92929D"></svg>
+        </div>
+    </div>
+</ng-template>

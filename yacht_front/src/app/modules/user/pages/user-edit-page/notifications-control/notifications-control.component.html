@@ -1,0 +1,52 @@
+<!-- SYSTEM -->
+<ng-container>
+    <span>{{ 'COMMON.SYSTEM_NOTIFICATIONS' | translate}}</span>
+    <ng-container *ngFor="let item of params.system">
+        <section *ngIf="isEditor || !item.access">
+            <label>{{ item.title | translate }}</label>
+            <div class="round" (click)="change(item)">
+                <svg
+                [name]="!item.disabled ? (item.active ? 'tick' : 'btn-add') : 'not-disabled'"
+                [ngClass]="{ 'on': item.active, 'off': !item.active }"
+                [size]="item.active ? 15 : 24">
+                </svg>
+            </div>
+        </section>
+    </ng-container>
+    <br>
+</ng-container>
+
+<!-- COMMENTS -->
+<ng-container>
+    <span>{{ 'COMMON.COMMENTS' | translate}}</span>
+    <ng-container *ngFor="let item of params.comment">
+        <section *ngIf="isEditor || !item.access">
+            <label>{{ item.title | translate}}</label>
+            <div class="round" (click)="change(item)">
+                <svg 
+                    [name]="!item.disabled ? (item.active ? 'tick' : 'btn-add') : 'not-disabled'" 
+                    [ngClass]="{ 'on': item.active, 'off': !item.active }" 
+                    [size]="item.active ? 15 : 24">
+                </svg>
+            </div>
+        </section>
+    </ng-container>
+    <br>
+</ng-container>
+
+<!-- PUBLICATIONS -->
+<ng-container>
+    <span>{{ 'COMMON.PUBLICATION' | translate}}</span>
+    <ng-container *ngFor="let item of params.publication">
+        <section *ngIf="isEditor || !item.access">
+            <label>{{ item.title | translate}}</label>
+            <div class="round" (click)="change(item)">
+                <svg 
+                    [name]="!item.disabled ? (item.active ? 'tick' : 'btn-add') : 'not-disabled'" 
+                    [ngClass]="{ 'on': item.active, 'off': !item.active }" 
+                    [size]="item.active ? 15 : 24">
+                </svg>
+            </div>
+        </section>
+    </ng-container>
+</ng-container>

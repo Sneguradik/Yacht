@@ -1,0 +1,5 @@
+export enum BannerStateEnum {
+    SELECTED_DESC = 'SELECTED_DESC',
+    SELECTED_ASC = 'SELECTED_ASC',
+    UNSELECTED = 'UNSELECTED',
+}

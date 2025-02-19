@@ -1,0 +1,117 @@
+@import 'src/styles/responsive';
+@import 'src/styles';
+
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 20px;
+
+  @include media('<medium') {
+    padding: 40px 20px 20px;
+  } 
+
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: -3px 0 5px rgba(0, 0, 0, 0.2), 3px 3px 6px rgba(0, 0, 0, 0.2);
+
+  >div {
+    box-sizing: border-box;    
+    width: 660px;
+
+    @include media('<medium') {
+      width: 375px;
+    }
+
+    >.header {
+      display: flex;
+
+      h5 {
+        position: relative;
+
+        &::after {
+          border-top: 3px solid $primary;
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          bottom: -6px;
+          content: '';
+          display: block;
+          position: absolute;
+          width: 100%;
+        }
+      }
+
+      >.sort {
+        @include media('<medium') {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .comment-editor {
+    background: white;
+    border: 0.5px solid $primary;
+    border-radius: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    padding: 8px 8px 8px 20px;
+
+    >.text {
+      display: flex;
+      flex-grow: 1;
+      padding-bottom: 10px;
+
+      textarea {
+        background: none;
+        border: 0 none;
+        display: block;
+        flex-grow: 1;
+        height: 100%;
+        resize: none;
+      }
+
+      >.close {
+        display: flex;
+        flex-direction: column;
+
+        button {
+          background: none;
+          border: 0 none;
+          padding: 0;
+        }
+      }
+    }
+
+    >.controls {
+      button {
+        background: $primary;
+        border: 0 none;
+        border-radius: 15px;
+        color: white;
+        padding: 6px 20px;
+      }
+    }
+
+    &:not(.active) {
+      >.text>.close {
+        display: none;
+      }
+
+      >.controls {
+        display: none;
+      }
+    }
+
+    &.active {
+      height: 150px;
+    }
+  }
+  @include media('<medium') {
+    .hidden-mobile {
+      display: none;
+    }
+  }
+}
+

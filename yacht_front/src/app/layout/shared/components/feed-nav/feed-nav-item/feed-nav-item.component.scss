@@ -1,0 +1,68 @@
+@import 'src/styles/responsive';
+
+:host {
+    &.feed-nav__left{
+        @include media('<medium') {
+            .personal-feed-dropdown{
+                right: auto;
+                left: -20px;
+                // &::after{
+                //     left: 92px;
+                // }
+            }
+        }
+    }
+    &.feed-nav__right{
+        @include media('<medium') {
+            .personal-feed-dropdown{
+                right: -28px;
+            }
+        }
+    }
+    @include media('<medium') {
+        .personal-feed-dropdown{
+            .popular-dropdown-hover a{
+                height: 20px;
+            }
+        }
+    }
+    .open{
+        &::after {
+          border-bottom: 16px solid transparent;
+          border-bottom-color: white;
+          border-left: 11px solid transparent;
+          border-right: 11px solid transparent;
+          border-top: 19px solid transparent;
+          border-top: 0;
+          content: '';
+          height: 0;
+          right: -4px;
+          position: absolute;
+          top: calc(100% + 14px);
+          width: 0;
+          z-index: 51;
+          filter: drop-shadow(0 -3px 2px rgba(0, 0, 0, 0.1));
+        }
+        @include media('<medium'){
+            &::after{
+                top: 100%;
+                right: 6px;
+            }
+        }
+      }
+      
+}
+.dropdown-link{
+    &:hover{
+        color: #00b7ff !important;
+    }
+    &.selected{
+        &::after{
+            bottom: -11px;
+            left: 0;
+            right: 0;
+        }
+    }
+}
+
+// .class="personal-feed-dropdown hidden"

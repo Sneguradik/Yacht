@@ -1,0 +1,66 @@
+<div>
+    <div class="header v-center margin-bottom-20">
+        <h5 class="margin-right-20">
+            {{ filterDeleted((comments || [])).length + ' ' + retCommString((comments || []).length) }}
+        </h5>
+        <div>
+            <svg name="bell" class="f-gray not-allowed"></svg>
+        </div>
+        <app-ui-dropdown-menu class="align-right">
+            <div class="head v-center">
+                <span class="button-1 margin-right-4 hidden-mobile">{{ (sortMode$ | async).name | translate }}</span>
+                <svg name="dropdown" size="12" class="f-primary"></svg>
+            </div>
+            <app-ui-dropdown-menu-item *ngFor="let s of sortModes" (click)="sortMode$.next(s)">
+                <div style="display: flex;">
+                    <div style="width: 24px;">
+                        <svg *ngIf="(sortMode$ | async).name == s.name"
+                             name="chevron/right" size="24"
+                             class="f-primary" style="bottom: 3px;
+                             position: relative;">
+                        </svg>
+                    </div>
+                    {{ s.name | translate }}
+                </div>
+            </app-ui-dropdown-menu-item>
+        </app-ui-dropdown-menu>
+    </div>
+    <div class="margin-bottom-20">
+        <app-comment-editor #editor1
+                            [isLogged]="isLogged"
+                            (send)="sendComment($event)"
+                            (closeButton)="editor1.collapse()">
+        </app-comment-editor>
+    </div>
+    <div #commentView class="item-space-20 margin-bottom-20">
+        <ng-container *ngFor="let c of rootComments$ | async" [ngTemplateOutlet]="commentRecursive"
+            [ngTemplateOutletContext]="{comment: c, depth: 0, parent: null}"></ng-container>
+        <div #floatingEditor class="hidden">
+            <app-comment-editor #editor2
+                                [isLogged]="isLogged"
+                                [mainBlock]="false"
+                                (send)="sendReply($event)"
+                                (closeButton)="closeReply()">
+            </app-comment-editor>
+        </div>
+    </div>
+</div>
+
+<ng-template #commentRecursive let-comment="comment" let-depth="depth" let-parent="parent">
+    <app-comment 
+        *ngIf="!comment.meta.deletedAt || (hasUndeletedChildren$(comment.meta.id) | async)"
+        [ownID]="user?.meta.id"
+        [attr.id]="'comment-' + comment.meta.id" 
+        [attr.data-id]="comment.meta.id" 
+        [comment]="comment"
+        [isLogged]="isLogged"
+        [depth]="depth" 
+        [parent]="parent" 
+        [context]="id" 
+        (reply)="reply(comment)"
+        (watchEmit)="watch($event)"
+        (deleteComment)="countEvent($event)">
+    </app-comment>
+    <ng-container *ngFor="let c of childrenOf$(comment.meta.id) | async" [ngTemplateOutlet]="commentRecursive"
+        [ngTemplateOutletContext]="{comment: c, depth: depth + 1, parent: comment}"></ng-container>
+</ng-template>

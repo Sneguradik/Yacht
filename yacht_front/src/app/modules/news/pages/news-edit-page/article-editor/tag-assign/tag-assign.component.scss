@@ -1,0 +1,50 @@
+@import 'src/styles';
+
+.search-results {
+  display: none;
+  left: 0;
+  padding: 4px 10px;
+  position: absolute;
+  top: 24px;
+  width: unset;
+  z-index: 1;
+  > li:hover {
+    color: $primary;
+  }
+}
+
+li {
+  position: relative;
+  &::before {
+    content: '#\00a0';
+  }
+  input {
+    border: 0;
+    display: inline-block;
+    height: 20px;
+    width: 20em;
+    &:empty::before {
+      content: '\200b';
+    }
+    &:focus {
+      outline: none;
+    }
+
+    &::ng-deep {
+      div {
+        align-items: center;
+        display: flex;
+      }
+    }
+  }
+  &:not(:hover) {
+    svg {
+      display: none;
+    }
+  }
+  &:focus-within {
+    .search-results.shown:not(:empty) {
+      display: block;
+    }
+  }
+}

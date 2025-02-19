@@ -1,0 +1,8 @@
+<div class="blind">
+  <div class="blind__logo"><img src="https://ru.yachtsmanjournal.com/assets/diskurs-media.png" alt=""></div>
+  <form class="blind__form" (keydown)="submit($event)">
+    <input type="text" class="blind__input" name="login" placeholder="Логин" [(ngModel)]="username">      
+    <input type="password" class="blind__input" [class.error]="error" name="password" placeholder="Пароль" [(ngModel)]="password">
+    <div *ngIf="error" class="blind__error">Неверные имя пользователя и/или пароль</div>
+  </form>
+</div>

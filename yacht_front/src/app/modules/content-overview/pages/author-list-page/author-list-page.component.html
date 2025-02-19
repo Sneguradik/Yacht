@@ -1,0 +1,38 @@
+<app-navbar [searchPlaceholder]="'COMMON.SEARCH_BY_AUTHOR' | translate"
+            [activeItem]="'COMMON.AUTHORS' | translate"
+            (search)="handleSearch($event)"
+></app-navbar>
+<app-filters [filters]="filters"
+             [activeFilter]="activeFilter"
+             (toggleFilter)="filterEvent($event)"
+></app-filters>
+<app-ranges [ranges]="ranges"
+            [activeRange]="activeRange"
+            (toggleRange)="rangeEvent($event)"
+></app-ranges>
+
+<ul class="block-card item-space-20">
+    <app-user-view
+        *ngFor="let author of authors"
+        [data]="author"
+        (gone)="remove($event)">
+        <div class="row margin-bottom-6">
+            <p class="stats-item">
+                {{ 'COMMON.AUTHORS_RATING' | translate}}
+                <span class="stats-item__value">{{ author.rating > 0 ? '+' : '' }}{{ author.rating }}</span>
+            </p>
+            <p class="stats-item">
+                {{ 'COMMON.PUBLICATIONS_' | translate}}
+                <span class="stats-item__value">{{ author.postCount | bigNumbers }}</span>
+            </p>
+            <aside class="subscribers">
+                <p class="stats-item">
+                    {{ 'COMMON.SUBSCRIBERS' | translate}}
+                    <span class="stats-item__value">{{ author.subscribers.count | bigNumbers }}</span>
+                </p>
+            </aside>
+        </div>
+    </app-user-view>
+</ul>
+
+<app-pagination [page]="currentPage" [maxPages]="totalPages" [enabled]="!isLoading" (onPage)="fetchNextPage()"></app-pagination>

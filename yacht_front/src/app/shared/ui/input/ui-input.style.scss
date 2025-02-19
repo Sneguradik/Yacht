@@ -1,0 +1,65 @@
+@import 'src/styles/variables';
+
+:host ::ng-deep {
+  .ui-input-outline {
+    border: 0;
+    border-bottom: 2px solid $light-blue;
+    transition: 0.2s ease-in-out border-color;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &.ng-invalid:not(.ng-pristine),
+    &:not(:valid) {
+      border-color: $error;
+    }
+  }
+
+  .ui-input-bordered {
+    background: #f1f1f5;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    padding: 8px 19px;
+  }
+
+  .ui-input-form {
+    border: 0;
+    border-bottom: 3px solid $light-blue;
+    color: $gray;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    outline: none;
+    padding: 10px 0;
+    transition: 0.2s ease-in-out border-color;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &:not(:valid) {
+      border-color: $error;
+    }
+  }
+
+  .ui-input-extra-form {
+    border: 0;
+    border-bottom: 3px solid $light-blue;
+    color: $gray;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    outline: none;
+    padding: 0;
+    transition: 0.2s ease-in-out border-color;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &:not(:valid) {
+      border-color: $error;
+    }
+  }
+}

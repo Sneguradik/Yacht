@@ -1,0 +1,23 @@
+<div #adElem *ngIf="ad && ad.content && ad.content[0]" (click)="adClicked()" class="ad">
+  <div *ngIf="!sidebar; else side">
+    <img *ngIf="ad.content[adNum].picture; else elseBlock" [src]="ad.content[adNum].picture" alt="">
+    <ng-template #elseBlock>
+      <div class="alternative-img"></div>
+    </ng-template>
+    <div class="ad-container">
+      <div *ngIf="!(responsive.lt.medium | async)" class="ad-btn">
+        <span>{{ ad.content[adNum].text }}</span>
+        <svg name="chevron/right" size="25" fill="#92929D"></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #side>
+  <div>
+    <img [src]="ad.content[adNum].picture" style="border-radius: 15px" alt="">
+    <div class="ad-container">
+      <span *ngIf="ad.content[adNum].text" class="sidebar-text" style="max-width: 260px; text-align: left; padding-top: 300px;">{{ ad.content[adNum].text }}</span>
+    </div>
+  </div>
+</ng-template>

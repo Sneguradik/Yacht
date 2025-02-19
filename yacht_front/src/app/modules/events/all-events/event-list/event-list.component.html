@@ -1,0 +1,8 @@
+<app-filters [filters]="'COMMON.EVENT_FILTERS' | translate" (toggleFilter)="filterEvent($any($event))"></app-filters>
+<ul class="block-card item-space-20">
+  <li *ngFor="let event of events" class="with-border">
+    <app-event-preview [event]="event" (gone)="remove(event)"></app-event-preview>
+  </li>
+</ul>
+
+<app-pagination [pageable]="pageable" [fireFirstPage]="false"></app-pagination>

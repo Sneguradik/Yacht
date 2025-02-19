@@ -1,0 +1,71 @@
+@import 'src/styles/responsive';
+@import 'src/styles/variables';
+
+.cookies-container {
+  background-color: white;
+  bottom: 0;
+  box-shadow: 0 -5px 23px -4px rgba(0, 0, 0, 0.84);
+  min-height: 70px;
+  position: fixed;
+  width: 100%;
+
+  .wrapper {
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    width: 1360px;
+
+    @include media('<xlarge') {
+      width: 960px;
+    }
+
+    @include media('<large') {
+      width: 660px;
+    }
+
+    @include media('<medium') {
+      flex-direction: column;
+      padding-bottom: 20px;
+      width: calc(100% - 40px);
+    }
+
+    p {
+      margin-right: auto;
+      width: auto;
+    }
+
+    button {
+      border: 1px solid $primary;
+      border-radius: 15px;
+      color: $primary;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      height: 30px;
+      outline: none;
+      width: 100px;
+      //padding: 10px 20px;
+
+      span {
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      &:hover {
+        background-color: white;
+      }
+
+      &--secondary {
+        border: 0;
+        color: $input;
+        padding: 0;
+      }
+
+      &--disabled {
+        border: 1px solid $gray;
+        color: $gray;
+        cursor: default;
+      }
+    }
+  }
+}

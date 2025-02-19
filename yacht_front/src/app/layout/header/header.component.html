@@ -1,0 +1,62 @@
+<div class="v-center root" [ngClass]="{ 'search-box-open': searchBoxFocus }">
+    <a (click)="scrollToTopAndNavigate()" class="link"><img src="assets/diskurs-media.png" alt="logo" class="logo margin-right-44" ></a>
+
+    <app-feed-nav></app-feed-nav>
+
+    <div #searchBox tabindex="-1" class="search has-dropdown align-right v-center" [ngClass]="{ 'focused': searchBoxFocus }">
+        <input #query type="text" [placeholder]="'COMMON.SEARCH' | translate" name="query" [(ngModel)]="search" (click)="startSearch()">
+        <a [routerLink]="['/search']"><svg name="search" class="align-right"></svg></a>
+        <app-search-box *ngIf="platformService.isBrowser" [query]="search" [ngClass]="{ 'hidden': !searchBoxFocus }" (close)="searchBoxFocus = false"></app-search-box>
+    </div>
+
+    <div class="write button-1 c-primary v-center margin-right-20" (click)="createDraftAndEdit()">
+        <svg name="edit" class="f-primary"></svg>
+        <span class="align-right">{{ 'COMMON.WRITE_US' | translate }}</span>
+    </div>
+
+    <div class="notifications margin-right-20" >
+        <div *ngIf="session.loggedIn$ | async">
+            <svg name="bell" class="f-gray" size="26" (mousedown)="noteToggle()"></svg>
+            <ng-container *ngIf="(notificationUpdateService.unreadNotifications$ | async) as unreadNotifications">
+                <span *ngIf="unreadNotifications > 0" class="count">{{ unreadNotifications > 99 ? '99+' : unreadNotifications }}</span>
+            </ng-container>
+        </div>
+        <div *ngIf="!(session.loggedIn$ | async)">
+            <svg name="bell" class="f-gray" size="26" (click)="userDropdown.setShowDropdown(true)"></svg>
+        </div>
+        <div #noteDropdown class="note-dropdown" tabindex="-1" [ngClass]="{hidden: !noteState.shown}">
+            <span class="note-dropdown-text">{{ 'COMMON.NOTIFICATIONS' | translate }}</span>
+            <div class=""></div>
+            <ng-scrollbar [appearance]="'standard'" class="margin-bottom-6" thumbClass="blue-sb">
+                <ul class="structural fade-2">
+                    <li *ngFor="let item of (notificationUpdateService.notifications$ | async)"  class="note-dropdown-elem" (click)="noteToggle()">
+                        <app-notification-element [data]="item"></app-notification-element>
+                    </li>
+                </ul>
+            </ng-scrollbar>
+            
+            <a [routerLink]="['/user/me/notifications']" (click)="noteToggle()">
+                <div class="last-item-right v-center btn margin-right-7" >
+                    <span class="subtitle-2 fade-2 btn margin-right-8">{{ 'COMMON.ALL_NOTIFICATIONS' | translate }}</span>
+                    <svg name="chevron/right" class="ui-icon btn " size="25"></svg>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="user-control has-dropdown no-margin">
+        <div class="v-center" (click)="toggleUserMenu()">
+            <div class="icon">
+                <app-ui-icon *ngIf="session.loggedIn$ | async" [src]="(session.user$ | async).info.picture" [textAlternative]="(session.user$ | async).info | personName"></app-ui-icon>
+                <div *ngIf="!(session.loggedIn$ | async)" class="no-session">
+                    <svg name="user-add"></svg>
+                </div>
+            </div>
+            <svg name="dropdown" size="12" class="show-more" style="margin-left: 2px;"></svg>
+        </div>
+        <div #userMenu class="user-menu" tabindex="-1" [ngClass]="{ 'hidden': !userMenuState.shown, 'user-menu-dropdown-mark': session.loggedIn$.value, 'user-menu-form-mark': !session.loggedIn$.value }">
+            <app-user-dropdown *ngIf="session.loggedIn$.value" (toggle)="toggleUserMenu()"></app-user-dropdown>
+            <app-login-form *ngIf="!session.loggedIn$.value"></app-login-form>
+        </div>
+    </div>
+</div>

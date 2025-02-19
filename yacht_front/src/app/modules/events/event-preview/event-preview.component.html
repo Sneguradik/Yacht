@@ -1,0 +1,33 @@
+<header class="v-center margin-bottom-20">
+    <app-user-info class="margin-right-20" [user]="event.company"></app-user-info>
+    <span *ngIf="event.info.publicationStage !== publicationStageEnum.PUBLISHED" class="overline c-caption">Не опубликовано</span>
+    <app-action-menu-event class="align-right" *appLoggedIn [data]="event" [own]="isOwner" (gone)="this.gone.emit(event.meta.id)"></app-action-menu-event>
+</header>
+<main>
+
+    <h3 class="margin-bottom-15 fade-0" >
+        <a [routerLink]="['/events', event.meta.id]">{{ event.info.name }}</a>
+    </h3>
+    <h5 class="margin-bottom-15 fade-2">
+        {{ dateWithTime
+      ? (event.info.date | date:(pipeLng === 'ru_RU' ? 'd MMMM в HH:00' : 'd MMMM in HH:00'):null:pipeLng)
+      : (event.info.date | date:'d MMMM':null:pipeLng) }} {{ event.info.city }}
+    </h5>
+    <p class="body-1">{{ event.info.announcement }}</p>
+</main>
+<footer class="v-center">
+    <div class="v-center event-stats">
+        <div class="v-center margin-right-20">
+            <svg name="bookmark" class="margin-right-4 icon f-gray clickable" [class.active]="event.bookmarks && event.bookmarks.you" (click)="toggleBookmark()"></svg>
+            <span class="subtitle-2 c-gray">{{ event.bookmarks.count }}</span>
+        </div>
+        <div class="v-center margin-right-20">
+            <svg name="view" class="margin-right-4 icon f-gray"></svg>
+            <span class="subtitle-2 c-gray">{{ event.views.count }}</span>
+        </div>
+        <app-share [url]="['/events', event.meta.id] | url"></app-share>
+    </div>
+    <a class="align-right subtitle-2 fade-2 v-center" [routerLink]="['/events', event.meta.id]">{{ 'COMMON.TO_THE_EVENT' | translate }}
+        <svg name="chevron/right" class="f-gray"></svg>
+    </a>
+</footer>

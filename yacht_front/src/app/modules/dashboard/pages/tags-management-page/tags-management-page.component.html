@@ -1,0 +1,17 @@
+<app-dashboard-tabs [navs]="navs"
+                    [filters]="filters"
+                    [activeFilter]="selectedFilter"
+                    (selectedNav)="selectNav($event)"
+                    (showReq)="refresh($event)">
+    <app-all-tags-block *ngIf="selectedNav.id === 0"
+                        [tags$]="tags$"
+                        [allTags$]="allTags$"
+                        (nextPageReq)="getTags()"
+                        (deleteReq)="deleteTag($event.id)">
+    </app-all-tags-block>
+    <app-statistic-tags-block *ngIf="selectedNav.id === 1"
+                              [range$]="range$"
+                              [stat$]="stat$"
+                              (showReq)="getStats()">
+    </app-statistic-tags-block>
+</app-dashboard-tabs>

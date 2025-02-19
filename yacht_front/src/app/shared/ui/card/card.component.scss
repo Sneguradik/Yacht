@@ -1,0 +1,14 @@
+@import 'src/styles/responsive';
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    @include media('<medium'){
+        padding-top: 15px;
+    }
+}
+  
+.card.shadow {
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.16);
+}

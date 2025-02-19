@@ -1,0 +1,19 @@
+:host {
+  width: 100%;
+}
+
+
+.title-card {
+  ::ng-deep {
+    .card {
+      align-items: center;
+      display: flex;
+      height: 80px;
+      margin-bottom: 40px;
+      padding: 0 20px;
+      app-ui-dots-menu {
+        margin-left: auto;
+      }
+    }
+  }
+}

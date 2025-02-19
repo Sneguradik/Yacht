@@ -1,0 +1,157 @@
+@import 'src/styles';
+
+.searchable {
+  svg {
+    width: 18px;
+  }
+
+  header > * {
+    width: 100%;
+  }
+
+  header {
+    margin-bottom: 20px !important;
+  }
+}
+
+.unclickable {
+  cursor: default !important;
+}
+
+.mr-2 {
+  margin-right: 2px !important;
+}
+
+.mr-3 {
+  margin-right: 3px !important;
+}
+
+.tags {
+  li {
+    a {
+      color: #00b7ff;
+      text-decoration: none;
+    }
+  }
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.news-item {
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  span {
+    display: block;
+
+    &:first-child {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.stats {
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  a {
+    margin-bottom: 1px;
+  }
+
+  svg {
+    margin-right: 6px;
+  }
+}
+
+.authors {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: repeat(5, 1fr);
+
+  > li {
+    position: relative !important;
+    width: min-content;
+  }
+}
+
+.cont {
+  position: relative;
+}
+
+.note {
+  background-color: #00b7ff;
+  border-radius: 12px;
+  height: 12px;
+  margin: 0 !important;
+  min-width: 12px;
+  padding: 0;
+  //z-index: 10;
+  position: absolute;
+  right: -5px;
+  text-align: center;
+  top: 0;
+
+  span {
+    color: white;
+    font-family: Roboto, sans-serif;
+    font-size: 9.5px;
+    line-height: 11px;
+    padding-left: 2px;
+    padding-right: 2px;
+    vertical-align: text-top;
+    //margin-top: 2px;
+  }
+}
+
+.left-minus-2 {
+  left: -2px;
+  position: relative;
+  width: 22px;
+}
+
+.with-wrapping {
+  flex-wrap: wrap;
+}
+
+.loading-preview-item {
+  align-items: center;
+  display: flex;
+  min-height: 24px;
+  .loading-icon {
+    animation: loading-bg 2s infinite;
+    border-radius: 75px;
+    content: '';
+    height: 35px;
+    width: 35px;
+  }
+  .loading-text {
+    animation: loading-bg 2s infinite;
+    border-radius: 4px;
+    content: '';
+    height: 8px;
+    width: 120px;
+  }
+}
+
+@keyframes loading-bg {
+  0% {
+    background: $lighter-gray;
+  }
+  50% {
+    background: $lightest-gray;
+  }
+  100% {
+    background: $lighter-gray;
+  }
+}
+
+svg[name="cog"]{
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}

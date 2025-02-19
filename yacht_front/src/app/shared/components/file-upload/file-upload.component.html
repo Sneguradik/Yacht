@@ -1,0 +1,8 @@
+<div class="file-upload">
+    <svg name="attach"></svg>
+    <label [for]="id">{{ 'COMMON.LOAD_AN_IMAGE' | translate }}</label>
+    <input type="file"
+        accept="image/*"
+        [id]="id"
+        (change)="onChange.emit($any($event.target).files)">
+</div>

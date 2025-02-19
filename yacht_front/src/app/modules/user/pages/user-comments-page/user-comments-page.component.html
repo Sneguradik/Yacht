@@ -1,0 +1,30 @@
+<app-user-header></app-user-header>
+
+<app-ranges [ranges]="ranges"
+            [activeRange]="activeRange"
+            (toggleRange)="rangeEvent($event)"
+></app-ranges>
+
+<ul class="block-card item-space-20">
+    <li *ngFor="let comment of userComments">
+        <a class="font-1 h5 button-1"
+           style="color: #000000;"
+           [routerLink]="['/news', comment.context.meta.id]"
+           [fragment]="'comment-' + comment.meta.id"
+        >{{ comment.context.title }}</a>
+        <app-comment [attr.data-id]="comment.meta.id"
+                     [comment]="comment"
+                     [author]="user"
+                     [depth]="3"
+                     [parent]="comment.parent"
+                     [extraStyle]="true"
+                     (reply)="this.router.navigate(['/news', comment.context.meta.id])"
+        ></app-comment>
+    </li>
+</ul>
+
+<app-pagination [page]="page"
+                [maxPages]="maxPages"
+                [enabled]="!isLoadingNextPage"
+                (onPage)="appendPage($event)"
+></app-pagination>

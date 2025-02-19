@@ -1,0 +1,33 @@
+@import 'src/styles';
+
+:host {
+  align-items: center;
+  background: $lightest-gray;
+  border: 1px solid $lightest-gray;
+  border-radius: 15px;
+  display: flex;
+  height: 35px;
+  padding: 0 20px;
+
+  input {
+    background: none;
+    border: 0;
+    flex-grow: 1;
+    outline: none;
+  }
+
+  svg {
+    cursor: pointer;
+  }
+
+  &:focus-within {
+    background: white;
+    border: 1px solid $primary;
+    input {
+      color: #696974;
+    }
+    svg {
+      fill: $primary;
+    }
+  }
+}

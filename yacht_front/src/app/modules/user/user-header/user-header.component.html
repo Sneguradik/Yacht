@@ -1,0 +1,130 @@
+<app-ui-info-header class="css-block margin-bottom-44"
+                    *ngIf="authorInfo"
+                    [bgImage]="authorInfo.profile.cover"
+                    [profileImage]="authorInfo.info.picture"
+                    [profileText]="authorInfo.info | personName"
+                    [isMe]="isMe$ | async"
+                    [subscribed]="authorInfo.subscribers.you"
+                    (edit)="router.navigate([url, 'edit'], { relativeTo: activatedRoute })"
+                    (subscribe)="subFunc()">
+    <div class="info-header-name">
+        <div>{{ authorInfo.info | personName }}</div>
+        <div *ngIf="authorInfo.info.username" class="nickname">
+            @{{ authorInfo.info.username }}
+        </div>
+    </div>
+    <div class="info-header-name-small" style="min-width: 150px;">
+        <div>{{ authorInfo.info | personName }}</div>
+        <div *ngIf="authorInfo.info.username" class="nickname">
+            @{{ authorInfo.info.username }}
+        </div>
+    </div>
+    <div class="info-header-down subtitle-1">
+        <div *ngIf="!(isMe$ | async) && !authorInfo.info.company.isCompany" class="stats-item">
+          {{ 'COMMON.AUTHORS_RATING' | translate }}
+            <span class="stats-item__value">{{ authorInfo.rating > 0 ? '+' : '' }}{{ authorInfo.rating }}</span>
+        </div>
+        <div *ngIf="authorInfo.info.company.isCompany" class="stats-item">
+            <span class="fade-1 subtitle-1 font-1 blue">{{ 'COMMON.COMPANYS_BLOG' | translate }}</span>
+        </div>
+        <div *ngIf="(isMe$ | async) && !authorInfo.info.company.isCompany" class="stats-item">
+            {{ 'COMMON.MY_RATING' | translate }}
+            &nbsp;<span class="stats-item__value">{{ authorInfo.rating > 0 ? '+' : '' }}{{ authorInfo.rating }}</span>
+        </div>
+        <div class="subs flex-item subscribe">
+            <span class="fade-1 subtitle-1 font-1">{{ 'COMMON.SUBSCRIBERS' | translate }}</span>&nbsp;
+            <span class="fade-1 subtitle-1 font-1 blue">{{ authorInfo.subscribers.count }}</span>
+        </div>
+        <app-action-menu-user *ngIf="!(isMe$ | async) && perms.isLoggedIn" class="flex-item" [data]="authorInfo"
+            (gone)="this.router.navigate([authorInfo.info.company.isCompany ? '/companies' : '/authors'])"></app-action-menu-user>
+        <div *ngIf="(isMe$ | async)" class="notifications flex-item" >
+            <a [routerLink]="[url, 'notifications']">
+                <svg name="bell" class="f-gray" size="26"></svg>
+                <ng-container *ngIf="(notificationUpdateService.unreadNotifications$ | async) as unreadCount">
+                    <sup *ngIf="unreadCount > 0" class="count">{{ unreadCount > 99 ? '99+' : unreadCount }}</sup>
+                </ng-container>
+            </a>
+            
+        </div>
+    </div>
+    <div class="info-header-down-small">
+        <div class="subs flex-item">
+            <div *ngIf="!authorInfo.info.company.isCompany" class="stats-item">
+                <span class="fade-1 subtitle-1 font-1 subscribe-margin">{{ 'COMMON.AUTHORS_RATING' | translate }}</span>
+                <span class="stats-item__value">{{ authorInfo.rating > 0 ? '+' : '' }}{{ authorInfo.rating }}</span>
+            </div>
+            <span *ngIf="authorInfo.info.company.isCompany" class="fade-1 subtitle-1 font-1 blue">{{ 'COMMON.COMPANYS_BLOG' | translate }}</span>
+        </div>
+        <div class="subs flex-item">
+          <span class="fade-1 subtitle-1 font-1 subscribe-margin">{{ 'COMMON.SUBSCRIBERS' | translate }}</span>
+          <span class="fade-1 subtitle-1 font-1 blue">{{ authorInfo.subscribers.count }}</span>
+        </div>
+        <app-action-menu-user *ngIf="!(isMe$ | async) && perms.isLoggedIn" class="flex-item" [data]="authorInfo"
+            (gone)="this.router.navigate([authorInfo.info.company.isCompany ? '/companies' : '/authors'])"></app-action-menu-user>
+        <div *ngIf="(isMe$ | async)" class="notifications flex-item" >
+            <a [routerLink]="[url, 'notifications']">
+                <svg name="bell" class="f-gray" size="26"></svg>
+                <ng-container *ngIf="(notificationUpdateService.unreadNotifications$ | async) as unreadCount">
+                    <sup *ngIf="unreadCount > 0" class="count">{{ unreadCount > 99 ? '99+' : unreadCount }}</sup>
+                </ng-container>
+            </a>
+        </div>
+        <app-action-menu-user *appLoggedIn class="flex-item" [data]="authorInfo"
+            (gone)="this.router.navigate([authorInfo.info.company.isCompany ? '/companies' : '/authors'])"></app-action-menu-user>
+    </div>
+    <div class="info-header-desc">
+        <div class="fade-1 font-2 body-2" style="white-space: pre-line">
+            {{ authorInfo.info.bio || 'Описание профиля отсутствует.' }}
+        </div>
+        <div *ngIf="(authorInfo.info.company.isCompany && authorInfo.info.company.confirmed) || authorInfo.roles?.includes('ROLE_SUPERUSER')" class="events-jobs">
+            <a *ngIf="eventCount$ | async; let eventCount" class="item item-inherit" [routerLink]="[url, 'events']" routerLinkActive="selected">{{ 'COMMON.EVENT_' | translate }} <br><span class="blue">({{ eventCount }})</span>
+            </a>
+            <a *ngIf="jobCount$ | async; let jobCount" class="item" [routerLink]="[url, 'jobs']" routerLinkActive="selected">{{ 'COMMON.VACANCIES_' | translate }}<br><span
+                class="blue">({{ jobCount }})</span></a>
+        </div>
+    </div>
+    <div class="info-header-bar">
+        <a class="flex-item btn" [class.blue]="rlaPosts.isActive" [routerLink]="[url, 'posts']" routerLinkActive #rlaPosts="routerLinkActive">
+            <div>
+                <span class="font-1 fade-1 h5 button-1">{{ 'COMMON.PUBLICATIONS_' | translate }}</span>
+                <br>
+                <span class="font-1 fade-1 h5 button-1 numbers"
+                    [class.blue]="rlaPosts.isActive">{{ authorInfo.postCount }}</span>
+            </div>
+        </a>
+        <a *ngIf="isMe$ | async" class="flex-item btn" [class.blue]="rlaDrafts.isActive" class="flex-item btn" [routerLink]="[url, 'drafts']" routerLinkActive #rlaDrafts="routerLinkActive">
+            <div>
+                <span class="font-1 fade-1 h5 button-1">{{ 'COMMON.DRAFTS' | translate }}</span>
+                <br>
+                <span class="font-1 fade-1 h5 button-1 numbers"
+                    [class.blue]="rlaDrafts.isActive">{{ draftCount$ | async }}</span>
+            </div>
+        </a>
+        <a class="flex-item btn"  [class.blue]="rlaComments.isActive" [routerLink]="[url, 'comments']" routerLinkActive #rlaComments="routerLinkActive">
+            <div>
+                <span class="font-1 fade-1 h5 button-1">{{ 'COMMON.COMMENTS' | translate }}</span>
+                <br>
+                <span class="font-1 fade-1 h5 button-1 numbers"
+                    [class.blue]="rlaComments.isActive">{{ commentCount$ | async }}</span>
+            </div>
+        </a>
+        <a class="flex-item btn" [class.blue]="rlaPromoted.isActive" [routerLink]="[url, 'promoted']" routerLinkActive #rlaPromoted="routerLinkActive">
+            <div>
+                <span class="font-1 fade-1 h5 button-1">{{ 'COMMON.FAVORITES' | translate }}</span>
+                <br>
+                <span class="font-1 fade-1 h5 button-1 numbers"
+                    [class.blue]="rlaPromoted.isActive">{{ this.isMe ? (stats$ | async).promoted : (promotedCount$ | async) }}</span>
+            </div>
+        </a>
+        
+        <a class="flex-item btn" [routerLink]="[url, 'info']" routerLinkActive #rlaInfo="routerLinkActive">
+            <div>
+                <span class="font-1 fade-1 h5 button-1">{{ 'COMMON.INFORMATION' | translate }}</span>
+                <br>
+                <svg class="numbers"
+                    [name]="rlaInfo.isActive ? 'chevron/down-fill' : 'btn-expand-h'"></svg>
+            </div>
+        </a>
+        
+    </div>
+</app-ui-info-header>

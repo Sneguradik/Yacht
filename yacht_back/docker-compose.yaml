@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15.2
+    environment:
+      POSTGRES_DB: "yacht"
+      POSTGRES_USER: "yacht"
+      POSTGRES_PASSWORD: "yacht2023"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - .:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  backend:
+    build:
+      context: .
+    env_file:
+      - .env.example
+    ports:
+      - "8081:8081"
+    restart: always
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf

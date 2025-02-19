@@ -1,0 +1,27 @@
+/* stylelint-disable-next-line scss/at-import-no-partial-leading-underscore */
+@import '~include-media/dist/_include-media';
+
+$breakpoints: (
+  xlarge: 1400px,
+  large: 1060px,
+  medium: 767px,
+  small: 375px,
+);
+
+.hide-lt-medium {
+  @include media('<medium') {
+    display: none !important;
+  }
+}
+
+.hide-ge-medium {
+  @include media('>=medium') {
+    display: none !important;
+  }
+}
+
+.hide-lt-large {
+  @include media('<large') {
+    display: none !important;
+  }
+}

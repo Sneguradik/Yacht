@@ -1,0 +1,154 @@
+<div class="searchable">
+    <header class="subtitle-2 fade-2 margin-bottom-20 v-center">
+        <a *ngIf="!expand" class="v-center last-item-right" [class.clickable]="redirectToAll" [class.unclickable]="!redirectToAll" [routerLink]="!expand && redirectToAll ? [redirectToAll] : null">
+            <span><ng-container [ngTemplateOutlet]="content"></ng-container></span>
+            <svg *ngIf="!expand && redirectToAll" name="cog" class="ui-icon mr-2" size="16"></svg>
+        </a>
+        <div *ngIf="expand" class="v-center last-item-right" [class.clickable]="redirectToAll" [class.unclickable]="!redirectToAll" (click)="expandFunc()">
+            <span><ng-container [ngTemplateOutlet]="content"></ng-container></span>
+            <svg *ngIf="expand" name="chevron/up" class="ui-icon margin-right-6" (click)="expandFunc()"></svg>
+        </div>
+    </header>
+
+    <div *ngIf="data == null || data.length; else fallback" class="margin-bottom-20 no-last-margin" [ngSwitch]="templateType">
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.LINKS" [ngTemplateOutlet]="links"></ng-container>
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.ITEMS" [ngTemplateOutlet]="items"></ng-container>
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.NEWS" [ngTemplateOutlet]="news"></ng-container>
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.DISCUSSION" [ngTemplateOutlet]="discussion"></ng-container>
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.TODAY" [ngTemplateOutlet]="today"></ng-container>
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.AUTHORS" [ngTemplateOutlet]="authors"></ng-container>
+        <ng-container *ngSwitchCase="expandBoxTemplateEnum.META" [ngTemplateOutlet]="meta"></ng-container>
+    </div>
+
+    <ng-template #fallback>
+        <p class="caption fade-2">{{ fallbackText }}</p>
+    </ng-template>
+
+    <ng-content select=".expand-footer"></ng-content>
+
+    <ng-container *ngIf="data != null">
+        <div *ngIf="!expand && data.length > 5 && !customFooter && templateType !== expandBoxTemplateEnum.AUTHORS" class="last-item-right v-center btn" (click)="expandFunc()">
+            <span class="subtitle-2 fade-2">{{ 'COMMON.SEE_MORE' | translate }}</span>
+            <svg name="chevron/down" class="ui-icon icon-24 margin-right-1" size="24"></svg>
+        </div>
+
+        <a *ngIf="templateType === expandBoxTemplateEnum.AUTHORS" class="last-item-right v-center btn" [routerLink]="['/authors']">
+            <span class="subtitle-2 fade-2">{{ 'COMMON.SEE_MORE' | translate }}</span>
+            <svg name="chevron/right" class="ui-icon icon-24 margin-right-2" size="24"></svg>
+        </a>
+
+        <div *ngIf="expand && data.length > 5 && !customFooter" class="last-item-right v-center">
+            <a *ngIf="redirectToAll && templateType !== expandBoxTemplateEnum.LINKS" class="last-item-right v-center btn" [routerLink]="[redirectToAll]">
+                <span class="subtitle-2 fade-2 btn margin-right-8">{{ 'COMMON.SETTINGS' | translate }}</span>
+                <svg name="cog" class="cog ui-icon ml-5 btn"></svg>
+            </a>
+            <a *ngIf="redirectToAll && templateType == expandBoxTemplateEnum.LINKS" class="last-item-right v-center btn" [routerLink]="[redirectToAll]">
+                <span class="subtitle-2 fade-2 btn margin-right-8">{{ 'COMMON.SEARCH' | translate }}</span>
+                <svg name="search" size="15" class="f-icon ml-5 btn"></svg>
+            </a>
+            <div class="last-item-right v-center btn margin-right-7" (click)="expandFunc()">
+                <span class="subtitle-2 fade-2 btn margin-right-8">{{ 'COMMON.MINIMIZE' | translate }}</span>
+                <svg name="chevron/up" class="ui-icon btn" size="25"></svg>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #links>
+    <ul class="structural item-space-10 tags is-10">
+        <ng-container *ngIf="data != null; else loading">
+            <li *ngFor="let item of data | slice:0:(expand ? data.length : 5)">
+                <a [routerLink]="['/tags', item.meta.id]" class="subtitle-2"># {{ item.content }}</a>
+            </li>
+        </ng-container>
+        <ng-template #loading>
+            <li *ngFor="let i of [0,0,0]" class="loading-preview-item">
+                <section class="loading-text"></section>
+            </li>
+        </ng-template>
+    </ul>
+</ng-template>
+
+<ng-template #meta>
+    <ul class="structural item-space-10 tags">
+        <li>
+            <span class="caption fade-2">{{ fallbackText }}</span>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #items>
+    <ul class="structural item-space-20 is-20">
+        <ng-container *ngIf="data != null; else loading">
+            <li *ngFor="let item of data | slice:0:(expand ? data.length : 5)">
+                <app-ui-subscribable-view-item
+                [showAdd]="!item.subscribers.you"
+                [item]="item"
+                [routerLink]="item.info.company ? (item | accountUrl) : [routerLinkPrefix, item.meta.id]"
+                [disableAdd]="!(loggedIn$ | async)"
+                (actionEvent)="emitActionEvent(item)"
+                ></app-ui-subscribable-view-item>
+                
+            </li>
+        </ng-container>
+        <ng-template #loading>
+            <li *ngFor="let i of [0,0,0]" class="loading-preview-item">
+                <section class="loading-icon margin-right-10"></section>
+                <section class="loading-text"></section>
+            </li>
+        </ng-template>
+    </ul>
+</ng-template>
+
+<ng-template #news>
+    <ul class="structural item-list is-10">
+        <li *ngFor="let item of data | slice:0:(expand ? data.length : 5)" class="news-item">
+            <a class="body-3" [routerLink]="['/news', item.meta.id]">{{ item.info.title }}</a>
+            <span class="caption fade-2">{{ item.status.publishedAt | customDate:false:true }}</span>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #discussion>
+    <ul class="structural item-list is-10">
+        <li *ngFor="let item of data | slice:0:(expand ? data.length : 5)" class="stats">
+            <a class="body-3" [routerLink]="['/news', item.meta.id]">{{ item.info.title }}</a>
+            <div class="v-center">
+                <svg name="comment" class="ui-icon left-minus-2" size="20"></svg>
+                <span class="subtitle-2 fade-2">{{ item.commentCount }}</span>
+            </div>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #today>
+    <ul class="structural item-list is-10">
+        <li *ngFor="let item of data | slice:0:(expand ? data.length : 5)" class="stats">
+            <a class="body-3" [routerLink]="['/news', item.meta.id]">{{ item.info.title }}</a>
+            <div class="v-center">
+                <svg name="view" size="20" class="ui-icon left-minus-2"></svg>
+                <span class="subtitle-2 fade-2">{{ item.views.count }}</span>
+            </div>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #authors>
+    <ul class="authors structural">
+        <ng-container *ngIf="data != null; else loading">
+            <li *ngFor="let item of data | slice:0:10">
+                <a [routerLink]="item | accountUrl"><app-ui-icon class="css-block img-icon-medium" [src]="$any(item.info.picture)" [textAlternative]="item.info | personName" ></app-ui-icon></a>
+                <div *ngIf="item.unread$ | async; let unread" class="note"><span>{{ unread }}</span></div>
+            </li>
+        </ng-container>
+        <ng-template #loading>
+            <li *ngFor="let i of [0,0,0,0]" class="loading-preview-item">
+                <section class="loading-icon"></section>
+            </li>
+        </ng-template>
+    </ul>
+</ng-template>
+
+<ng-template #content>
+    <ng-content></ng-content>
+</ng-template>

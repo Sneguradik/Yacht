@@ -1,0 +1,47 @@
+<div class="admin-wrap">
+    <div class="admin-bar">
+        <nav class="admin-nav">
+            <ul>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/ratings">Настройка рейтингов</a></li>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/topics">Управление темами</a></li>
+                <li><a routerLink="/dashboard/ads" routerLinkActive="active">Управление рекламными блоками</a></li>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/events-jobs">Мероприятия и Вакансии</a></li>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/roles">Управление правами Админов</a></li>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/tags">Управление Тегами</a></li>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/activity">Активность пользователей</a></li>
+                <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="/dashboard/preview">Управление preview</a></li>
+            </ul>        
+        </nav>
+        <div *ngIf="edit" class="admin-bar-list">
+            <h2 class="admin-bar-list__title">Место размещения</h2>
+            <ol>
+                <li>Хэдер (под хэдером) [Х]</li>
+                <li>Лента [Л1]</li>
+                <li>Лента [Л2]</li>
+                <li>Лента [Л3]</li>
+                <li>Публикация (под публикацией, над комментариями) [ПП1]</li>
+                <li>Публикация / Правый сайдбар первый [ПП2] (под публикацией, под комментариями)</li>
+                <li>Публикация (правый сайдбар в публикации) [ПС]</li>
+            </ol>
+        </div>
+    </div>
+    <div class="admin-content">
+        <app-create-banner *ngIf="!edit"
+                           (createReq)="create()"
+                           (queryReq)="queryApply($event)"
+        ></app-create-banner>
+        <app-banner-editor *ngIf="edit"
+                           [inputData$]="editBannerInfo$"
+                           (pictureReq)="savePicture($event[0], $event[1])"
+                           (cancelReq)="cancel()"
+                           (saveReq)="save($event[0], $event[1])"
+                           (savePlaceReq)="setPlace($event[0], $event[1])"
+        ></app-banner-editor>
+    </div>
+</div>
+<div *ngIf="!edit" class="admin-tab-wrap">
+    <app-banner-list [banners$]="bannerSubject$"
+                     (actionReq)="parseReq($event)"
+                     (sortReq)="sortApply($event)"
+    ></app-banner-list>
+</div>

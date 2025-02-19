@@ -1,0 +1,6 @@
+<div class="v-center">
+    <a [routerLink]="user ? (user | accountUrl) : ''" class="v-center">
+        <app-ui-icon class="margin-right-10" [src]="user?.info.picture" [textAlternative]="user ? (user.info | personName) : ''"></app-ui-icon>
+        <span class="subtitle-1">{{ user ? (user.info | personName) : '' }}</span>
+    </a>
+</div>

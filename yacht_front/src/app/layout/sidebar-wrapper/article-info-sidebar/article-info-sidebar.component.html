@@ -1,0 +1,98 @@
+<ng-container *appLet="(data$ | async).articleData as data">
+    <div class="short">
+        <div class="v-center rating">
+            <span class="subtitle-1 fade-2">{{ 'COMMON.ARTICLE_RATING' | translate }}</span>
+            <app-voting class="align-right"
+                        [up]="data.votes.up"
+                        [down]="data.votes.down"
+                        [castVote]="data.votes ? data.votes.you : 0"
+                        [style]="'article'"
+                        (vote)="vote($event)"
+            ></app-voting>
+        </div>
+        <div class="stats">
+            <div class="v-center">
+                <svg name="bookmark" class="f-gray clickable" size="20" [class.f-primary]="data.bookmarks.you" (click)="emitToggleBookmark()"></svg>
+                <span class="subtitle-2 fade-1">{{ 'COMMON.IN_FAVORITES' | translate }}</span>
+                <span class="c-primary subtitle-1">{{ data.bookmarks.count }}</span>
+            </div>
+            <div class="v-center" (click)="scrollToComments()">
+                <svg name="comment" size="20" class="f-gray clickable"></svg>
+                <span class="subtitle-2 fade-1" [ngClass]="{'blue': data.commentCount > 0}">{{ 'COMMON.COMMENTS_' | translate }}</span>
+                <span class="c-primary subtitle-1">{{ data.commentCount }}</span>
+            </div>
+            <div class="v-center">
+                <svg name="view" size="20" class="f-gray"></svg>
+                <span class="subtitle-2 fade-1">{{ 'COMMON.VIEWS' | translate }}</span>
+                <span class="c-primary subtitle-1">{{ data.views.count }}</span>
+            </div>
+        </div>
+        <a class="v-center clickable" [routerLink]="data.author | accountUrl">
+            <app-ui-icon class="margin-right-10" [src]="data.author.info.picture" [textAlternative]="data.author.info | personName"></app-ui-icon>
+            <span class="subtitle-1 fade-1" style="max-width: 150px;">{{ data.author.info | personName }}</span>
+            <svg name="chevron/right" class="f-gray align-right"></svg>
+        </a>
+    </div>
+    <div class="themes">
+        <app-ui-expand-box [customFooter]="true" [fallbackText]="'COMMON.TOPICS_DISPLAY_FALLBACK' | translate" [routerLinkPrefix]="'/topics'" [templateType]="attrsTemplate" [data]="topics" (actionEvent)="handleSubscribe($event)">
+            <span class="subtitle-1 fade-2">{{ 'COMMON.PUBLICATION_TOPICS' | translate }}</span>
+            <a class="last-item-right v-center expand-footer" [routerLink]="['/topics']">
+                <span class="subtitle-2 fade-2">{{ 'COMMON.ALL_TOPICS' | translate }}</span>
+                <svg name="chevron/right" class="ui-icon"></svg>
+            </a>
+        </app-ui-expand-box>
+    </div>
+
+    <div class="tags">
+        <app-ui-expand-box [customFooter]="true" [fallbackText]="'COMMON.PUBLICATION_TAGS_SHOWN_HERE' | translate" [templateType]="tagsTemplate" [data]="tags">
+            <span class="subtitle-1 fade-2">{{ 'COMMON.PUBLICATION_TAGS' | translate }}</span>
+            <a class="last-item-right v-center expand-footer" [routerLink]="['/tags']">
+                <span class="subtitle-2 fade-2">{{ 'COMMON.SEARCH_BY_TAG' | translate }}</span>
+                <svg name="chevron/right" class="ui-icon"></svg>
+            </a>
+        </app-ui-expand-box>
+    </div>
+    <div class="actions">
+        <ul class="structural">
+            <li class="v-center clickable">
+                <svg name="share" class="f-gray margin-right-10" size="20" (click)="toggleShare()"></svg>
+                <div *ngIf="share" class="cont">
+                    <span class="actions-con clickable" (click)="goTo(linkTw)">
+                        <svg name="social/twitter" size="20"></svg>
+                    </span>
+                    <span class="actions-con clickable" (click)="goTo(linkVk)">
+                        <svg name="social/vk" size="20"></svg>
+                    </span>
+                    <span class="actions-con clickable" (click)="goTo(linkTg)">
+                        <svg name="social/telegram" size="20"></svg>
+                    </span>
+                </div>
+                <span *ngIf="!share" class="subtitle-2 fade-2" (click)="toggleShare()">{{'COMMON.REPOST' | translate}}</span>
+            </li>
+            <hr>
+            <li class="v-center btn clickable" (click)="emitToggleBookmark()">
+                <svg name="bookmark" class="f-gray margin-right-10" size="20"></svg>
+                <span class="subtitle-2 fade-2">
+                {{ data.bookmarks && data.bookmarks.you ? ('COMMON.REMOVE_FROM_BOOKMARKS' | translate) : ('COMMON.TO_BOOKMARKS' | translate) }}
+            </span>
+            </li>
+            <hr>
+            <li class="v-center clickable" (click)="emitHide()">
+                <svg name="do-not-show" class="f-gray margin-right-10" size="20"></svg>
+                <span *ngIf="!data.hidden" class="subtitle-2 fade-2">{{ 'COMMON.REMOVE_FROM_NEWSFEED' | translate}}</span>
+                <span *ngIf="data.hidden" class="subtitle-2 fade-2">{{ 'COMMON.SHOW_IN_NEWSFEED"' | translate }}</span>
+            </li>
+            <hr>
+            <li class="v-center clickable" appReport [object]="{ type: reportEntityTypeEnum.ARTICLE, id: data.meta.id }" (report)="!data.hidden && emitHide()">
+                <svg name="report" class="f-gray margin-right-10" size="20"></svg>
+                <span class="subtitle-2 fade-2">{{ 'COMMON.TO_FILE_A_COMPLAINT' | translate }}</span>
+            </li>
+        </ul>
+    </div>
+    <div style="padding: 20px">
+        <a class="return v-center clickable" [routerLink]="['/']">
+            <svg name="chevron/left" class="f-gray margin-right-25"></svg>
+            <span class="subtitle-2 fade-2">{{ 'COMMON.GO_BACK' | translate }}</span>
+        </a>
+    </div>
+</ng-container>

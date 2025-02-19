@@ -1,0 +1,8 @@
+<app-ranges [ranges]="ranges" [activeRange]="activeRange" (toggleRange)="rangeEvent($event)"></app-ranges>
+<ul class="block-card item-space-20">
+  <li *ngFor="let job of jobs" class="with-border">
+    <app-job-preview [job]="job" (gone)="remove(job)"></app-job-preview>
+  </li>
+</ul>
+
+<app-pagination [page]="currentPage" [maxPages]="totalPages" [enabled]="!isLoading" (onPage)="fetchNextPage()"></app-pagination>

@@ -1,0 +1,50 @@
+@import 'src/styles/variables';
+
+.ui-button {
+  border: 1px solid $primary;
+  border-radius: 15px;
+  color: $primary;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  padding: 10px 20px;
+
+  &--secondary {
+    border: 0;
+    color: $input;
+    padding: 0;
+  }
+
+  &--disabled {
+    border: 1px solid $gray;
+    color: $gray;
+    cursor: default;
+  }
+}
+::ng-deep .plus {
+  .ui-button{
+    @media only screen and (max-width : 767px){
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0;
+      background-color: #fff;
+      &::after{
+        content: '+';
+        font-size: 40px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+
+::ng-deep .ui-button--disabled {
+  path {
+    fill: $gray;
+  }
+}

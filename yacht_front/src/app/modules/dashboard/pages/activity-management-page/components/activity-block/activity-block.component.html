@@ -1,0 +1,120 @@
+<form class="admin-form">
+    <fieldset class="admin-form__fieldset">
+        <legend class="admin-form__legend">Аудитория портала</legend>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">Всего <br>пользователей</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).count.all">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">Частные пользователи</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).count.users">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">{{ 'COMMON.COMPANIES' | translate}}</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).count.companies">
+            </span>
+        </label>
+        <div class="admin-input-row">
+            <button class="btn admin-btn_white admin-btn_m" (click)="show()">Показать</button>
+        </div>
+    </fieldset>
+    <hr class="admin-hr">
+    <app-dashboard-range [params$]="range$"></app-dashboard-range>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m"><b>Всего новых регистраций</b></span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).registrations.all">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">Частные пользователи</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).registrations.users">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">{{ 'COMMON.COMPANIES' | translate}}</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).registrations.companies">
+            </span>
+        </label>
+    </fieldset>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m"><b>Присутствие </b> <small> [заходили хотя бы 1 раз за период]</small></span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).presence.all">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">Частные пользователи</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).presence.users">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">{{ 'COMMON.COMPANIES' | translate}}</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).presence.companies">
+            </span>
+        </label>
+    </fieldset>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m"><b>Активность </b> <small> [хотя бы 1 публикация за период]</small></span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).activity.all">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">Частные пользователи</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).activity.users">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">{{ 'COMMON.COMPANIES' | translate}}</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_m" disabled="true" name="" [value]="(stat$ | async).activity.companies">
+            </span>
+        </label>
+    </fieldset>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m"><b>{{ 'COMMON.PUBLICATIONS_' | translate}} / {{ 'COMMON.COMMENTS' | translate}} / {{ 'COMMON.NEWS' | translate}}</b></span>
+            <span class="admin-input-row__inputwrap">
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.all.articles">
+                /
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.all.comments">
+                /
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.all.news">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">Частные пользователи</span>
+            <span class="admin-input-row__inputwrap">
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.users.articles">
+                /
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.users.comments">
+                /
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.users.news">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title admin-input-row__title_m">{{ 'COMMON.COMPANIES' | translate}}</span>
+            <span class="admin-input-row__inputwrap">
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.companies.articles">
+                /
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.companies.comments">
+                /
+                <input type="text" class="admin-input" disabled="true" name="" [value]="(stat$ | async).materials.companies.news">
+            </span>
+        </label>
+    </fieldset>
+</form>

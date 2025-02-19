@@ -1,0 +1,14 @@
+ul.sidebar-list > li {
+  background: white;
+  border-radius: 15px;
+  margin-top: 30px;
+  padding: 20px;
+
+  @include media('<=small') {
+    padding: 15px;
+  }
+
+  &:first-child {
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,130 @@
+.font-1,
+%font-1 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-2,
+%font-2 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %font-1;
+
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h5 {
+  font-weight: 500;
+}
+h1 {
+  font-size: 40px;
+}
+h2 {
+  font-size: 34px;
+}
+h3 {
+  font-size: 28px;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 400;
+}
+h5 {
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.body-1,
+.body-2,
+.body-3 {
+  @extend %font-2;
+}
+.body-1 {
+  font-size: 18px;
+}
+
+.body-2 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.body-3,
+%body-3 {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.subtitle-1,
+.subtitle-2 {
+  @extend %font-1;
+
+  font-size: 14px;  
+}
+.subtitle-1 {
+  font-weight: 500;
+}
+.subtitle-2 {
+  font-weight: 400;
+  white-space: nowrap;
+  & > a{
+    color: black;
+  }
+}
+
+.button-1,
+.button-2,
+%button-1 {
+  @extend %font-1;
+
+  cursor: pointer;
+  font-weight: 500;
+  outline: none;
+  user-select: none;
+}
+
+.button-1,
+%button-1 {
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.button-2 {
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+}
+.button-4 {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.caption {
+  @extend %font-2;
+
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.overline {
+  @extend %font-1;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
+}

@@ -1,0 +1,15 @@
+<div class="ranges">
+    <app-ui-dropdown-menu>
+        <div class="head" style="margin-right: 16px;">
+            <span class="button-1 fade-1 mr-8">{{ 'COMMON.RANK' | translate }}</span>
+            <svg name="dropdown" size="12" class="dropdown-icon"></svg>
+        </div>
+        <app-ui-dropdown-menu-item *ngFor="let range of ranges">
+            <div class="button-1 ranges__item"
+                [class.active]="range.id === activeRange"
+                (click)="selectRange(range)">
+                {{ range.text | translate }}
+            </div>
+        </app-ui-dropdown-menu-item>
+    </app-ui-dropdown-menu>
+</div>

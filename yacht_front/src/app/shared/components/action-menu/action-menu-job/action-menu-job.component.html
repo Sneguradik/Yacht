@@ -1,0 +1,11 @@
+<app-ui-dots-menu>
+    <app-ui-dots-menu-item *ngIf="!own" icon="report" text="{{ 'COMMON.TO_FILE_A_COMPLAINT' | translate }}" appReport
+                           [object]="{ type: reportEntityTypeEnum.JOB, id: data.meta.id }" (report)="hide()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *ngIf="!own" icon="do-not-show" text="{{ 'COMMON.REMOVE_FROM_NEWSFEED' | translate }}" (click)="hide()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or own; and data.info.publicationStage !== publicationStageEnum.PUBLISHED" icon="globe" text="{{ 'COMMON.PUBLISH'  | translate}}" (click)="publish()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or own; and data.info.publicationStage === publicationStageEnum.PUBLISHED" icon="edit" [text]="'COMMON.TO_DRAFTS' | translate" (click)="withdraw()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or own" icon="edit" text="{{ 'COMMON.EDIT'  | translate}}"
+                           [routerLink]="['/jobs', data.meta.id, 'edit']"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or own" icon="report" text="{{ 'COMMON.REMOVE'  | translate}}" (click)="delete()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="star" [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate" (click)="showcase()"></app-ui-dots-menu-item>
+</app-ui-dots-menu>

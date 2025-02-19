@@ -1,0 +1,19 @@
+<header class="v-center margin-bottom-20">
+    <app-user-info class="margin-right-20" [user]="job.company"></app-user-info>
+    <span *ngIf="job.info.publicationStage !== publicationStageEnum.PUBLISHED" class="overline c-caption">Не опубликовано</span>
+    <span class="date align-right">{{ job.meta.updatedAt | customDate }}</span>
+</header>
+<main>
+    <h3 class="margin-bottom-15 fade-0"><a [routerLink]="['/jobs', job.meta.id]">{{ job.info.name }}</a></h3>
+    <h5 class="margin-bottom-15 fade-2">{{ job.info.city }} {{ salary ? salary : ('COMMON.INTERVIEW_SALARY' | translate) }}</h5>
+</main>
+<footer class="v-center">
+    <div class="v-center event-stats">
+        <div class="v-center margin-right-20">
+            <svg name="bookmark" class="margin-right-4 icon f-gray clickable" [class.active]="job.bookmarks && job.bookmarks.you" (click)="toggleBookmark()"></svg>
+        </div>
+    </div>
+    <a class="align-right subtitle-2 fade-2 v-center"><a [routerLink]="['/jobs', job.meta.id]">{{ 'COMMON.TO_THE_VACANCY' | translate }}</a>
+        <svg name="chevron/right" class="f-gray"></svg>
+    </a>
+</footer>

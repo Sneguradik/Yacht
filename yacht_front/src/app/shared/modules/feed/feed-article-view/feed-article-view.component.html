@@ -1,0 +1,112 @@
+<div *ngIf="!(responsive.lt.medium | async)" class="info">
+    <div *ngIf="topic" class="topics">
+        <app-ui-icon class="margin-right-10" [src]="topic.info.picture || ''"
+                     [textAlternative]="topic.info.name || ''"
+                     [size]="'small'"></app-ui-icon>
+        <div class="names subtitle-1" >
+            <span>
+                <a [routerLink]="['/topics', topic.info.url ? topic.info.url : topic.meta.id]">{{ topic.info.name }}</a>
+            </span>
+        </div>
+        <svg *ngIf="data.pinned && options.pinnedMark" name="star" class="icon" style="margin-left: 20px; fill: #00b7ff"></svg>
+    </div>
+    <ng-container [ngSwitch]="data.status.publicationStage">
+        <span *ngSwitchCase="publicationStageEnum.DRAFT" class="overline c-caption c-primary">{{ 'COMMON.DRAFT' | translate }}</span>
+        <span *ngSwitchCase="publicationStageEnum.REVIEWING" class="overline c-caption">{{ 'COMMON.ON_MODERATION' | translate }}</span>
+        <span *ngSwitchCase="publicationStageEnum.BLOCKED" class="overline c-caption">{{ 'COMMON.BLOCKED' | translate }}</span>
+    </ng-container>
+    <div class='time-author-actions'>
+        <span class="author subtitle-2 fade-1 btn" [ngClass]="{ 'company': data.author.info.company.isCompany }">
+            <a [routerLink]="data.author | accountUrl" [class.color-primary]="data.author.info.company.isCompany">{{ data.author.info | personName }}</a>
+        </span>
+        <span class="time caption fade-3">{{ (data.status.publishedAt || data.meta.updatedAt) | customDate }}</span>
+        <span class="actions">
+            <app-action-menu-article *appLoggedIn
+                                     [data]="data"
+                                     [topic]="topic"
+                                     [isLogged]='isLoggedIn | async'
+                                     (pinned)="pinned.emit($event)"
+                                     (goneBookmarked)="goneBookmarked.next($event)"
+                                     (gonePromote)="this.gonePromote.emit($event)"
+                                     (gone)="this.gone.emit($event)">
+            </app-action-menu-article>
+        </span>
+    </div>
+</div>
+
+<div *ngIf="responsive.lt.medium | async" class="info-mob">
+    <div style="display: flex; width: 100%;">
+        <div style="display: flex;">
+            <div *ngIf="topic" class="topics">
+                <app-ui-icon class="margin-right-10" [src]="topic.info.picture || ''"
+                             [textAlternative]="topic.info.name || ''"
+                             [size]="'small'"></app-ui-icon>
+                <div class="names subtitle-1">
+                    <span><a [routerLink]="['/topics', topic.info.url ? topic.info.url : topic.meta.id]">{{ topic.info.name }}</a></span>
+                </div>
+                <svg *ngIf="data.pinned && options.pinnedMark" name="star" class="icon" style="margin-left: 20px; fill: #00b7ff"></svg>
+            </div>
+            <div style="width: 1px; height: 26px; display: inline-block;"></div>
+        </div>
+        <div style="display: flex; margin-left: auto;">
+            <ng-container [ngSwitch]="data.status.publicationStage">
+                <span *ngSwitchCase="publicationStageEnum.DRAFT" class="overline c-caption c-primary" style="padding-right: 10px; display: inline-flex; align-items: center;">{{ 'COMMON.DRAFT' | translate }}</span>
+                <span *ngSwitchCase="publicationStageEnum.REVIEWING" class="overline c-caption" style="padding-right: 10px; display: inline-flex; align-items: center;">{{ 'COMMON.ON_MODERATION' | translate }}</span>
+                <span *ngSwitchCase="publicationStageEnum.BLOCKED" class="overline c-caption" style="padding-right: 10px; display: inline-flex; align-items: center;">{{ 'COMMON.BLOCKED' | translate }}</span>
+            </ng-container>
+            <span class="actions" style="margin-left: auto;">
+                <app-action-menu-article *appLoggedIn
+                                         [data]="data"
+                                         [topic]="topic"
+                                         [user]="data.author"
+                                         (pinned)="pinned.emit($event)"
+                                         (goneBookmarked)="goneBookmarked.next($event)"
+                                         (gone)="this.gone.emit($event)">
+                </app-action-menu-article>
+            </span>
+        </div>
+    </div>
+    <div class='time-author-actions' style="width: 100%; display: flex;">
+        <span class="author subtitle-2 fade-1 btn" [ngClass]="{ 'company': data.author.info.company.isCompany }" style="padding-top: 10px"><a [routerLink]="data.author | accountUrl"> {{ data.author.info | personName }} </a></span>
+        <span class="time caption fade-3" style="padding-top: 10px; margin-left: auto;">{{ (data.status.publishedAt || data.meta.updatedAt) | customDate }}</span>
+    </div>
+</div>
+
+<div class="content">
+    <a [routerLink]="link ? link : ['/news', data.meta.id]">
+        <p class="title" style="word-wrap: break-word;">{{ data.info.title || ('COMMON.UNTITLED_ARTICLE' | translate) }}</p>
+        <p class="body-2" style="word-wrap: break-word;">{{ data.info.summary }}</p>
+        <img *ngIf="data.info.cover && options.pictureOn" [src]="data.info.cover" [alt]="data.info.title">
+    </a>
+    
+</div>
+<div *ngIf="options.menuOn else justABorder" class="stats v-center with-border">
+    <div class="v-center count" [ngClass]="{ 'hoverable-with-icon': !!data.bookmarks }" (click)="toggleBookmark()">
+        <svg name="bookmark" class="icon" [ngClass]="{ 'active': data.bookmarks && data.bookmarks.you }"></svg>
+        <span class="subtitle-2">{{ data.bookmarks.count }}</span>
+    </div>
+    <div fragment="comments-block" class="v-center count">
+        <a [routerLink]="['/news', data.meta.id]" style="color: inherit">
+            <svg name="comment" class="icon"></svg>
+            <span class="subtitle-2">{{ data.commentCount }}</span>
+        </a>
+    </div>
+    <div class="v-center count">
+        <svg name="view" class="icon"></svg>
+        <span class="subtitle-2">{{ data.views.count }}</span>
+    </div>
+    <app-share *ngIf="!(responsive.lt.medium | async)" [url]="['/news', data.meta.id] | url"></app-share>
+    <div class="v-center votes">
+        <app-voting
+            [up]="data.votes.up"
+            [down]="data.votes.down"
+            [castVote]="data.votes.you"
+            [style]="'article'"
+            (vote)="doVote($event)">
+        </app-voting>
+    </div>
+</div>
+
+<ng-template #justABorder>
+    <div class="with-border margin-bottom-8" style="height: 12px;"></div>
+</ng-template>

@@ -1,0 +1,40 @@
+@import 'src/styles/responsive';
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  z-index: 4;
+
+  > .column {
+    position: relative;
+    width: 700px;
+    z-index: 4;
+
+    @include media('<medium') {
+      width: 100%;
+    }
+
+    > .direct-wrapper {
+      height: 50px;
+
+      > .toolbar {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        height: 50px;
+        position: absolute;
+        width: 100%;
+        z-index: 5;
+
+        > .content {
+          align-items: center;
+          display: flex;
+          height: 35px;
+          justify-content: space-between;
+          padding: 0 10px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

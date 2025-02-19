@@ -1,0 +1,45 @@
+<div class="table-container">
+    <table class="admin-tab">
+        <thead>
+        <tr>
+            <th></th>
+            <th *ngFor="let item of ('COMMON.SORT_ITEMS' | translate)">
+                <div class="admin-tab__sort" (click)="changeSort(item)">
+                    {{ item.name }}
+                    <div *ngIf="returnState(item) === StateEnum.SELECTED_DESC" class="admin-tab__sort-icn">
+                        <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7927 0C13.0424 0 13.1828 0.28719 13.0294 0.484237L7.23743 7.92754C7.11732 8.08189 6.88401 8.08189 6.76391 7.92754L0.971897 0.484237C0.818564 0.287189 0.958983 0 1.20866 0L12.7927 0Z" />
+                        </svg>
+                    </div>
+                    <div *ngIf="returnState(item) === StateEnum.SELECTED_ASC" class="admin-tab__sort-icn">
+                        <svg width="14" height="9" viewBox="0 0 14 9" fill="none" style="display: block; transform: scale(1,-1)" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7927 0C13.0424 0 13.1828 0.28719 13.0294 0.484237L7.23743 7.92754C7.11732 8.08189 6.88401 8.08189 6.76391 7.92754L0.971897 0.484237C0.818564 0.287189 0.958983 0 1.20866 0L12.7927 0Z" />
+                        </svg>
+                    </div>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let banner of banners$ | async">
+            <td>
+                <app-banner-dropdown [isActive]="banner.active"
+                        (deleteReq)="makeAction(banner.id, 'delete')"
+                        (activeReq)="makeAction(banner.id, 'active', $event)"
+                        (editReq)="makeAction(banner.id, 'edit')">
+                </app-banner-dropdown>
+            </td>
+            <td>{{ banner.name }}</td>
+            <td>{{ parsePlace(banner.place) }}</td>
+            <td>{{ parseActivity(banner.active) }}</td>
+            <td>{{ parseDate(banner.startDateTime) }}</td>
+            <td>{{ parseDate(banner.stopDateTime) }}</td>
+            <td>{{ getDateDifference(banner.startDateTime, banner.stopDateTime) }}</td>
+            <td>{{ banner.clicksCount }}</td>
+            <td>{{ banner.viewsCount }}</td>
+            <td>{{ banner.rotation }}</td>
+            <td>{{ banner.id }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

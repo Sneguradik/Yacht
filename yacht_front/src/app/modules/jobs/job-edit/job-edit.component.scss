@@ -1,0 +1,274 @@
+@import 'src/styles';
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+:host ::ng-deep {
+  width: 100%;
+
+  .ui-form-control {
+    display: flex;
+  }
+
+  .c-primary{
+    @include media('<medium') {
+      color: rgba(0, 0, 0, 0.7) !important;
+      margin-bottom: 0;
+      &[for="file-attachment"]{
+        color: #00b7ff !important;
+        margin: 30px 0;
+      }
+    }
+  }
+
+  textarea {
+    border: 0;
+    border-bottom: 3px solid $light-blue;
+    display: block;
+    font-family: Open Sans, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 22px;
+    outline: none;
+    padding: 5px 0 0;
+    resize: none;
+    transition: 0.2s ease-in-out border-color;
+    width: 100%;
+  
+    &:focus {
+      border-color: $primary;
+    }
+  }
+
+  .selected {
+    color: $primary;
+    border-bottom: 3px solid $primary;
+  }
+
+  .sub-info {
+    align-items: center;
+    align-self: center;
+    color: #00b7ff;
+    display: flex;
+    font-family: Open Sans, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 22px;
+    width: 437px;
+
+    @include media('<medium') {
+      width: 351px;
+    }
+
+    a {
+      padding-left: 5px;
+      text-decoration: underline;
+    }
+  }
+}
+
+.v-center {
+  ::ng-deep {
+    .ui-form-control {
+      @extend %v-center;
+    }
+  }
+}
+
+input {
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  @include media('<medium'){
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@include media('<small') {
+  .type-zan {
+    display: block;
+  }
+}
+@media only screen and (max-width : 500px){
+  .type-zan {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .to-wrapper{
+      width: 100%;
+      margin-top: 20px;
+    }
+    app-ui-dropdown-menu{
+      margin-right: 0!important;
+    }
+  }
+}
+
+.job-creation-form {
+  .job-name-wrapper {
+    align-items: center;
+    display: flex;
+    width: 100%;
+
+    @include media('<small') {
+      .caption {
+        text-align: right;
+      }
+    }
+
+    .job-name {
+      @extend %font-1;
+
+      border: 0;
+      flex-grow: 1;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 33px;
+      margin-right: 4px;
+
+      @include media('<small') {
+        width: 100%;
+      }
+    }
+  }
+
+  .city-input {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 21px;
+    outline: none;
+    position: relative;
+    top: 2px;
+  }
+
+  .job-salary-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    @media only screen and (max-width : 500px){
+      width: calc(100% - 24px);
+    }
+
+    input {
+      color: rgba(0, 0, 0, 0.7);
+      font-family: Roboto, sans-serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: bold;
+      line-height: 21px;
+      outline: none;
+    }
+
+    .from-wrapper,
+    .to-wrapper {
+      width: 30%;
+    }
+
+    /* stylelint-disable */
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      outline: none;
+    }
+
+    /* Firefox */
+    input[type='number'] {
+      -moz-appearance: textfield;
+      outline: none;
+    }
+
+    /* stylelint-enable */
+
+    .job-salary-input {
+      max-width: 80px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .from-to {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .dropdown-currency {
+      display: flex;
+      flex-direction: row;
+      padding-left: 20px;
+
+      svg {
+        padding-left: 5px;
+        position: relative !important;
+      }
+    }
+  }
+
+  .fields-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-input-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 345px;
+  }
+
+  .input-submit {
+    display: inline-flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    margin-top: 24px;
+    width: 100%;
+
+    @include media('<medium'){
+      display: block;
+      margin: 10px 0;
+      .sub-info{
+        margin-top: 20px;
+      }
+    }
+
+    @include media('<small') {
+      align-items: flex-start !important;
+      flex-direction: column;
+
+      button {
+        margin-bottom: 20px;
+        margin-right: 0 !important;
+      }
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    button {
+      background: white;
+      border: 1px solid #00b7ff;
+      border-radius: 15px;
+      color: $primary;
+      height: 35px;
+      margin-right: 80px;
+      padding: 0 16px;
+      svg {
+        fill: $primary;
+      }
+      &:disabled {
+        border: 1px solid gray;
+        color: gray;
+        cursor: default;
+        pointer-events: none;
+        svg {
+          fill: gray;
+        }
+      }
+    }
+  }
+}

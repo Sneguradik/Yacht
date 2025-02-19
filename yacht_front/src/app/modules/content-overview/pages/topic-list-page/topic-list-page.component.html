@@ -1,0 +1,11 @@
+<app-navbar [activeItem]="itm" [searchPlaceholder]="'COMMON.SEARCH_BY_TOPIC' | translate" (search)="handleSearch($event)"></app-navbar>
+<app-filters [filters]="filters" [activeFilter]="activeFilter" (toggleFilter)="filterEvent($event)"></app-filters>
+<app-ranges [ranges]="ranges" [activeRange]="activeRange" (toggleRange)="rangeEvent($event)"></app-ranges>
+
+<ul class="block-card item-space-40">
+    <li *ngFor="let topic of topics">
+        <app-topic-view [topic]="topic" (subscribeEvent)="handleSubscribe(topic)" (gone)="removeFromArray($event)"></app-topic-view>
+    </li>
+</ul>
+
+<app-pagination [page]="currentPage" [maxPages]="totalPages" [enabled]="!isLoading" (onPage)="fetchNextPage()"></app-pagination>

@@ -1,0 +1,90 @@
+@import '../../../shared/styles/dashboard-base-styles.scss';
+@import '../../../shared/styles/admin.scss';
+
+.admin-tabs__nav {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: flex-end;
+    align-items: flex-end;
+    justify-content: flex-start;
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    margin-bottom: 15px;
+}
+
+.admin-tabs__link {
+    margin-right: 25px;
+    display: block;
+    padding-bottom: 15px;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, .7);
+    position: relative;
+    bottom: -1px;
+    cursor: pointer;
+}
+
+.admin-tabs__link.active {
+    color: #00B9FA;
+}
+
+.admin-tabs__link.active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+    background-color: #00B9FA;
+}
+
+.admin-tabs__pane {
+    display: none;
+}
+
+.admin-tabs__pane.show {
+    display: block;
+}
+
+.admin-tabs__filter {
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    padding-bottom: 15px;  
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.admin-tabs__filter .admin-select {
+    width: 200px;
+    margin-left: 15px;
+}
+
+.admin-input-row__title {
+    display: block;
+}
+
+.admin-input-row__title {
+    padding: 7px 0;
+    margin-right: 15px;
+}
+
+.admin-input-row {
+    margin-bottom: 10px;
+}
+
+.admin-tabs__filter {
+    display: flex;
+    
+    .admin-input-row__title {
+        margin-left: auto;
+    }
+}

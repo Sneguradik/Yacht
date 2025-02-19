@@ -1,0 +1,67 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+:host {
+  width: 100%;
+}
+
+.tag-card {
+  margin: 0 0 15px;
+
+  app-ui-card {
+    ::ng-deep {
+      .card {
+        padding: 15px;
+      }
+    }
+  }
+
+  app-ui-dots-menu {
+    display: flex;
+  }
+
+  .current-tag {
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    font-family: Roboto, sans-serif;
+    font-weight: 500;
+    justify-content: space-between;
+    margin: 3%;
+
+    > span {
+      color: rgba(0, 0, 0, 0.76);
+      font-family: Roboto, sans-serif;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 33px;
+    }
+
+    .publications-info {
+      align-content: center;
+      align-items: center;
+      align-self: center;
+      display: flex;
+      flex-direction: row;
+      flex-grow: 0.1;
+      justify-content: space-between;
+
+      .info-block {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 0.2;
+        justify-content: space-around;
+
+        .publications-count {
+          color: #00b7ff;
+          display: inline;
+        }
+      }
+
+      span {
+        font-size: 1em !important;
+      }
+    }
+  }
+}

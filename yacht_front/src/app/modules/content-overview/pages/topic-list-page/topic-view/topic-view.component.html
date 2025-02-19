@@ -1,0 +1,20 @@
+<header>
+    <a class="title" [routerLink]="['/topics', topic.info.url ? topic.info.url : topic.meta.id]">
+        <app-ui-icon class="margin-right-20" size="{{ (responsive.lt.medium | async) ? 'medium' : 'large' }}" [src]="topic.info.picture" [textAlternative]="topic.info.name"></app-ui-icon>
+        <span>{{ topic.info.name | trunk:22 }}</span>
+    </a>
+
+    <aside>
+        <div *ngIf="!topic.subscribers.you" class="button-1 margin-right-10 btn" (click)="toggleSubscribe()">
+            <span *ngIf="!(responsive.lt.medium | async)" class="margin-right-10">{{ 'COMMON.SUBSCRIBE' | translate}}</span>
+            <svg name="plus" size="18"></svg>
+        </div>
+        <div *ngIf="topic.subscribers.you" class="button-1 margin-right-10 btn only-icon-click">
+            <span *ngIf="!(responsive.lt.medium | async)" class="margin-right-10" style="color: #92929D;">{{ 'COMMON.YOU_ARE_ALREADY' | translate }}</span>
+            <svg name="tick" size="18" (click)="toggleSubscribe()"></svg>
+        </div>
+        <app-action-menu-topic *appLoggedIn [data]="topic" (gone)="gone.next($event)"></app-action-menu-topic>
+    </aside>
+</header>
+
+<p class="description">{{ topic.info.description }}</p>

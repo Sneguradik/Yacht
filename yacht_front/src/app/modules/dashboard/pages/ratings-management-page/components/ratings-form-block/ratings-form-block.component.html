@@ -1,0 +1,116 @@
+<form *ngIf="form" class="admin-form" [formGroup]="form">
+    <h3 class="admin-blc__subtitle">Коэффициенты для расчета</h3>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Просмотры</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="views"
+                       [min]="0"
+                       formControlName="views">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">{{ 'COMMON.COMMENTS' | translate }}</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="comments"
+                       [min]="0"
+                       formControlName="comments">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">{{ 'COMMON.FAVORITES' | translate }}</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="fav"
+                       [min]="0"
+                       formControlName="favourites">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Лайки</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="likes"
+                       [min]="0"
+                       formControlName="likes">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Дизлайки</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="dislikes"
+                       [min]="0"
+                       formControlName="dislikes">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Фактор 1</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="factor1"
+                       [min]="0"
+                       formControlName="factor1">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Фактор 2</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="factor2"
+                       [min]="0"
+                       formControlName="factor2">
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Делитель</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="divider"
+                       [min]="0"
+                       formControlName="divider">
+            </span>
+        </label>
+    </fieldset>
+    <h2 class="admin-blc__title">{{ 'COMMON.AUTHORS_RATING' | translate }}</h2>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Разновидность среднего значения</span>
+            <span class="admin-input-row__inputgroup">
+                <app-dashboard-select [(selected)]="selectedAvarage"
+                                      [items]="avarageItems"
+                                      [dropdownWidth]="250">
+                </app-dashboard-select>
+            </span>
+        </label>
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Период расчета</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="number"
+                       class="admin-input admin-input_short admin-input-row__input"
+                       name="days"
+                       [min]="0"
+                       formControlName="days">
+                &nbsp;дней
+            </span>
+        </label>
+    </fieldset>
+    <div class="admin-form__bar">
+        <button class="btn admin-btn_white"
+                type="submit" [disabled]="form.invalid"
+                (click)="submit()">
+            {{ saved ? 'Изменения сохранены' : 'Сохранить изменения' }}
+        </button>
+        <button class="btn admin-btn_blue" (click)="reset()">{{ 'COMMON.UNDO' | translate }}</button>
+    </div>
+</form>

@@ -1,0 +1,63 @@
+@import 'src/styles/responsive';
+@import 'src/styles/variables';
+
+:host {
+  display: block;
+  width: 100%;
+
+  .search-field {
+    align-items: center;
+    background: $lightest-gray;
+    border: 1px solid $lightest-gray;
+    border-radius: 15px;
+    display: flex;
+    height: 35px;
+    padding: 0 20px;
+
+    input {
+      background: none;
+      border: 0;
+      flex-grow: 1;
+      outline: none;
+      font-weight: 500;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+
+    &:focus-within {
+      background: white;
+      border: 1px solid $primary;
+      svg {
+        fill: $primary;
+      }
+    }
+  }
+
+  .users {
+    padding-top: 20px;
+  }
+
+  .user {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
+
+    &-info {
+      margin-left: 15px;
+      width: 100%;
+      @include media('<medium') {
+        h4{
+          font-size: 20px;
+        }
+        p{
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

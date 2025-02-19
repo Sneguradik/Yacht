@@ -1,0 +1,18 @@
+<form class="admin-form">
+    <fieldset class="admin-form__fieldset">
+        <legend class="admin-form__legend">Задать период</legend>
+        <div class="admin-input-row">
+            <span class="admin-input-row__title">Период</span>
+            <span class="admin-input-row__inputgroup">
+                <span>с&nbsp;</span>
+                <input type="date" class="admin-input admin-input_s" name="after" [(ngModel)]="paramsString.after" (change)="emitValue()" placeholder="__.__.____">
+                <span>&nbsp;{{ 'COMMON.TO' | translate }}&nbsp;</span>
+                <input type="date" class="admin-input admin-input_s" name="before" [(ngModel)]="paramsString.before" (change)="emitValue()" placeholder="__.__.____">
+                <label class="admin-check">
+                    <input type="checkbox" name="checkbox" [(ngModel)]="paramsString.checkbox" (change)="emitValue()">
+                    <span class="admin-check__txt"></span>
+                </label>
+            </span>
+        </div>
+    </fieldset>
+</form>

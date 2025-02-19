@@ -1,0 +1,219 @@
+@import 'src/styles/responsive';
+
+.container {
+  background-color: white;
+  border-radius: 15px;
+  width: 700px;
+  @include media('<medium') {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.top {
+  height: 313px;
+  margin-bottom: 19px;
+  position: relative;
+  @include media('<medium') {
+    height: 255px;
+    width: 100%;
+  }
+
+  img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 265px;
+    object-fit: cover;
+    object-position: center;
+    width: 700px;
+    @include media('<medium') {
+      height: 142px;
+      width: 100%;
+    }
+  }
+}
+
+.top-content {
+  height: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 163px;
+  position: absolute;
+  top: 0;
+  width: 660px;
+  @include media('<medium') {
+    height: 251px;
+    padding-top: 161px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .user-icon {
+    display: inline-block;
+    height: 150px;
+    vertical-align: middle;
+    width: 150px;
+    @include media('<medium') {
+      height: 60px;
+      width: 60px;
+    }
+  }
+
+  .upper {
+    display: inline-block;
+    height: 102px;
+    margin-left: 30px;
+    vertical-align: top;
+    width: 480px;
+    @include media('<medium') {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      margin-left: 15px;
+      vertical-align: middle;
+      width: calc(100% - 75px);
+    }
+
+    .name {
+      display: inline-block;
+      height: 100%;
+      position: relative;
+      vertical-align: middle;
+      width: 275px;
+      @include media('<medium') {
+        height: 100%;
+        width: 210px;
+      }
+
+      .content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .sub {
+      display: inline-block;
+      height: 100%;
+      margin-left: 30px;
+      position: relative;
+      vertical-align: middle;
+      width: 175px;
+      @include media('<medium') {
+        margin-left: 15px;
+        width: 35px;
+      }
+
+      .content {
+        background-color: white;
+        border-radius: 15px;
+        height: 35px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 175px;
+        @include media('<medium') {
+          background: none;
+          height: 35px;
+          width: 35px;
+        }
+
+        span {
+          color: #00b7ff;
+          display: inline-block;
+          font-family: Roboto, sans-serif;
+          font-size: 15px;
+          font-style: normal;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          line-height: 18px;
+          margin-right: 10px;
+          vertical-align: middle;
+        }
+
+        svg {
+          display: inline-block;
+          height: 24px;
+          vertical-align: middle;
+          width: 24px;
+          @include media('<medium') {
+            height: 35px;
+            padding-top: 0;
+            width: 35px;
+          }
+        }
+      }
+
+      .btn {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+
+        > * {
+          margin-left: 0 !important;
+          padding-top: 0 !important;
+        }
+      }
+    }
+  }
+
+  .down {
+    float: right;
+    height: 48px;
+    margin-left: 30px;
+    position: relative;
+    top: -47px;
+    width: 480px;
+    @include media('<medium') {
+      display: inline-block;
+      float: none;
+      height: 24px;
+      margin-left: 0;
+      margin-top: 10px;
+      position: relative;
+      top: 0;
+      width: 100%;
+    }
+  }
+}
+
+.desc {
+  border-bottom: 1px solid #f6f6f6;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-height: 20px;
+  padding-bottom: 10px;
+  width: 660px;
+  @include media('<medium') {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 20px;
+    padding: 0 20px;
+  }
+}
+
+.bar {
+  min-height: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 660px;
+  @include media('<medium') {
+    width: 100%;
+    box-sizing: border-box; 
+    padding-left: 0;
+    padding-right: 0;  
+    ng-scrollbar {
+      --scrollbar-color: transparent;
+      --scroll-view-color: transparent;
+      --scrollbar-size: 0;
+      padding: 0 20px;
+    }
+  }
+}

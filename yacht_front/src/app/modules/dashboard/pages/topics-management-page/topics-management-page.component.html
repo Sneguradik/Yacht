@@ -1,0 +1,10 @@
+<app-topics-block [topics$]="allTopicsToItem$"
+                  (createReq)="create($event)"
+                  (deleteReq)="delete($event[0], $event[1], $event[2], $event[3])">
+</app-topics-block>
+<app-topics-panel *ngIf="panel.show"
+                  [delete]="panel.delete"
+                  [topicName]="currName"
+                  (action)="action()"
+                  (cancel)="cancel()">
+</app-topics-panel>

@@ -1,0 +1,19 @@
+<div *ngIf="members" class="company-team">
+    <div *ngFor="let member of members" class="company-member">
+        <app-ui-icon [src]="member.info.picture" [size]="'large'" [textAlternative]="member.info | personName"></app-ui-icon>
+        <svg name="btn-cross" class="company-member-remove" (click)="onRemoveMemberClick(member)"></svg>
+        <div class="company-member-info">
+            <h5 class="company-member-name fade-1">{{ member.info.firstName }} {{ member.info.lastName }}</h5>
+            <span class="company-member-position button-1 fade-1">{{ member.info.username }}</span>
+        </div>
+    </div>
+
+    <div *ngIf="!isMemberSearchVisible" class="company-member company-member--add" (click)="onAddMemberClick()">
+        <svg name="add-user" class="f-primary" size="60"></svg>
+        <div class="company-member-info">
+            <h5 class="c-primary">{{ 'COMMON.ADD_TEAM_MEMBER' | translate}}</h5>
+        </div>
+    </div>
+
+    <app-user-search *ngIf="isMemberSearchVisible" (addUser)="onAddMember($event)" [members]="members"></app-user-search>
+</div>

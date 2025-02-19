@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  width: 260px;
+}
+
+.authors {
+  :first-child {
+    flex-wrap: wrap;
+
+    div {
+      margin-bottom: 11px;
+
+      &:not(:first-child):not(:nth-of-type(6n)) {
+        margin-left: 11px;
+      }
+    }
+  }
+}
+
+.cont {
+  position: relative;
+}
+
+.note {
+  background-color: #00b7ff;
+  border-radius: 12px;
+  height: 12px;
+  margin: 0 !important;
+  min-width: 12px;
+  padding: 0;
+  //z-index: 10;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+
+  span {
+    color: white;
+    font-family: Roboto, sans-serif;
+    font-size: 9.5px;
+    line-height: 11px;
+    padding-left: 2px;
+    padding-right: 2px;
+    vertical-align: text-top;
+    //margin-top: 2px;
+  }
+}
+
+.tags {
+  li {
+    a {
+      color: #00b7ff;
+      text-decoration: none;
+    }
+  }
+}
+
+.searchable {
+  svg {
+    width: 18px;
+  }
+
+  header{
+    position: relative;
+  }
+
+  header > * {
+    width: 100%;
+  }
+}

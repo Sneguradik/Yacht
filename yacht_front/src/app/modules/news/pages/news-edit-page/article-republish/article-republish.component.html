@@ -1,0 +1,21 @@
+<div class="rect">
+    <div class="w-100"></div>
+    <div class="preview">
+        <div class="system-alert">
+            <div class="system-alert__wrap">
+                <button class="system-alert__close" title="Закрыть" [routerLink]="['/']">
+                    <svg width="20" height="20" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0015 8.98985L13.5371 5.45431C13.816 5.17537 14.2683 5.17537 14.5472 5.45431C14.8262 5.73326 14.8262 6.18552 14.5472 6.46447L11.0117 10L14.5472 13.5355C14.8262 13.8145 14.8262 14.2667 14.5472 14.5457C14.2683 14.8246 13.816 14.8246 13.5371 14.5457L10.0015 11.0102L6.466 14.5457C6.18705 14.8246 5.73479 14.8246 5.45584 14.5457C5.1769 14.2667 5.1769 13.8145 5.45584 13.5355L8.99138 10L5.45584 6.46447C5.1769 6.18552 5.1769 5.73326 5.45584 5.45431C5.73479 5.17537 6.18705 5.17537 6.466 5.45431L10.0015 8.98985Z" />
+                    </svg>
+                </button>
+                <h2 class="system-alert__title">{{ 'COMMON.EDIT_WARNING' | translate }}</h2>
+                <p class="system-alert__txt ">{{ 'COMMON.EDIT_WARNING_' | translate }}</p>
+                <div class="system-alert__bar">
+                    <button class="system-alert__confirm" (click)="refresh()">{{ 'COMMON.WARNING_APPROVE' | translate }}</button>
+                    <button class="system-alert__reset" [routerLink]="['/']">{{ 'COMMON.UNDO' | translate }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

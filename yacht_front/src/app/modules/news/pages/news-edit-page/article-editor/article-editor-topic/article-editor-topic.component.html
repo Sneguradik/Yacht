@@ -1,0 +1,40 @@
+<div class="container" [ngClass]="{ 'primary-border' : open }">
+    <div class="select btn" (click)="toggleDropdown()">
+        <div style="align-items: center; display: inline-flex;">
+            <div *ngIf="!selected" class="ui-icon-empty"></div>
+            <span *ngIf="!selected">{{ 'COMMON.CHOOSE_A_TOPIC' | translate }}</span>
+            <app-ui-icon *ngIf="selected" [src]="selected.info.picture" [textAlternative]="selected.info.name" [size]="'medium'"></app-ui-icon>
+            <span *ngIf="selected" class="mr-5">{{ selected.info.name }}</span>
+            <span *ngIf="selected && article.topics.length > 1" class="blue-text mr-5">{{ '+' + (article.topics.length - 1) }}</span>
+            <svg name="chevron/down" class="ui-icon"></svg>
+            <span *ngIf="open" class="select-caption">{{ 'COMMON.SAVE_CHOICE' | translate }}</span>
+        </div>
+        <div class="add-info">
+            <span class="f-w-normal mr-20" [ngClass]="{ 'c-primary' : article.author.info.company.isCompany }">{{ article.author.info | personName }}</span>
+            <span class="date">{{ article.meta.updatedAt | customDate }}</span>
+        </div>
+    </div>
+    <div class="sub-info select">
+        <span *ngIf="!responsive.lt.medium" class="grey-text">{{ 'COMMON.POINT_1_TO_4' | translate }} <svg name="star" class="ui-icon" size="15" style="display: inline-block; width: 15px; height: 15px; margin: 0 2px;"></svg> {{ 'COMMON.POINT_1_TO_4_' | translate }}</span>
+        <span *ngIf="responsive.lt.medium" class="grey-text" style="display: inline-block !important;">{{ 'COMMON.POINT_1_TO_4' | translate }} <svg name="star" class="ui-icon" size="15" style="display: inline-block; width: 15px; height: 15px; margin: 0 2px;"></svg> {{ 'COMMON.POINT_1_TO_4_' | translate }}</span>
+    </div>
+  
+    <ng-scrollbar *ngIf="open" [appearance]="'standard'" thumbClass="blue-sb">
+        <div class="dropdown" [ngClass]="{ 'dropdown--active': open }">
+            <div *ngFor="let topic of allTopics" class="dropdown-item">
+                <div class="empty-group">
+                    <app-ui-icon [src]="topic.info.picture" [textAlternative]="topic.info.name" [size]="'medium'"></app-ui-icon>
+                    <span class="dropdown-item-text">{{ topic.info.name }}</span>
+                </div>
+                <div class="actions">
+                    <svg name="star"
+                        class="ui-icon"
+                        [ngClass]="{ 'ui-icon--active': article.topics.indexOf(topic.meta.id) == 0 }"
+                        (click)="setMainTopic(topic.meta.id)"></svg>
+                    <app-ui-checkbox [checked]="article.topics.indexOf(topic.meta.id) >= 0"
+                                     [disabled]="!article.topics.includes(topic.meta.id) && article.topics.length >= 4" (change)="onChange(topic, $event)"></app-ui-checkbox>
+                </div>
+            </div>
+        </div>
+    </ng-scrollbar>
+</div>

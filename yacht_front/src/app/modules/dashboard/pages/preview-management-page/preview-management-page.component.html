@@ -1,0 +1,6 @@
+<app-preview-management-block
+    [inputData]="data"
+    [saved]="saved"
+    (saveReq)="putContent($event)"
+    (pictureReq)="putCover($event[0], $event[1])"
+></app-preview-management-block>

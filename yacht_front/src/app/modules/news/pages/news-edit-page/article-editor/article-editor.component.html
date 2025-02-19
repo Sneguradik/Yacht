@@ -1,0 +1,80 @@
+<app-ui-card>
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="saveAndPublish()">
+        <div class="name">
+            <app-ui-form-control>
+                <div class="form-textarea">
+                    <textarea class="ui-input-h1" autosize [minRows]="1" formControlName="title" [placeholder]="'COMMON.PUBLICATION_TITLE' | translate" maxlength="100"></textarea>
+                    <div *ngIf="!(isMediumResponsive)" class="counter head-counter-resp"><span>{{ 100 - (form.get('title').value ? form.get('title').value.length : 0) + '/100' }}</span></div>
+                    <div *ngIf="isMediumResponsive" class="counter head-counter-resp"><span>{{ 100 - (form.get('title').value ? form.get('title').value.length : 0) }}</span></div>
+                </div>
+            </app-ui-form-control>
+        </div>
+
+        <app-article-editor-topic [article]="currentArticle" [allTopics]="allTopics" (topicsChange)="topicsChange($event)" (topicsSaveReq)="updateTopics($event)"></app-article-editor-topic>
+
+        <app-ui-form-control class="counter-in">
+            <span #formControlHeader class="label">{{ 'COMMON.PUBLICATIONS_ANNOUNCEMENT' | translate }}</span>
+            <div class="form-textarea">
+                <textarea #formControlAction
+                          class="form-textarea"
+                          autosize
+                          [minRows]="1"
+                          formControlName="summary"
+                          [placeholder]="'COMMON.WRITE_AN_ANNOUNCEMENT' | translate"
+                          maxlength="300">
+                </textarea>
+                <div *ngIf="!(isMediumResponsive)" class="counter head-counter-resp"><span>{{ 300 - (form.get('summary').value ? form.get('summary').value.length : 0) + '/300' }}</span></div>
+                <div *ngIf="isMediumResponsive" class="counter head-counter-resp"><span>{{ 300 - (form.get('summary').value ? form.get('summary').value.length : 0) }}</span></div>
+            </div>
+        </app-ui-form-control>
+
+        <app-ui-form-control>
+            <span #formControlHeader class="label">{{ 'COMMON.PUBLICATION_TEXT' | translate }}</span>
+            <app-wysiwyg-editor #editor
+                                #formControlAction
+                                *ngIf="(initialData !== '' && initialData !== null) || openEditor" [initialData]="initialData"
+                                (valueChange)="wysiwygValueChange$.next($event)">
+            </app-wysiwyg-editor>
+            <div *ngIf="(initialData === '' || initialData === null) && !openEditor" (mousedown)="openEdit()">
+                <textarea class="form-textarea" autosize [minRows]="1" [placeholder]="'COMMON.CREATE_PUBLICATION' | translate" readonly></textarea>
+            </div>
+        </app-ui-form-control>
+
+        <app-ui-form-control>
+            <p class="label margin-bottom-15">{{ 'COMMON.PUBLICATION_TAGS' | translate }}</p>
+            <app-tag-assign *ngIf="article"
+                            [tags]="tags"
+                            [suggestions]="suggestions"
+                            (suggestionsReq)="tagsSuggestions($event)"
+                            (uploadTagsReq)="tagsUpload($event)">
+            </app-tag-assign>
+        </app-ui-form-control>
+
+        <hr class="blue-line margin-bottom-30"/>
+
+        <img *ngIf="coverSrc" src="{{ coverSrc }}" style="width: 100%; margin-bottom: 5px; object-fit: cover;" />
+        <div class="caption c-caption margin-bottom-15">
+            <span>{{ 'COMMON.RECOMMENDED_IMAGE_SIZE' | translate }}</span>
+        </div>
+
+        <div class="form-actions">
+            <div class="cover-upload">
+                <svg name="attach"></svg>
+                <label for="cover">{{ 'COMMON.PUBLICATION_IMAGE' | translate }}</label>
+                <input id="cover" type="file"
+                    accept="image/*"
+                    (change)="onCoverUpload($any($event).target.files)">
+            </div>
+            <div class="buttons">
+                <button class="drafts button-1" type="button" (click)="saveAsDraft()" [disabled]="isSubmitting$ | async">
+                    <span>{{ 'COMMON.TO_DRAFTS' | translate }}</span>
+                    <svg name="drafts"></svg>
+                </button>
+                <button class="submit button-1" type="submit" [disabled]="isSubmitting$ | async">
+                    <span>{{ 'COMMON.PUBLISH' | translate }}</span>
+                    <svg name="paper-airplane" fill="#00B7FF"></svg>
+                </button>
+            </div>
+        </div>
+    </form>
+</app-ui-card>

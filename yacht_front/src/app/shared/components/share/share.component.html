@@ -1,0 +1,25 @@
+<svg *ngIf="!spec" name="share" size="20" class="icon f-gray" [class.open]="open" (click)="open = !open"></svg>
+<ul class="structural" [class.hidden]="!open && !spec" [class.wide]="wide">
+    <ng-container [ngTemplateOutlet]="share"
+                  [ngTemplateOutletContext]="{ baseUrl: 'https://twitter.com/intent/tweet?url=', icon: 'twitter' }"></ng-container>
+    <ng-container [ngTemplateOutlet]="share"
+                  [ngTemplateOutletContext]="{ baseUrl: 'https://vk.com/share.php?url=', icon: 'vk' }"></ng-container>
+    <ng-container [ngTemplateOutlet]="shareTg"
+                  [ngTemplateOutletContext]="{ baseUrl: 'tg://msg_url?url=' }"></ng-container>
+</ul>
+
+<ng-template #share let-baseUrl="baseUrl" let-icon="icon">
+    <li>
+        <a [href]="baseUrl + url | unsafeUrl" target="_blank">
+            <svg name="social/{{icon}}" size="20"></svg>
+        </a>
+    </li>
+</ng-template>
+
+<ng-template #shareTg let-baseUrl="baseUrl" let-icon="icon">
+    <li>
+        <a [href]="baseUrl + url | unsafeUrl" target="_blank">
+            <img src="assets/icons/uncorrect/telegram.png" style ="width: 20px; height: 20px;" alt="">
+        </a>
+    </li>
+</ng-template>

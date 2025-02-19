@@ -1,0 +1,22 @@
+:host {
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.icon-24 {
+  height: 24px;
+  width: 24px;
+
+  svg {
+    display: flex;
+    left: 2px;
+    margin: auto;
+  }
+}
+  

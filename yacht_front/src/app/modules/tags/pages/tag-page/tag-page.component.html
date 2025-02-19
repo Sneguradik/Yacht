@@ -1,0 +1,11 @@
+<app-tag-header [tag]="tag$ | async"></app-tag-header>
+<section>
+    <ul *ngIf="pageable.content" class="block-card item-space-40">
+        <li *ngFor="let article of pageable.content; let i = index">
+            <app-feed-article-view [data]="article[0]" [topic]="article[1]" [options]="{ pictureOn: true, menuOn: true }"></app-feed-article-view>
+        </li>
+    </ul>
+    <p *ngIf="!pageable.content">{{'COMMON.TAGS_NOT_FOUND' | translate}</p>
+</section>
+
+<app-pagination [pageable]="pageable"></app-pagination>

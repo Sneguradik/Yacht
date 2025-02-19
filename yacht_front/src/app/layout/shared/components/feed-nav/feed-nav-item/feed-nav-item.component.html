@@ -1,0 +1,26 @@
+<div class="personal-feed has-dropdown v-center margin-right-44"
+    [ngClass]="{ 'selected': selected, 'responsive-hide-lt-large': !isSecondHeader }"  [class.open]="state.shown">
+    <a (mousedown)="action()">
+        <span class="button-1 fade-1">
+            {{ text | translate }}
+            <sup *ngIf="count">{{ '+' + count }}</sup>
+        </span>
+    </a>
+    <ng-container *ngIf="dropdownConf.hasDropdown">
+        <svg name="dropdown" size="12" class="dropdown-icon clickable" (mousedown)="toggle()"></svg>
+        <div #dropdown [class]="'personal-feed-dropdown ' + dropdownExtraClass" tabindex="-1" [ngClass]="{ 'hidden': !state.shown }">
+            <ul class="structural fade-2">
+                <li *ngFor="let item of dropdownConf.items"
+                    class="button-1 underlined clickable popular-dropdown-hover"
+                    (click)="handleClick();toggle()">
+                    <a class="dropdown-link"
+                       [routerLink]="item.link"
+                       [routerLinkActive]="['selected']"
+                       [queryParams]="item.query"
+                       [queryParamsHandling]="'merge'">
+                        {{ item.text  | translate }}</a>
+                </li>
+            </ul>
+        </div>
+    </ng-container>
+</div>

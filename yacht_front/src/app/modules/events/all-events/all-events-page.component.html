@@ -1,0 +1,15 @@
+<section class="all-events">
+  <section class="tag-card">
+    <app-ui-card [shadow]="false">
+      <div class="current-tag">
+        <span>{{'COMMON.EVENT_' | translate}}</span>
+        <app-ui-dots-menu *appRoleGuard="'EDITOR$'">
+          <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="star" [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate" (click)="showcase()">
+          </app-ui-dots-menu-item>
+        </app-ui-dots-menu>
+      </div>
+    </app-ui-card>
+  </section>
+
+  <app-event-list></app-event-list>
+</section>

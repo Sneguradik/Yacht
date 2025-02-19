@@ -1,0 +1,122 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+/* stylelint-disable */
+
+:host ::ng-deep {
+  // --ck-widget-outline-thickness: 0;
+
+  * {
+    box-shadow: none !important;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .ck.ck-editor__editable_inline {
+    border: 0 !important;
+    border-bottom: 3px solid $light-blue !important;
+    border-radius: 0 !important;
+    box-shadow: none;
+    padding: 10px 0 40px;
+    transition: 0.2s ease-in-out border-color;
+    word-wrap: break-word;
+    max-width: 660px;
+
+    &:focus {
+      border: 0 !important;
+      border-bottom: 3px solid $primary !important;
+      border-radius: 0 none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  a{
+    color: #00b7ff;
+    text-decoration: underline;
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
+  .cke_source { white-space: pre-wrap !important; word-wrap: break-word !important;}
+
+  .ck-content {
+    word-wrap: break-word !important;
+  }
+
+  // open toolbar dropdowns on top
+  .ck-dropdown__panel_sw {
+    top: -150% !important;
+  }
+
+  .readonly .ck.ck-editor__editable_inline {
+    border-bottom: 0 !important;
+    padding-bottom: 0;
+
+    .ck-widget {
+      outline-width: 0 !important;
+    }
+
+    .image > figcaption.ck-placeholder {
+      display: none !important;
+    }
+  }
+
+  #toolbar-container {
+    background-color: white !important;
+    bottom: 0;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 2;
+  }
+
+  .ck-toolbar {
+    background-color: transparent !important;
+    border: 0 !important;
+    bottom: 5px;
+    position: relative;
+
+    @include media('<medium') {
+      width: 350px;
+    }
+
+    .ck-toolbar__separator {
+      background-color: transparent !important;
+      margin-left: 10px;
+    }
+
+    path {
+      fill: $icon !important;
+    }
+  }
+
+  .ck-dropdown__panel .ck-toolbar__items {
+    @media only screen and (max-width: 767px) {
+      width: 250px !important;
+      flex-wrap: wrap !important;
+    }
+  }
+}
+
+/* stylelint-enable */
+
+
+// TO DO: Check to set position initial to global scope
+::ng-deep .ui-form-control {
+  position: initial!important;
+}
+
+::ng-deep li {
+  position: initial!important;
+}
+
+::ng-deep .ck-content {
+  padding: 0 10px!important;
+}

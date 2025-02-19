@@ -1,0 +1,9 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+@import 'src/styles';
+
+:host {
+    .active {
+      fill: $primary;
+    } 
+}

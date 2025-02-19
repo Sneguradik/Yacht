@@ -1,0 +1,52 @@
+<section *ngIf="jobs.length" class="jobs" [ngClass]="{ 'blue-jobs': !offBG }" [style.padding-top.px]="offBG ? 20 : null" [style.padding-bottom.px]="offBG ? 20 : null">
+    <div class="jobs--header">
+      <h3 class="btn" ><a [routerLink]="['/jobs']">{{ 'COMMON.VACANCIES_' | translate }}</a></h3>
+      <div class="link">
+        <a *ngIf="(sessionService.loggedIn$ | async)" class="clickable" routerLink="/jobs/create">{{ 'COMMON.TO_SEND_YOUR_' | translate }}</a>
+        <a *ngIf="!(sessionService.loggedIn$ | async)" class="clickable" (click)="userDropdown.setShowDropdown(true)">{{ 'COMMON.TO_SEND_YOUR_' | translate }}</a>
+      </div>
+    </div>
+    <ul>
+      <li *ngFor="let job of (expanded ? jobs : jobs.slice(0, 6))" [routerLink]="['/jobs', job.meta.id]">
+        <div class="info">
+          <div class="black" style="line-height: 30px; position: relative; top: -7px;">
+            {{ job.info.name }}
+          </div>
+          <div *ngIf="job.info.minSalary" class="gray">
+            {{ job.info.minSalary ? ('COMMON.FROM' | translate) + ' ' + job.info.minSalary + ' ' + job.info.currency : '' }}
+          </div>
+          <div *ngIf="job.info.maxSalary" class="gray">
+            {{ job.info.maxSalary ? ('COMMON.TO' | translate) + ' ' + job.info.maxSalary + ' ' + job.info.currency : '' }}
+          </div>
+          <app-ui-icon [src]="job.company.info.picture" [textAlternative]="job.company.info | personName" [size]="'small'"></app-ui-icon>
+          <div class="black">
+            {{ job.company.info | personName }}
+          </div>
+          <div class="gray" *ngIf="job.info.city">
+            {{ job.info.city ? job.info.city : '' }}
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="jobs-footer">
+      <span>
+        <div *ngIf="!expanded && jobs.length > 6" class="jobs-more">
+          <span class="anchor" (click)="toggleExpand()">{{ 'COMMON.SEE_MORE' | translate }}
+            <svg style="transform: rotate(90deg);" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M4.58579 6L0.292895 1.70711C-0.0976292 1.31658 -0.0976291 0.683417 0.292895 0.292893C0.68342 -0.0976304 1.31658 -0.0976303 1.70711 0.292894L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711L1.70711 11.7071C1.31658 12.0976 0.683418 12.0976 0.292893 11.7071C-0.0976309 11.3166 -0.0976308 10.6834 0.292894 10.2929L4.58579 6Z"
+                fill="#92929D"/>
+            </svg>
+          </span>
+        </div>
+      </span>
+      <a class="anchor link" [routerLink]="['/jobs']">{{ 'COMMON.SHOW_ALL_VACANCIES' | translate }}
+        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M4.58579 6L0.292895 1.70711C-0.0976292 1.31658 -0.0976291 0.683417 0.292895 0.292893C0.68342 -0.0976304 1.31658 -0.0976303 1.70711 0.292894L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711L1.70711 11.7071C1.31658 12.0976 0.683418 12.0976 0.292893 11.7071C-0.0976309 11.3166 -0.0976308 10.6834 0.292894 10.2929L4.58579 6Z"
+            fill="#92929D"/>
+        </svg>
+      </a>
+    </div>
+</section>

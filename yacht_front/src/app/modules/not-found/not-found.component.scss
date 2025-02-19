@@ -1,0 +1,34 @@
+@import 'src/styles/variables.scss';
+@import 'src/styles/font.scss';
+
+:host {
+    width: 100%;
+}
+
+.not-found-component {
+    width: 100%;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    padding: 10px;
+    color: $label;
+    border-color: $label;
+    border-width: 1px;
+    box-sizing: border-box;
+
+    h5 {
+        margin-bottom: 20px;
+        font-weight: normal;
+    }
+
+    a {
+        color: $primary;
+        text-decoration: underline;
+    }
+
+    hr {
+        display: block;
+        width: 50px;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+}

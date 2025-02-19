@@ -1,0 +1,67 @@
+<div class="comment" [ngClass]="{'level-1': depth === 1, 'level-2': depth >= 2, 'padding-left-0': extraStyle}">
+    <div class="margin-bottom-8" [ngClass]="{'info': !extraStyle, 'info-extra': extraStyle}">
+        <app-ui-icon class="clickable" [src]="comment.owner.info.picture"
+                     [textAlternative]="comment.owner.info | personName" [size]="depth | call : iconSize" [routerLink]="comment.owner | accountUrl"></app-ui-icon>
+        <div class="meta">
+            <div class="name-reply v-center margin-right-10 tool-wrap">
+                <span class="subtitle-1 css-block margin-right-10 clickable"><a [routerLink]="comment.owner | accountUrl">{{ comment.owner.info | personName }}</a></span>
+                <div *ngIf="parent && parent.meta.id" class="v-center">
+                    <svg name="reply" class="f-gray margin-right-10"></svg>
+                    <span *ngIf="responsive.lt.medium | async; else fullName" class="subtitle-1 fade-2 clickable" >
+                        <a [routerLink]="parent.owner | accountUrl">{{ parent.owner.info | personNameShort }}</a>
+                    </span>
+                    <ng-template #fullName>
+                        <a class="subtitle-1 fade-2 clickable" [routerLink]="parent.owner | accountUrl">{{ parent.owner.info | personName }}</a>
+                    </ng-template>
+                </div>
+                <span *ngIf="extraStyle" class="timestamp caption fade-3 margin-left-10">{{ comment.meta.createdAt | customDate }}</span>
+            </div>
+            <span *ngIf="!extraStyle" class="timestamp caption fade-3 css-block">{{ comment.meta.createdAt | customDate }}</span>
+        </div>
+    </div>
+    <ng-container *ngIf="!comment.meta.deletedAt; else deletedComment">
+        <ng-container *ngIf="!(editMode$ | async); else editModeBlock">
+            <div #renderedContent class="subtitle-2 margin-bottom-8 comment-text" [innerHTML]="commentHtml"></div>
+            <div class="v-center">
+                <span class="subtitle-2 c-gray margin-right-10 btn" (click)="reply.emit()">{{'COMMON.ANSWER' | translate}}</span>
+                <div class="v-center">
+                    <svg name="bell" size="18" class="f-gray margin-right-10 clickable" [class.f-primary]="isWatched"
+                        (click)="watch()"></svg>
+                    <app-share [url]="['/news', context] | url: 'comment-' + comment.meta.id" class="margin-right-10 right-direction">
+                    </app-share>
+                    <app-action-menu-comment 
+                        *appLoggedIn 
+                        class="margin-right-10"
+                        [data]="comment"
+                        [own]="isOwn" 
+                        [context]="context"
+                        (gone)="gone.emit()" 
+                        (edit)="edit()" 
+                        (report)="reported = true" 
+                        (deleteEmit)="delete($event)">
+                    </app-action-menu-comment>
+                    <span *ngIf="reported" class="caption c-caption">Жалоба отправлена</span>
+                </div>
+                <div class="align-right">
+                    <app-voting [up]="comment.votes.up" [down]="comment.votes.down" [castVote]="comment.votes.you"
+                        [style]="'comment'" [disabled]="isOwn" (vote)="doCommentVote(comment, $event)"></app-voting>
+                </div>
+            </div>
+        </ng-container>
+        <ng-template #editModeBlock>
+            <app-ui-textarea class="css-block margin-bottom-20" [formControl]="editableContent"
+                             [disabled]="processing$ | async">
+            </app-ui-textarea>
+            <footer>
+                <button type="submit" class="ui margin-right-10" [class.error]="error$ | async"
+                    [disabled]="processing$ | async" (click)="submit()">{{ 'COMMON.SAVE' | translate }}
+                </button>
+                <button class="ui cancel" (click)="cancel()"
+                    [disabled]="processing$ | async">{{ 'COMMON.UNDO' | translate }}</button>
+            </footer>
+        </ng-template>
+    </ng-container>
+    <ng-template #deletedComment>
+        <p class="fade-2 subtitle-2">Комментарий удалён</p>
+    </ng-template>
+</div>

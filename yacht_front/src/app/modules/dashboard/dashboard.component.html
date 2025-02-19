@@ -1,0 +1,43 @@
+<ng-container *ngIf="platformService.isBrowser">
+    <main class="main">
+        <div *ngIf="router.url !== '/dashboard/ads'; else outlet" class="admin-wrap">
+            <div class="admin-bar">
+                <nav class="admin-nav">
+                    <ul>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="ratings" routerLinkActive="active">Настройка рейтингов</a></li>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="topics" routerLinkActive="active">Управление темами</a></li>
+                        <li><a routerLink="ads" routerLinkActive="active">Управление рекламными блоками</a></li>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="events-jobs" routerLinkActive="active">Мероприятия и Вакансии</a></li>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="roles" routerLinkActive="active">Управление правами Админов</a></li>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="tags" routerLinkActive="active">Управление Тегами</a></li>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="activity" routerLinkActive="active">Активность пользователей</a></li>
+                        <li><a *appRoleGuard="['ROLE_SUPERUSER']" routerLink="preview" routerLinkActive="active">Управление preview</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="admin-content">
+                <section class="admin-blc admin-blc__grey">
+                    <ng-container *ngTemplateOutlet="title"></ng-container>
+                    <router-outlet></router-outlet>
+                </section>
+            </div>
+        </div>
+    </main>
+</ng-container>
+
+<ng-template #title>
+    <ng-container [ngSwitch]="router.url">
+        <h2 *ngSwitchCase="'/dashboard/ratings'" class="admin-blc__title">Настройка рейтингов</h2>
+        <h2 *ngSwitchCase="'/dashboard/topics'" class="admin-blc__title">Управление темами</h2>
+        <h2 *ngSwitchCase="'/dashboard/ads'" class="admin-blc__title">Управление рекламными блоками</h2>
+        <h2 *ngSwitchCase="'/dashboard/events-jobs'" class="admin-blc__title">Мероприятия и Вакансии</h2>
+        <h2 *ngSwitchCase="'/dashboard/roles'" class="admin-blc__title">Управление правами Админов</h2>
+        <h2 *ngSwitchCase="'/dashboard/tags'" class="admin-blc__title">Управление Тегами</h2>
+        <h2 *ngSwitchCase="'/dashboard/activity'" class="admin-blc__title">Активность пользователей</h2>
+        <h2 *ngSwitchCase="'/dashboard/preview'" class="admin-blc__title">Управление preview</h2>
+    </ng-container>
+</ng-template>
+
+<ng-template #outlet>
+    <router-outlet></router-outlet>
+</ng-template>

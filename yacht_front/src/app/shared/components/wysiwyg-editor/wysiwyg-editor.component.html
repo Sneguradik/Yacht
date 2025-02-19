@@ -1,0 +1,15 @@
+<ckeditor #ckeditor
+          *ngIf="platformService.isBrowser"
+          [class.readonly]="readOnly"
+          [editor]="editor"
+          [config]="config"
+          [disabled]="readOnly"
+          (change)="onChange($event)"
+          (focusin)="emit('focusin')"
+          (focusout)="emit('focusout')"
+          (ready)="onReady($event)">
+</ckeditor>
+<div [id]="id"></div>
+
+<!-- representing data on server -->
+<div *ngIf="platformService.isServer" [innerHTML]="initialData"></div>

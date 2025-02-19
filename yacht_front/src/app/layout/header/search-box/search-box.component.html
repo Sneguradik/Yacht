@@ -1,0 +1,16 @@
+<ul class="structural item-space-20 fade-1">
+    <ng-container *ngIf="result">
+        <li *ngFor="let item of result" class="button-1" style="display: flex; align-items: center;">
+            <app-ui-icon *ngIf="item.topic" style="margin-right: 10px;" size="small" [src]="item.image" [textAlternative]="item.text"></app-ui-icon>
+            <a [routerLink]="item.routerLink" (click)="close.emit()">{{ item.text }}</a>
+        </li>
+        <li *ngIf="result.length === 0" class="button-1">{{ 'COMMON.POSSIBLY_SOMEBODY_WORKING' | translate }}...</li>
+    </ng-container>
+    <li *ngIf="!result" class="button-1">{{ 'COMMON.SEARCH' | translate }}...</li>
+    <li *ngIf="totalResults > 5" class="results v-center">
+        <span class="button-1" (click)="close.emit()">
+            <a style="all: inherit" [routerLink]="['/search']" [queryParams]="{ 'q' : query }" queryParamsHandling="merge">{{ 'COMMON.CHECK_THE_RESULTS' | translate }}</a>
+        </span>
+        <span class="count align-right">{{ totalResults }}</span>
+    </li>
+</ul>

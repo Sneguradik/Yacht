@@ -1,0 +1,35 @@
+<app-user-header></app-user-header>
+
+<ul *ngIf="pinned" class="block-card item-space-20">
+    <li>
+        <app-feed-article-view [options]="{ pinnedMark: true, pictureOn: true, menuOn: true }" 
+                               [data]="pinned[0]" 
+                               [topic]="pinned[1]" 
+                               (pinned)="pinned[0].pinned = false; data.articles.content.push(pinned); updateItems(); pinned=$event;">
+        </app-feed-article-view>
+    </li>
+</ul>
+<div style="margin-bottom: 50px;"></div>
+
+<ul class="block-card item-space-20">
+    <li *ngFor="let item of items; let i = index" [ngSwitch]="item.type">
+        <app-feed-article-view *ngSwitchCase="promotedViewItemTypeEnum.ARTICLE"
+                               [data]="item.item[0]"
+                               [topic]="item.item[1]"
+                               [options]="{ pictureOn: true, menuOn: true }"
+                               (pinned)="pinned=$event; remove(item.item, 'articles'); pinned[0].pinned = true;"
+                               (goneBookmarked)="removeBookmarked($event[0], $event[1])"
+                               (gone)="remove(item.item, 'articles')">
+        </app-feed-article-view>
+        <app-event-preview *ngSwitchCase="promotedViewItemTypeEnum.EVENT"
+                           [event]="item.item"
+                           (goneBookmarked)="removeBookmarked($event[0], $event[1])"
+                           (gone)="remove(item.item, 'events')">
+        </app-event-preview>
+        <app-job-preview *ngSwitchCase="promotedViewItemTypeEnum.JOB"
+                         [job]="item.item"
+                         (goneBookmarked)="removeBookmarked($event[0], $event[1])"
+                         (gone)="remove(item.item, 'jobs')">
+        </app-job-preview>
+    </li>
+</ul>

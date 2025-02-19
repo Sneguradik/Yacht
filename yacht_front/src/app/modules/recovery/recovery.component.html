@@ -1,0 +1,25 @@
+<div class="rec-container">
+    <app-ui-card>
+        <h2>Форма восстановления пароля</h2>
+        <form [formGroup]="form" (submit)="onSubmit()">
+            <div class="margin-bottom-8" [ngClass]="{error: form.controls['password'].invalid}">
+                <label [for]="'input-login-password'" class="caption">Новый пароль</label>
+                <div class="v-center">
+                    <input type="password" [attr.id]="'input-login-password'" formControlName="password" minlength="8" maxlength="128">
+                </div>
+            </div>
+            <div class="margin-bottom-16" [ngClass]="{error: form.hasError('mismatch')}">
+                <label [for]="'input-login-password'" class="caption">{{ 'COMMON.CONFIRM_THE_PASSWORD'  | translate}}</label>
+                <div class="v-center">
+                    <input type="password" [attr.id]="'input-login-password'" formControlName="passwordRepeat" minlength="8" maxlength="128">
+                </div>
+            </div>
+            <div>
+              <button type="submit" class="button-1" [disabled]="form.invalid">
+                {{ 'COMMON.FORGET_YOUR_PASSWORD' | translate }}
+              </button>
+            </div>
+        </form>
+    </app-ui-card>
+</div>
+

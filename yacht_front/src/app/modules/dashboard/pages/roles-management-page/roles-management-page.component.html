@@ -1,0 +1,12 @@
+<app-dashboard-tabs [navs]="navs"
+                    [filters]="filters"
+                    [activeFilter]="selectedFilter"
+                    (selectedNav)="selectNav($event)"
+                    (showReq)="refresh($event)">
+
+    <app-user-management-block [users]="users"
+                               (req)="setUserRole($event.id, $event.role, $event.status)"
+                               (pageReq)="getUsers()">
+    </app-user-management-block>
+
+</app-dashboard-tabs>

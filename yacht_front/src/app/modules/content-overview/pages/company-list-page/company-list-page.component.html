@@ -1,0 +1,38 @@
+<app-navbar [searchPlaceholder]="'COMMON.SEARCH_BY_COMPANY' | translate" activeItem="{{ 'COMMON.COMPANIES' | translate }}" (search)="handleSearch($event)"></app-navbar>
+<app-filters [filters]="filters" [activeFilter]="activeFilter" (toggleFilter)="filterEvent($event)"></app-filters>
+<app-ranges [ranges]="ranges" [activeRange]="activeRange" (toggleRange)="rangeEvent($event)"></app-ranges>
+
+<ul class="block-card item-space-20">
+    <app-user-view
+        *ngFor="let company of companies"
+        [data]="company"
+        (gone)="remove($event)">
+        <footer>
+            <div class="row">
+                <p class="stats-item">
+                    {{ 'COMMON.PUBLICATIONS_' | translate}}
+                    <span class="stats-item__value">{{ company.postCount | bigNumbers }}</span>
+                </p>
+                <p class="stats-item">
+                    {{ 'COMMON.VACANCIES_' | translate}}
+                    <span class="stats-item__value">{{ company.jobCount | bigNumbers }}</span>
+                </p>
+                <p class="stats-item">
+                    {{ 'COMMON.EVENT_'  | translate}}
+                    <span class="stats-item__value">{{ company.eventCount | bigNumbers }}</span>
+                </p>
+                <aside class="subscribers">
+                    <p class="stats-item">
+                        {{ 'COMMON.SUBSCRIBERS' | translate}}
+                        <span class="stats-item__value">{{ company.subscribers.count | bigNumbers }}</span>
+                    </p>
+                </aside>
+            </div>
+            <p class="description">
+                {{ company.info.bio }}
+            </p>
+        </footer>
+    </app-user-view>
+</ul>
+
+<app-pagination [page]="currentPage" [maxPages]="totalPages" [enabled]="!isLoading" (onPage)="fetchNextPage()"></app-pagination>

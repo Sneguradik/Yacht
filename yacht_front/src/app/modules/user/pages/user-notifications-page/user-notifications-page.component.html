@@ -1,0 +1,15 @@
+<app-user-header></app-user-header>
+
+<app-ranges [ranges]="ranges" [activeRange]="activeRange" (toggleRange)="rangeEvent($event)"></app-ranges>
+<ul class="block-card item-space-20">
+    <li *ngFor="let item of (notificationUpdateService.notifications$ | async)">
+        <div class="border-bottom">
+            <app-notification [data]="item"></app-notification>
+        </div>
+    </li>
+</ul>
+<app-pagination [page]="page"
+                [maxPages]="maxPages"
+                [enabled]="!isLoadingNextPage"
+                (onPage)="appendPage($event)">
+</app-pagination>

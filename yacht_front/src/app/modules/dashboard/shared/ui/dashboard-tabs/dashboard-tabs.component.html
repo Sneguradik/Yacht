@@ -1,0 +1,17 @@
+<div class="admin-tabs js-tabs">
+    <div class="admin-tabs__nav">
+        <a *ngFor="let nav of navs" class="admin-tabs__link" [ngClass]="{'active': nav === activeNav}" (click)="selectNav(nav)">{{ nav.title }}</a>
+    </div>
+    <div class="admin-tabs__content">
+        <div class="admin-tabs__pane show">
+            <div *ngIf="activeNav.filters" class="admin-tabs__filter">
+                <span class="admin-input-row__title">{{ 'COMMON.RANK' | translate }}</span>
+                <app-dashboard-select [(selected)]="activeFilter" [items]="filters" [dropdownWidth]="200"></app-dashboard-select>
+            </div>
+            <div *ngIf="activeNav.filters" class="admin-input-row">
+                <button class="btn admin-btn_white admin-btn_m" (click)="show()">Показать</button>
+            </div>
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

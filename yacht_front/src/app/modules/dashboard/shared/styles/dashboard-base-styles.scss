@@ -1,0 +1,108 @@
+/*baisic*/
+html{
+  -webkit-locale: "ru-RU";
+  direction: ltr;
+  unicode-bidi: isolate;
+  min-height: 100%;
+  background: #f0f0f0;
+}
+html, body{
+  min-height: 100%;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  background: #f0f0f0;
+}
+body{
+  font: 400 16px/1.2 'Open Sans', sans-serif;
+  color: #000;
+  background: #f0f0f0;
+  min-width: 310px; 
+  min-height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  opacity: 1;
+  -moz-font-feature-settings: 'kern';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: none;
+}
+.clearfix:before,
+.clearfix:after{
+  content: " ";
+  display: table;
+}
+.clearfix:after {clear: both;}
+.clearfix{
+  -ms-zoom: 1;
+  zoom: 1;
+}
+*, *:before, *:after, .input--search{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+/*typographyc*/
+ol,ul,li{    
+  margin:0;
+  padding: 0;    
+}
+ul li{list-style: none;}
+h1,h2,h3,h4,p{
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+  outline: none;
+  -webkit-transition: .25s ease;
+  -o-transition: .25s ease;
+  transition: .25s ease;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/*buttons*/
+.btn{
+  display: block;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: .25s ease;
+  -o-transition: .25s ease;
+  transition: .25s ease;  
+  cursor: pointer;
+  border-radius: 0;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.btn::-moz-focus-inner {border: 0;}
+.btn:disabled {
+  cursor: default;
+  opacity: .3;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+svg{
+  display: block;
+  font-size: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*layout*/
+.wrapper{
+  overflow: hidden;
+  min-height: 100%;
+} 
+.main{min-height: 100vh;}

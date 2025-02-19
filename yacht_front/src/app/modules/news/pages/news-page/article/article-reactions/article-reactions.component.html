@@ -1,0 +1,29 @@
+<div class="container">
+    <div *ngIf="isBrowser" class="stats v-center margin-bottom-20">
+        <div class="v-center margin-right-20 clickable" (click)="toggleBookmark()">
+            <svg name="bookmark" class="f-gray margin-right-4" [ngClass]="{ 'active': hasBookmark }"></svg>
+            <span class="subtitle-2 c-caption">{{ bookmarkCount }}</span>
+        </div>
+        <div class="v-center margin-right-20 clickable">
+            <svg name="comment" class="f-gray margin-right-4"></svg>
+            <span class="subtitle-2 c-caption">{{ commentCounter }}</span>
+        </div>
+        <div class="v-center margin-right-20">
+            <svg name="view" class="f-gray margin-right-4"></svg>
+            <span class="subtitle-2 c-caption">{{ watchCounter }}</span>
+        </div>
+        <app-share *ngIf="!pesponsive" [url]="null | url"></app-share>
+        <aside class="align-right v-center share-vote">
+            <div class="v-center">
+                <app-voting
+                    *appLet="(votes$ | async) as votes"
+                    [up]="votes.up"
+                    [down]="votes.down"
+                    [castVote]="votes.you"
+                    [style]="'article'" 
+                    (vote)="doVote($event)">
+                </app-voting>
+            </div>
+        </aside>
+    </div>
+</div>

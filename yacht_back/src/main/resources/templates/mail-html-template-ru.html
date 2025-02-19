@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="RU">
+
+<head>
+    <title th:remove="all">Восстановление пароля на Diskurs.media</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body style="max-width: 400px;">
+<p>
+    <span th:text="${username}? ${username}: ${email}">, Вы запросили восстановления пароля.</span>
+    <br/><br/>
+    Перейдите по указанной ссылке, чтобы изменить свой пароль: <br/>
+    <a style="word-wrap:break-word;" th:href="${url}" th:text="${url}">
+        https://diskurs.media/recovery?code=f7nC4hX5tMXZF7I2JVGjCO8Xm7Xe40l7QE3XnTYWw7i7HcxFrazmUyXgBT6Hk0Tx&email=knocker767@gmail.com</a>
+</p>
+<p>
+    Если Вы не запрашивали изменение пароля, просто проигнорируйте данное сообщение.
+</p>
+<p>
+    С уважением, <br/>
+    команда <a th:href="${baseUrl}">Diskurs.media</a>
+</p>
+</body>
+</html>

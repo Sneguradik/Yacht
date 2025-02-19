@@ -1,0 +1,88 @@
+@import 'src/styles/variables';
+
+:host {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-width: 100px;
+}
+
+.score {
+  color: $primary;
+
+  &.negative {
+    color: $error;
+  }
+}
+
+:host.article {
+  .vote {
+    .active {
+      display: none;
+    }
+
+    .inactive {
+      display: flex;
+    }
+
+    &.cast {
+      .active {
+        display: flex;
+      }
+
+      .inactive {
+        display: none;
+      }
+    }
+  }
+}
+
+:host.comment {
+  svg {
+    fill: $gray;
+  }
+
+  .vote.up.cast {
+    fill: $primary;
+  }
+
+  .vote.down.cast {
+    fill: $error;
+  }
+}
+
+// .vote:hover {
+//cursor: not-allowed;
+// }
+
+:host.can-vote {
+  .vote:hover {
+    cursor: pointer;
+  }
+
+  &.article {
+    .vote:hover {
+      .active {
+        display: flex;
+      }
+
+      .inactive {
+        display: none;
+      }
+    }
+  }
+
+  &.comment {
+    .vote.up:hover {
+      fill: $primary;
+    }
+
+    .vote.down:hover {
+      fill: $error;
+    }
+  }
+}
+
+.vote {
+  cursor: pointer;
+}

@@ -1,0 +1,205 @@
+<app-ui-card>
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <header class="v-center margin-bottom-30 mobile-small">
+            <span class="button-1 fade-5 top-small" (click)="onCancel()">{{ 'COMMON.UNDO' | translate }}</span>
+            <h6>{{ 'COMMON.EDIT_PROFILE' | translate }}</h6>
+            <div class="v-center top-small">
+                <button type="submit" class="v-center space-between align-right clickable">
+                    <span class="button-1">{{ 'COMMON.SAVE' | translate }}</span>
+                    <svg name="checkbox" class="f-white"></svg>
+                </button>
+            </div>
+        </header>
+
+        <hr class="gray margin-bottom-30"/>
+
+        <section class="margin-bottom-30 fade-1" formGroupName="info">
+            <ng-container *ngIf="isCompany">
+                <section class="margin-bottom-20 mobile-grid mob-label" formGroupName="company">
+                    <h6><label for="edit-company-name">{{ 'COMMON.TITLE' | translate }}</label></h6>
+
+                    <input id="edit-company-name"
+                        class="fade-1 h5"
+                        maxlength="26"
+                        uiInput appearance="form"
+                        formControlName="name">
+                    <label class="caption c-caption" for="edit-company-name">{{ 'COMMON.ALLOWED_CHARACTERS' | translate }}; {{ 'COMMON.MAXIMUM_ALLOWED_26_' | translate }}</label>
+                </section>
+            </ng-container>
+            <ng-container *ngIf="!isCompany">
+                <section class="margin-bottom-20 mobile-grid mob-label">
+                    <h6><label for="edit-first-name">{{ 'COMMON.NAME' | translate }}</label></h6>
+                    <input id="edit-first-name"
+                        class="fade-1 h5"
+                        maxlength="12"
+                        uiInput appearance="form"
+                        formControlName="firstName">
+                    <label class="caption c-caption" for="edit-first-name">{{ 'COMMON.ALLOWED_CHARACTERS' | translate }}; {{ 'COMMON.MAXIMUM_ALLOWED_12' | translate }}</label>
+                </section>
+                <section class="margin-bottom-20 mobile-grid mob-label">
+                    <h6><label for="edit-last-name">{{ 'COMMON.LAST_NAME' | translate }}</label></h6>
+                    <input id="edit-last-name"
+                        class="fade-1 h5"
+                        maxlength="12"
+                        uiInput appearance="form"
+                        formControlName="lastName">
+                    <label class="caption c-caption" for="edit-last-name">{{ 'COMMON.ALLOWED_CHARACTERS' | translate }}; {{ 'COMMON.MAXIMUM_ALLOWED_12' | translate }}</label>
+                </section>
+            </ng-container>
+
+            <section class="mobile-grid">
+                <h6>
+                    <label for="edit-username" [ngClass]="{ 'error' : userError }">
+                        {{ (userError ? 'COMMON.ACCOUNT_NAME_ALREADY_USED' : 'COMMON.ACCOUNTS_NAME') | translate }}
+                    </label>
+                </h6>
+                <input id="edit-username"
+                    class="fade-1 h5"
+                    maxlength="30"
+                    uiInput appearance="form"
+                    formControlName="username">
+                <label class="caption c-caption" for="edit-last-name">{{ 'COMMON.ALLOWED_CHARACTERS_NORU' | translate }}; {{ 'COMMON.MAXIMUM_ALLOWED_30' | translate }}</label>
+            </section>
+        </section>
+
+        <hr class="gray margin-bottom-30"/>
+
+        <section class="margin-bottom-30" formGroupName="profile">
+            <h6 class="fade-1 margin-bottom-10">{{ 'COMMON.PROFILE_IMAGE' | translate }}</h6>
+
+            <img *ngIf="coverSrc" class="pre-img" src="{{ coverSrc }}" />
+
+            <div class="v-center bar-under">
+                <div class="file-upload">
+                    <svg name="attach" size="20"></svg>
+                    <label for="cover">{{ 'COMMON.LOAD_AN_IMAGE' | translate }}</label>
+                    <input id="cover" type="file"
+                        accept="image/*"
+                        (change)="onCoverChange($any($event.target).files)">
+                </div>
+                <span *ngIf="coverSrc" class="sub-button btn align-right" (click)="onCoverRemove()">{{ 'COMMON.REMOVE_THE_PHOTO' | translate }}</span>
+            </div>
+
+            <p class="caption c-caption">{{ 'COMMON.RECOMMENDED_IMAGE_SIZE_' | translate }}</p>
+        </section>
+
+        <hr class="gray margin-bottom-30"/>
+
+        <section class="margin-bottom-30" formGroupName="profile">
+            <h6 class="fade-1 margin-bottom-30">{{ 'COMMON.PROFILE_PHOTO' | translate }}</h6>
+
+            <div class="photo-container">
+                <app-ui-icon [src]="photoSrc" [size]="'xlarge'" [textAlternative]="photoAlt"></app-ui-icon>
+
+                <div class="photo-actions">
+                    <div class="file-upload">
+                        <svg name="attach" size="20"></svg>
+                        <label for="photo">{{ 'COMMON.LOAD_AN_IMAGE' | translate }}</label>
+                        <input id="photo" type="file"
+                            accept="image/*"
+                            (change)="onPhotoChange($any($event.target).files)">
+                    </div>
+                    <p class="file-upload-hint">{{ 'COMMON.RECOMMENDED_IMAGE_SIZE__' | translate }} JPG, 250 x 250 px</p>
+                    <span class="sub-button btn margin-bottom-20" (click)="importPictureFromFB()">{{ 'COMMON.IMPORT_PHOTO' | translate }}</span>
+                    <span *ngIf="photoSrc" class="sub-button btn" (click)="onPhotoRemove()">{{ 'COMMON.REMOVE_THE_PHOTO' | translate }}</span>
+
+                </div>
+            </div>
+        </section>
+
+        <hr class="gray margin-bottom-30"/>
+
+        <section class="margin-bottom-30" formGroupName="info">
+            <h6 class="fade-1 margin-bottom-10">
+                {{ 'COMMON.CREATE_PROFILES_DESCRIPTION' | translate }}
+                <span class="description-char-counter"
+                      [ngClass]="{'description-char-counter-err': form.get('info').get('bio').value.length > 215}">
+                    {{ (215 - form.get('info').get('bio').value.length) + '/215' }}
+                </span>
+            </h6>
+            <app-ui-textarea formControlName="bio" [placeholder]="'COMMON.CREATE_PROFILES_SHORT' | translate"></app-ui-textarea>
+        </section>
+
+        <section class="margin-bottom-30" formGroupName="profile">
+
+            <h6 *ngIf="isCompany" class="fade-1 margin-bottom-10">{{ 'COMMON.INFORMATION' | translate }} {{ 'COMMON.ABOUT_THE_COMPANY_' | translate }}</h6>
+            <h6 *ngIf="!isCompany" class="fade-1 margin-bottom-10">{{ 'COMMON.INFORMATION' | translate }} {{ 'COMMON.ABOUT_THE_AUTHOR_' | translate }}</h6>
+            <app-ui-textarea formControlName="fullDescription" [placeholder]="'COMMON.CREATE_PROFILES_DESCRIPTION' | translate"></app-ui-textarea>
+        </section>
+
+        <hr class="gray margin-bottom-30"/>
+
+        <ng-container *ngIf="isCompany">
+            <section class="margin-bottom-30">
+                <h6 class="fade-1">{{ 'COMMON.TEAM' | translate }}</h6>
+                <app-company-members [id]="user.meta.id"></app-company-members>
+            </section>
+            <hr class="gray margin-bottom-30"/>
+        </ng-container>
+
+        <section formGroupName="contacts">
+            <h6 class="fade-1 margin-bottom-20">{{ 'COMMON.CONTACTS' | translate }}</h6>
+
+            <div class="form-contact">
+                <svg name="social/mail"></svg>
+                <app-ui-form-control>
+                    <input uiInput placeholder="contact@website.com" appearance="form" formControlName="email" type="email">
+                </app-ui-form-control>
+            </div>
+
+            <div class="form-contact">
+                <svg name="social/web"></svg>
+                <app-ui-form-control>
+                    <input uiInput placeholder="https://website.com/" appearance="form" formControlName="websiteUrl" type="url">
+                </app-ui-form-control>
+            </div>
+
+            <div class="form-contact">
+                <svg name="social/phone"></svg>
+                <app-ui-form-control>
+                    <input uiInput placeholder="+7 (123) 456-78-90" appearance="form" formControlName="phone" maxlength="32">
+                </app-ui-form-control>
+            </div>
+
+            <div class="form-contact">
+                <svg name="social/vk"></svg>
+                <app-ui-form-control>
+                    <input uiInput placeholder="https://vk.com/user" appearance="form" formControlName="vk" pattern="^(https?://(m\.)?vk\.com)/([A-Za-z0-9_.]{2,32})/?$">
+                </app-ui-form-control>
+            </div>
+
+            <div class="form-contact">
+                <svg name="social/twitter"></svg>
+                <app-ui-form-control>
+                    <input uiInput placeholder="https://twitter.com/user" appearance="form" formControlName="twitter" pattern="^https?://(?:www\.)?twitter\.com/([a-zA-Z0-9_]+)">
+                </app-ui-form-control>
+            </div>
+
+            <div class="form-contact">
+                <svg name="social/yt"></svg>
+                <app-ui-form-control>
+                    <input uiInput placeholder="https://youtube.com/user" appearance="form" formControlName="youtube" pattern="^https?://(?:[\w]+\.)?youtube\.com/(?:c/|channel/|user/)?([a-zA-Z0-9\-]+)">
+                </app-ui-form-control>
+            </div>
+
+            <div class="form-contact">
+                <svg name="social/telegram"></svg>
+                <app-ui-form-control>
+                        <input placeholder="https://t.me/user" uiInput appearance="form" formControlName="telegram" pattern="^https?://((www|\w\w)\.|)?t\.me/.+">
+                </app-ui-form-control>
+            </div>
+        </section>
+        <hr class="gray margin-bottom-30"/>
+        <h6 class="fade-1 margin-bottom-20">{{ 'COMMON.NOTIFICATION_SETTINGS' | translate }}</h6>
+        <app-notifications-control [data]="data" [userRoles]="user.roles" (settings)="data = $event"></app-notifications-control>
+        <hr class="gray margin-bottom-30"/>
+
+        <footer class="v-center space-between">
+            <span class="button-1 fade-5" (click)="onCancel()">{{ 'COMMON.UNDO' | translate }}</span>
+            <button type="submit" class="v-center space-between align-right clickable">
+                <span class="button-1">{{ 'COMMON.SAVE' | translate }}</span>
+                <svg name="checkbox" class="f-white"></svg>
+            </button>
+        </footer>
+    </form>
+</app-ui-card>

@@ -1,0 +1,41 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "types": [ "gapi", "gapi.auth2", "node" ],
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+    "paths": {
+      "@app/*": ["src/app/core/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@env": ["src/environments/environment.ts"],
+      "@api/*": ["src/app/api/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@layout/*": ["src/app/layout/*"]
+    },
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableIvy": true,
+    "compilationMode": "partial",
+  }
+}

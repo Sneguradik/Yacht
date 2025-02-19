@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="top">
+        <img *ngIf="bgImage" [src]="bgImage">
+        <img *ngIf="!bgImage" [src]="'assets/default.png'">
+        <div class="top-content">
+            <div class="user-icon">
+                <app-ui-icon *ngIf="!(responsive.lt.medium | async)" [src]="profileImage" [textAlternative]="profileText" [size]="'xlarge'"></app-ui-icon>
+                <app-ui-icon *ngIf="responsive.lt.medium | async" [src]="profileImage" [textAlternative]="profileText" [size]="'large'"></app-ui-icon>
+            </div>
+            <div class="upper">
+                <div class="name">
+                    <div class="content" style="max-width: 290px !important; word-wrap: break-word;">
+                        <ng-content *ngIf="!(responsive.lt.medium | async)" select=".info-header-name"></ng-content>
+                        <ng-content *ngIf="responsive.lt.medium | async" select=".info-header-name-small"></ng-content>
+                    </div>
+                </div>
+                <div class="sub">
+                    <div *ngIf="!(responsive.lt.medium | async) && subscribed == false  && !isMe" class="content btn" (click)="subFunc()">
+                        <div class="inner">
+                            <span>{{ 'COMMON.SUBSCRIBE' | translate }}</span>
+                            <svg name="btn-add"></svg>
+                        </div>
+                    </div>
+                    <div *ngIf="!(responsive.lt.medium | async) && subscribed == true && !isMe" class="content btn" (click)="subFunc()">
+                        <div class="inner">
+                            <span style="color: #92929D !important">{{ 'COMMON.YOU_ARE_ALREADY' | translate }}</span>
+                            <svg name="tick" size="15" style="width: 15px !important; height: 15px !important"></svg>
+                        </div>
+                    </div>
+                    <div *ngIf="!(responsive.lt.medium | async) && isMe" class="content btn" (click)="doEdit()">
+                        <div class="inner">
+                            <span style="color: #92929D !important">{{ 'COMMON.EDIT' | translate }}</span>
+                            <svg name="edit-new"></svg>
+                        </div>
+                    </div>
+                    <div *ngIf="(responsive.lt.medium | async) && subscribed == false && !isMe" class="content btn" (click)="subFunc()">
+                        <svg name="btn-add" size="35"></svg>
+                    </div>
+                    <div *ngIf="(responsive.lt.medium | async) && subscribed == true && !isMe" class="content btn" (click)="subFunc()">
+                        <svg name="btn-cross" size="35"></svg>
+                    </div>
+                    <div *ngIf="(responsive.lt.medium | async) && isMe" class="content btn" (click)="doEdit()">
+                        <svg name="edit-new" size="25"></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="down">
+                <ng-content *ngIf="!(responsive.lt.medium | async)" select=".info-header-down"></ng-content>
+                <ng-content *ngIf="responsive.lt.medium | async" select=".info-header-down-small"></ng-content>
+            </div>
+        </div>
+    </div>
+    <div class="desc">
+        <ng-content select=".info-header-desc"></ng-content>
+    </div>
+    <div class="bar">
+        <div *ngIf="!(responsive.lt.medium | async)">
+            <ng-content *ngTemplateOutlet="bar"></ng-content>
+        </div>
+        <ng-scrollbar *ngIf="responsive.lt.medium | async" [track]="'horizontal'" style="height: 64px;">
+            <ng-content *ngTemplateOutlet="bar"></ng-content>
+        </ng-scrollbar>
+    </div>
+</div>
+
+<ng-template #bar>
+    <ng-content select=".info-header-bar"></ng-content>
+</ng-template>

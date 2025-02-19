@@ -1,0 +1,134 @@
+<div class="container">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="name">
+      <app-ui-form-control>
+        <div class="form-textarea">
+          <textarea autosize [minRows]="1" formControlName="title" placeholder="{{ 'COMMON.EVENTS_TITLE' | translate }}"
+            class="ui-input-h1" maxlength="100"></textarea>
+          <div class="counter head-counter-resp " style="width: 10%;"><span>{{ 100 - form.get('title').value.length + '/100' }}</span>
+          </div>
+        </div>
+      </app-ui-form-control>
+    </div>
+
+    <div class="type">
+      <span class="font-1 fade-1 body-1"
+            style="font-weight: bold; display: inline-block; vertical-align: middle;">{{ this.typeS.title }}</span>
+      <app-ui-dropdown-menu style="display: inline-block; vertical-align: middle;">
+        <div class="head">
+          <svg name="btn-expand-v"></svg>
+        </div>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.EXHIBIT', 'EXHIBITIONS')">{{ 'COMMON.EXHIBIT' | translate }}</app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.EDUCATION', 'TRAINING')">{{ 'COMMON.EDUCATION' | translate }}</app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.REGATTA' , 'REGATTAS')">{{ 'COMMON.REGATTA' | translate }}</app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.FLOTILLA', 'FLOTILLAS')">{{ 'COMMON.FLOTILLA' | translate }}</app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.PRESENTATION', 'PRESENTATIONS')">{{ 'COMMON.PRESENTATION' | translate }}
+        </app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.PRESS-CONFERENCE', 'CONFERENCES')">{{ 'COMMON.PRESS-CONFERENCE' | translate }}
+        </app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.CONFERENCE', 'FORUMS')">{{ 'COMMON.CONFERENCE' | translate }}</app-ui-dropdown-menu-item>
+        <app-ui-dropdown-menu-item (click)="selector('type', 'COMMON.OTHER', 'OTHER')">{{ 'COMMON.OTHER' | translate }}</app-ui-dropdown-menu-item>
+      </app-ui-dropdown-menu>
+    </div>
+
+    <div class="info font-1 fade-1 body-1" style="font-weight: bold; white-space: nowrap;">
+      <div class="item time">
+        <span>{{ 'COMMON.DATE' | translate }}</span>
+        <app-ui-form-control style="padding: 0 10px; position: relative; top: 3px;">
+          <input class="input-text"
+                 uiInput type="date"
+                 appearance="extra-form"
+                 formControlName="date"
+                 (change)="checkDate($event)"
+                 [min]="today | date : 'yyyy-MM-dd'">
+        </app-ui-form-control>
+        <span class="font-1 fade-1 body-1" style="font-weight: bold;">{{ this.timeS }}</span>
+        <app-ui-dropdown-menu class="sp-drop" [width]="60" [height]="265">
+          <div class="head">
+            <svg name="btn-expand-v"></svg>
+          </div>
+          <ng-scrollbar [appearance]="'standard'" thumbClass="blue-sb" style="width: 60px; height: 265px; margin: 0 !important; display: flex;">
+            <app-ui-dropdown-menu-item [class.selected]="i === timeS" *ngFor="let i of time" (click)="selector('time', i)">{{ i }}</app-ui-dropdown-menu-item>
+          </ng-scrollbar>
+        </app-ui-dropdown-menu>
+      </div>
+
+      <div class="item">
+        <span>{{'COMMON.COST' | translate }}</span>
+        <app-ui-form-control style="padding: 0 10px; position: relative; top: 3px;">
+          <input *ngIf="currencySymbol.value !== 'FREE' && currencySymbol.value !== 'NONE'" uiInput appearance="extra-form" formControlName="price" type="number" class="input-text" style="width: 80px;" max="9999999" min="1">
+        </app-ui-form-control>
+        <span class="font-1 fade-1 body-1" style="font-weight: bold;">{{ this.currencySymbol.title | translate }}</span>
+        <app-ui-dropdown-menu>
+          <div class="head">
+            <svg name="btn-expand-v"></svg>
+          </div>
+          <app-ui-dropdown-menu-item (click)="selector('currency', 'Бесплатно', 'FREE')">{{ 'COMMON.FREE' | translate }}</app-ui-dropdown-menu-item>
+          <app-ui-dropdown-menu-item (click)="selector('currency', 'Руб', 'RUB')">{{ 'COMMON.RUB' | translate }}</app-ui-dropdown-menu-item>
+          <app-ui-dropdown-menu-item (click)="selector('currency', 'USD', 'USD')">{{ 'COMMON.USD' | translate }}</app-ui-dropdown-menu-item>
+          <app-ui-dropdown-menu-item (click)="selector('currency', 'EUR', 'EUR')">{{ 'COMMON.EUR' | translate }}</app-ui-dropdown-menu-item>
+          <app-ui-dropdown-menu-item (click)="selector('currency', '—', 'NONE')">{{ 'COMMON.DO_NOT_SPECIFY' | translate }}</app-ui-dropdown-menu-item>
+        </app-ui-dropdown-menu>
+      </div>
+    </div>
+
+    <div class="info font-1 fade-1 body-1" style="font-weight: bold;">
+      <div class="item">
+        <span>{{ 'COMMON.CITY' | translate }}</span>
+        <app-ui-form-control style="padding: 0 10px; position: relative; top: 3px; padding-right: 0;">
+          <div class="form-textarea" style="display: flex; flex-direction: row; width: 100%;">
+            <input uiInput appearance="extra-form" formControlName="city" class="input-text" style="width: 100px; border-bottom: 0;" maxlength="25">
+            <div class="counter head-counter-resp" style="width: 20px"><span>{{ 25 - form.get('city').value?.length }}</span></div>
+          </div>
+        </app-ui-form-control>
+      </div>
+
+      <div class="item">
+        <span>{{ 'COMMON.ADDRESS' | translate }}</span>
+        <app-ui-form-control style="padding: 0 10px; position: relative; top: 3px;">
+          <input uiInput appearance="extra-form" formControlName="address" class="city input-text" maxlength="50">
+        </app-ui-form-control>
+      </div>
+    </div>
+
+    <div class="announcement">
+      <span class="font-1 fade-1 body-1" style="font-weight: bold; display: inline-block; margin-bottom: 10px;">{{ 'COMMON.EVENTS_ANNOUNCEMENT' | translate }}</span>
+      <div class="counter" style="float: right; min-width: 81px;"><span>{{ 100 - form.get('announcement').value.length + '/100' }}</span></div>
+      <app-ui-form-control>
+        <textarea class="input-text common-placeholder for-editor" autosize [minRows]="1" formControlName="announcement"
+          [placeholder]="'COMMON.WRITE_A_BRIEF' | translate" maxlength="100"></textarea>
+      </app-ui-form-control>
+    </div>
+
+    <div class="editor">
+      <span class="font-1 fade-1 body-1" style="font-weight: bold; display: inline-block; margin-bottom: 10px;">{{ 'COMMON.EVENT_DESCRIPTION' | translate }}</span>
+      <app-ui-form-control>
+        <app-wysiwyg-editor #editor [ngClass]="{ 'hide': !((data !== '' && data !== null) || openEditor) }"
+          (valueChange)="onSummaryChange($event)"></app-wysiwyg-editor>
+        <div *ngIf="(data === '' || data === null) && !openEditor" (mousedown)="openEdit()">
+          <textarea class="form-textarea common-placeholder" autosize [minRows]="1"
+            [placeholder]="'COMMON.TELL_MORE_ABOUT_YOUR_EVENT'  | translate" readonly></textarea>
+        </div>
+      </app-ui-form-control>
+    </div>
+
+    <div class="link">
+      <span class="font-1 fade-1 body-1" style="font-weight: bold; display: inline-block; margin-bottom: 10px;">{{ 'COMMON.LINK_TO_REGISTRATION' | translate }}</span>
+      <app-ui-form-control>
+        <input uiInput appearance="form" formControlName="registrationLink" class="common-placeholder" [placeholder]="'COMMON.ADD_ACTIVE_LINK' | translate">
+      </app-ui-form-control>
+    </div>
+
+    <div class="bottom">
+      <button id="input-login-submit" class="v-center button-1 button-padding" type="submit" [disabled]="form.invalid">
+        <span style="display: inline-block; margin-right: 10px; line-height: 34px; padding: 0; bottom: 0;">{{ 'COMMON.PUBLISH' | translate }}</span>
+        <svg name="paper-airplane" class="fill-primary" style="display: inline-block;"></svg>
+      </button>
+      <div class="sub-info flex-item">
+        <span>{{ 'COMMON.EVENTS_CAN_BE_CREATED' | translate }} <a [routerLink]="['/news/508']" style="color: inherit; padding: 0;">{{ 'COMMON.COMPANYS_BLOG' | translate }}</a>.</span>
+      </div>
+    </div>
+
+  </form>
+</div>

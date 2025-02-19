@@ -1,0 +1,44 @@
+<div class="live">
+    <div #liveScrollWrapper class="scroll">
+        <div #liveScrollItems class="animated fadeInLeftBig items" draggable="false">
+            <a *ngFor="let item of items" class="item clickable" draggable="false" (click)="open(item)">
+                <main>
+                    <header class="last-item-right v-center">
+                        {{ item.info.subtitle }}
+                        <div *ngIf="!item.views || !item.views.you" class="circle"></div>
+                    </header>
+                    <section>
+                        <h4 *ngIf="!(responsive.lt.large | async)">
+                            {{ item.info.title || 'Название' }}
+                        </h4>
+                        <h4 *ngIf="responsive.lt.large | async">
+                            {{ item.info.title || 'Название' }}
+                        </h4>
+                    </section>
+                    <footer class="v-center">
+                        <div *ngIf="item.info.options">
+                            <div *ngIf="item.info.options.viewCount">
+                                <svg name="view" class="f-white" size="18"></svg>
+                                <span class="caption">{{ item.info.options.viewCount }}</span>
+                            </div>
+                            <div *ngIf="item.info.options.postCount">
+                                <svg name="edit" class="f-white" size="18"></svg>
+                                <span class="caption">{{ item.info.options.postCount }}</span>
+                            </div>
+                            <div *ngIf="item.info.options.subCount">
+                                <svg name="user" class="f-white" size="18"></svg>
+                                <span class="caption">{{ item.info.options.subCount }}</span>
+                            </div>
+                        </div>
+                        <app-more-menu *ngIf="perms.hasAnyRole$(perms.roles.EDITOR$) | async" class="f-white align-right" [svgColor]="'white'" #menu>
+                            <app-ui-dots-menu-item class="button-1" (click)="withdraw(item); menu.close()">{{ 'COMMON.TAKE_OFF_THE' | translate }}
+                            </app-ui-dots-menu-item>
+                        </app-more-menu>
+                    </footer>
+                </main>
+                <div class="overlay"></div>
+                <img class="background" [src]="item.info.cover"/>
+            </a>
+        </div>
+    </div>
+</div>

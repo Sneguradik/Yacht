@@ -1,0 +1,89 @@
+<app-user-header></app-user-header>
+
+<ul *ngIf="authorInfo" class="block-card item-space-20">
+    <li>
+        <div>
+            <span class="font-1 fade-1 body-1"><b>{{ (authorInfo.info.company.isCompany ? 'COMMON.ABOUT_THE_COMPANY' : 'COMMON.ABOUT_THE_AUTHOR') | translate }}</b></span>
+            <br>
+            <br>
+            <div class="fade-1 font-2 body-2" style="white-space: pre-line">
+                {{ authorInfo.profile.fullDescription ? authorInfo.profile.fullDescription : 'Подробная информация отсутствует.' }}
+            </div>
+        </div>
+    </li>
+    <li *ngIf="authorInfo.info.company.isCompany && authorInfo.info.company.confirmed">
+        <div>
+            <span class="font-1 fade-1 body-1"><b>{{ 'COMMON.TEAM' | translate }} {{ authorInfo.info.username ? '@' + authorInfo.info.username : authorInfo.info.company.name }}
+                на Diskurs.Media</b></span>
+            <br>
+            <br>
+            <div class="users">
+                <div *ngFor="let member of members" >
+                    <a class="user" [routerLink]="member | accountUrl">
+                        <app-ui-icon [src]="member.info.picture" [size]="'large'" [textAlternative]="member.info | personName"></app-ui-icon>
+                        <div class="user-info">
+                            <h4>{{ member.info | personName }}</h4>
+                            <p>{{ member.info.username }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <button *ngIf="memberPage + 1 < memberMaxPages" class="show-more" type="button" (click)="onShowMoreMembers()">
+              <span>{{ 'COMMON.SHOW_MORE' | translate }}</span>
+              <svg name="chevron/down"></svg>
+            </button>
+        </div>
+    </li>
+    <li>
+        <div>
+            <span class="font-1 fade-1 body-1"><b>{{ 'COMMON.CONTACTS' | translate }}</b></span>
+            <br>
+            <br>
+            <span class="fade-1 font-2 body-2">
+                    <div *ngIf="authorInfo.contacts.websiteUrl" class="contacts-item">
+                        <svg name="social/web" size="15"></svg>
+                        <div class="info">
+                            <a [href]="authorInfo.contacts.websiteUrl">{{ authorInfo.contacts.websiteUrl }}</a>
+                        </div>
+                    </div>
+
+                    <div *ngIf="authorInfo.contacts.email" class="contacts-item">
+                        <svg name="social/mail"
+                                  size="15"></svg>
+                        <div class="info">
+                            <a [href]="authorInfo.contacts.email">{{ authorInfo.contacts.email }}</a>
+                        </div>
+                    </div>
+                    <div *ngIf="authorInfo.contacts.phone" class="contacts-item">
+                        <svg name="social/phone" size="15"></svg>
+                        <div class="info">
+                            <div>{{ authorInfo.contacts.phone }}</div>
+                        </div>
+                    </div>
+                    <div class="contacts-item">
+                        <div class="socials">
+                          <ng-container [ngTemplateOutlet]="contactView"
+                                        [ngTemplateOutletContext]="{icon: 'social/twitter', key: 'twitter', text: 'Twitter'}"></ng-container>
+                          <ng-container [ngTemplateOutlet]="contactView"
+                                        [ngTemplateOutletContext]="{icon: 'social/in', key: 'linkedIn', text: 'LinkedIn'}"></ng-container>
+                          <ng-container [ngTemplateOutlet]="contactView"
+                                        [ngTemplateOutletContext]="{icon: 'social/yt', key: 'youtube', text: 'YouTube'}"></ng-container>
+                          <ng-container [ngTemplateOutlet]="contactView"
+                                        [ngTemplateOutletContext]="{icon: 'social/telegram', key: 'telegram', text: 'Telegram'}"></ng-container>
+                          <ng-container [ngTemplateOutlet]="contactView"
+                                        [ngTemplateOutletContext]="{icon: 'social/vk', key: 'vk', text: 'VK'}"></ng-container>
+                        </div>
+                    </div>
+            </span>
+        </div>
+    </li>
+</ul>
+
+<ng-template #contactView let-icon="icon" let-key="key" let-text="text">
+    <div *ngIf="authorInfo.contacts[key]" class="contacts-item clickable" (click)="goTo(this.authorInfo.contacts[key])">
+        <svg *ngIf="icon !== 'social/instagram' && icon !== 'social/telegram'" [name]=icon [size]="icon === 'social/web' ? 15 : 25"></svg>
+        <img *ngIf="icon === 'social/instagram'" src="assets/icons/uncorrect/instagram.png" style ="width: 25px; height: 25px;" alt="">
+        <img *ngIf="icon === 'social/telegram'" src="assets/icons/uncorrect/telegram.png" style ="width: 25px; height: 25px;" alt="">
+        <div class="info">{{ (key === 'youtube' ? 'COMMON.IM_ON' : 'COMMON.IM_IN') | translate : {snName: text} }}</div>
+    </div>
+</ng-template>

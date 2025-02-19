@@ -1,0 +1,207 @@
+<section class="admin-blc admin-blc__grey">
+    <form *ngIf="adsForm" class="admin-form" [formGroup]="adsForm">
+        <h2 class="admin-blc__title">Форма создания рекламного баннера</h2>
+        <fieldset class="admin-form__fieldset">
+            <label class="admin-input-blc">
+                <span class="admin-input-row__title">Наименование проекта (100 знаков)</span>
+                <span class="admin-input-row__inputgroup">
+                    <textarea name="name"
+                              class="admin-textarea admin-textarea_100"
+                              maxlength="100"
+                              formControlName="name">
+                    </textarea>
+                </span>
+            </label>
+            <div class="admin-input-row">
+                <span class="admin-input-row__title">Место размещения</span>
+                <app-dashboard-select [(selected)]="selectedPlace"
+                                      [items]="items"
+                                      [dropdownWidth]="250"
+                                      (changeRes)="onPlaceChange($event)">
+                </app-dashboard-select>
+            </div>
+            <label class="admin-input-row">
+                <span class="admin-input-row__title">Выводить после</span>
+                <span class="admin-input-row__inputgroup">
+                    <input type="number"
+                           class="admin-input admin-input_xs"
+                           name="afterPublication"
+                           style="width: 100px;"
+                           min="0"
+                           formControlName="afterPublication">
+                    <span>&nbsp;публикации</span>
+                </span>
+            </label>
+        </fieldset>
+        <fieldset class="admin-form__fieldset">
+            <legend class="admin-form__legend">Период размещения</legend>
+            <div class="admin-form__grid" style="grid-template-rows: 1fr 1fr 1fr; grid-auto-flow: column;">
+                <div class="admin-form__col" style="width: 100%">
+                    <label class="admin-check" (click)="setPlaceType(BannerPlaceTypeEnum.TIME_INTERVAL)">
+                        <input type="checkbox" 
+                               [formControlName]="BannerPlaceTypeEnum.TIME_INTERVAL">
+                        <span class="admin-check__txt">Временной интервал</span>
+                    </label>
+                    <label class="admin-input-row">
+                        <span class="admin-input-row__title admin-input-row__title_s">Старт:</span>
+                        <span class="admin-input-row__inputgroup">
+                            <input type="date"
+                                   class="admin-input admin-input_s"
+                                   style="width: 220px;"
+                                   name="timeinterval_start"
+                                   placeholder="'COMMON.DATE_PLACEHOLDER' | translate"
+                                   [min]="minDateTime"
+                                   formControlName="startDateTime">
+                            <span>&nbsp;г.</span>
+                        </span>
+                    </label>
+                    <label class="admin-input-row">
+                        <span class="admin-input-row__title admin-input-row__title_s">Финиш:</span>
+                        <span class="admin-input-row__inputgroup">
+                            <input type="date"
+                                   class="admin-input admin-input_s"
+                                   style="width: 220px;"
+                                   name="timeinterval_finish"
+                                   placeholder="'COMMON.DATE_PLACEHOLDER' | translate"
+                                   [min]="adsForm.controls.startDateTime.value || now | date : 'yyyy-MM-dd'"
+                                   formControlName="stopDateTime">
+                            <span>&nbsp;г.</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="admin-form__col" style="width: 100%">
+                    <label class="admin-check" (click)="setPlaceType(BannerPlaceTypeEnum.VIEWS_COUNT)">
+                        <input type="checkbox"
+                               [formControlName]="BannerPlaceTypeEnum.VIEWS_COUNT">
+                        <span class="admin-check__txt">Количество показов</span>
+                    </label>
+                    <label class="admin-input-row">
+                        <span class="admin-input-row__title admin-input-row__title_s">Старт:</span>
+                        <span class="admin-input-row__inputgroup">
+                            <input type="date"
+                                   class="admin-input admin-input_s"
+                                   style="width: 220px;"
+                                   name="show_start"
+                                   placeholder="'COMMON.DATE_PLACEHOLDER' | translate"
+                                   [min]="now | date : 'yyyy-MM-dd'"
+                                   formControlName="startViewsTime">
+                            <span>&nbsp;г.</span>
+                        </span>
+                    </label>
+                    <label class="admin-input-row">
+                        <span class="admin-input-row__title admin-input-row__title_s">Финиш:</span>
+                        <span class="admin-input-row__inputgroup">
+                            <input type="number"
+                                   class="admin-input admin-input_xs"
+                                   [min]="0" style="width: 100px;"
+                                   name="how_finish"
+                                   formControlName="stopViewsCount">
+                            <span>&nbsp;показов</span>
+                        </span>
+                    </label>
+                </div>
+                <div class="admin-form__col" style="width: 100%">
+                    <label class="admin-check" (click)="setPlaceType(BannerPlaceTypeEnum.CLICKS_COUNT)">
+                        <input type="checkbox" 
+                               [formControlName]="BannerPlaceTypeEnum.CLICKS_COUNT">
+                        <span class="admin-check__txt">Количество кликов</span>
+                    </label>
+                    <label class="admin-input-row">
+                        <span class="admin-input-row__title admin-input-row__title_s">Старт:</span>
+                        <span class="admin-input-row__inputgroup">
+                            <input type="date" 
+                                   class="admin-input admin-input_s"
+                                   style="width: 220px;"
+                                   name="click_start"
+                                   placeholder="'COMMON.DATE_PLACEHOLDER' | translate"
+                                   formControlName="startClicksTime"
+                                   [min]="now | date : 'yyyy-MM-dd'">
+                            <span>&nbsp;г.</span>
+                        </span>
+                    </label>
+                    <label class="admin-input-row">
+                        <span class="admin-input-row__title admin-input-row__title_s">Финиш:</span>
+                        <span class="admin-input-row__inputgroup">
+                            <input type="number"
+                                   class="admin-input admin-input_xs"
+                                   min="0"
+                                   style="width: 100px;"
+                                   name="click_finish"
+                                   formControlName="stopClicksCount">
+                            <span>&nbsp;кликов</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="admin-form__fieldset">
+            <label class="admin-input-row">
+                <span class="admin-input-row__title">Коэффициент ротации</span>
+                <span class="admin-input-row__inputgroup">
+                    <input type="number"
+                           class="admin-input admin-input_short admin-input-row__input"
+                           name="coeficient"
+                           min="0"
+                           formControlName="rotation">
+                </span>
+            </label>
+            <label class="admin-input-row">
+                <span class="admin-input-row__title">URL</span>
+                <span class="admin-input-row__inputgroup">
+                    <input type="text" class="admin-input" name="url" formControlName="url">
+                </span>
+            </label>
+            <label class="admin-input-blc">
+                <span class="admin-input-row__title">Текст гиперактивной кнопки</span>
+                <span class="admin-input-row__inputgroup">
+                    <textarea #btnText
+                              name="text"
+                              class="admin-textarea admin-textarea_100"
+                              formControlName="text"
+                              maxlength="12">
+                    </textarea>
+                    <div class="btn-text"><span>{{ 12 - btnText.value.length }}</span></div>
+                </span>
+            </label>
+        </fieldset>
+        <fieldset class="admin-form__fieldset">
+            <legend class="admin-form__legend">{{ 'COMMON.IMAGE' | translate }}</legend>
+            <p>Рекомендуемые форматы: <b>png, jpg</b> Размер изображения (берется из места размещения): {{ selectedPlace.payload.size }}</p>
+            <div class="admin-upload">
+                <div class="admin-upload__bar">
+                    <label class="admin-upload__label">
+                        <input formArrayName="img" #image type="file" accept="image/*" (change)="onImageChange($event)">
+                        <div class="btn admin-upload__add">Загрузить изображение</div>
+                    </label>
+                    <button class="btn admin-upload__del"
+                            type="button" 
+                            (click)="clearImg()">
+                        Удалить изображение
+                    </button>
+                </div>
+                <div *ngIf="!(inputData$ | async).picture" class="admin-upload__wrap"
+                     style="cursor: pointer;" (click)="image.click()">
+                    <div class="admin-upload__wrap-plus">
+                        <svg id="btn-add" viewBox="0 0 24 24" width="24px" height="24px">
+                            <path d="M0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12Z" fill="white" stroke="#F0F0F0"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7132 11.2856H17.7132C18.1077 11.2856 18.4275 11.6054 18.4275 11.9999C18.4275 12.3943 18.1077 12.7141 17.7132 12.7141H12.7132V17.7141C12.7132 18.1086 12.3934 18.4284 11.9989 18.4284C11.6044 18.4284 11.2846 18.1086 11.2846 17.7141V12.7141H6.2846C5.89011 12.7141 5.57031 12.3943 5.57031 11.9999C5.57031 11.6054 5.89011 11.2856 6.2846 11.2856H11.2846V6.28557C11.2846 5.89109 11.6044 5.57129 11.9989 5.57129C12.3934 5.57129 12.7132 5.89109 12.7132 6.28557V11.2856Z" fill="#00B7FF"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div *ngIf="(inputData$ | async).picture">
+                    <img [src]="(inputData$ | async).picture" alt="" style="max-width: 100%;">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="admin-form__fieldset">
+            <label class="admin-check">
+                <input type="checkbox" name="active" formControlName="active">
+                <span class="admin-check__txt">Активировать сразу (в списке будет активным)</span>
+            </label>
+        </fieldset>
+        <div class="admin-form__bar">
+            <button class="btn admin-btn_white" [disabled]="adsForm.invalid" (click)="save()">Добавить в список</button>
+            <button class="btn admin-btn_blue" (click)="cancel()">{{ 'COMMON.UNDO' | translate}}</button>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,59 @@
+<form class="admin-form">
+    <div class="admin-form__wrap">
+        <div class="admin-form__wrap-main">
+            <label class="admin-input-blc">
+                <span class="admin-input-row__title">Введите название Темы</span>
+                <span class="admin-input-row__inputgroup">
+                    <input type="text" class="admin-input" name="name" [(ngModel)]="createBody.name">
+                </span>
+            </label>
+            <label class="admin-input-blc">
+                <span class="admin-input-row__title">Введите URL Темы</span>
+                <span class="admin-input-row__inputgroup">
+                    <input type="url" class="admin-input" name="url" [(ngModel)]="createBody.url">
+                </span>
+            </label>
+        </div>
+        <div class="admin-form__wrap-bar">
+            <button class="btn admin-form__add" (click)="create()">
+                <svg id="btn-add" viewBox="0 0 24 24" width="24px" height="24px">
+                    <path d="M0.5 12C0.5 5.64873 5.64873 0.5 12 0.5C18.3513 0.5 23.5 5.64873 23.5 12C23.5 18.3513 18.3513 23.5 12 23.5C5.64873 23.5 0.5 18.3513 0.5 12Z" fill="white" stroke="#F0F0F0"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7132 11.2856H17.7132C18.1077 11.2856 18.4275 11.6054 18.4275 11.9999C18.4275 12.3943 18.1077 12.7141 17.7132 12.7141H12.7132V17.7141C12.7132 18.1086 12.3934 18.4284 11.9989 18.4284C11.6044 18.4284 11.2846 18.1086 11.2846 17.7141V12.7141H6.2846C5.89011 12.7141 5.57031 12.3943 5.57031 11.9999C5.57031 11.6054 5.89011 11.2856 6.2846 11.2856H11.2846V6.28557C11.2846 5.89109 11.6044 5.57129 11.9989 5.57129C12.3934 5.57129 12.7132 5.89109 12.7132 6.28557V11.2856Z" fill="#00B7FF"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+</form>    
+<form class="admin-form" style="padding-top: 20px;">
+    <h2 class="admin-blc__title">Удаление Темы</h2>
+    <div class="admin-form__wrap">
+        <div class="admin-form__wrap-main">
+            <div class="admin-input-blc">
+                <span class="admin-input-row__title">Выберите Тему, которую хотите удалить</span>
+                <app-dashboard-select [items]="filteredTopic((topics$ | async).content, changeTopic)"
+                                      [(selected)]="deleteTopic"
+                ></app-dashboard-select>
+            </div>
+            <label class="admin-input-blc">
+                <span class="admin-input-row__title">Укажите Теги через запятую до 10, которые необходимо назначить публикациям удаляемой Темы</span>
+                <span class="admin-input-row__inputgroup">
+                    <textarea name="tags" class="admin-textarea" [(ngModel)]="tags"></textarea>
+                </span>
+            </label>
+            <div class="admin-input-blc">
+                <span class="admin-input-row__title">Выберите Тему, в которую необходимо перенести публикации</span>
+                <app-dashboard-select [items]="filteredTopic((topics$ | async).content, deleteTopic)" [(selected)]="changeTopic"></app-dashboard-select>
+            </div>
+        </div>
+        <div class="admin-form__wrap-bar">
+            <button class="btn admin-form__del"
+                    [disabled]="(!deleteTopic || !changeTopic) || deleteTopic.id === changeTopic.id"
+                    (click)="delete()">
+                <svg id="btn-cross" viewBox="0 0 26 26" width="24px" height="24px">
+                    <path d="M1.5 13C1.5 6.64873 6.64873 1.5 13 1.5C19.3513 1.5 24.5 6.64873 24.5 13C24.5 19.3513 19.3513 24.5 13 24.5C6.64873 24.5 1.5 19.3513 1.5 13Z" fill="white" stroke="#F0F0F0"></path>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0015 11.9898L16.5371 8.45431C16.816 8.17537 17.2683 8.17537 17.5472 8.45431C17.8262 8.73326 17.8262 9.18552 17.5472 9.46447L14.0117 13L17.5472 16.5355C17.8262 16.8145 17.8262 17.2667 17.5472 17.5457C17.2683 17.8246 16.816 17.8246 16.5371 17.5457L13.0015 14.0102L9.466 17.5457C9.18705 17.8246 8.73479 17.8246 8.45584 17.5457C8.1769 17.2667 8.1769 16.8145 8.45584 16.5355L11.9914 13L8.45584 9.46447C8.1769 9.18552 8.1769 8.73326 8.45584 8.45431C8.73479 8.17537 9.18705 8.17537 9.466 8.45431L13.0015 11.9898Z" fill="#00B7FF"></path>
+                </svg>
+            </button>
+        </div>
+    </div>              
+</form>

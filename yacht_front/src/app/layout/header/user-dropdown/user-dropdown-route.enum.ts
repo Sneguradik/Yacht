@@ -1,0 +1,10 @@
+export enum UserDropdownRouteEnum {
+    TOPICS = 'TOPICS',
+    AUTHORS = 'AUTHORS',
+    COMPANIES = 'COMPANIES',
+    PUBLICATIONS = 'PUBLICATIONS',
+    DRAFTS = 'DRAFTS',
+    COMMENTS = 'COMMENTS',
+    SETTINGS = 'SETTINGS',
+    PROMOTED = 'PROMOTED'
+}

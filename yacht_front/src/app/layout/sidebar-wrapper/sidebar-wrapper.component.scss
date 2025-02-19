@@ -1,0 +1,402 @@
+@import 'src/styles/responsive';
+@import 'src/styles/variables';
+
+:host {
+  padding-top: 40px;
+
+  @include media('<large') {
+    padding-top: 0;
+    margin-top: 30px;
+  }
+}
+
+.temnota {
+  background: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  left: 0;
+  overflow-y: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}
+
+:host ::ng-deep {
+  .ng-scroll-offset.ng-scroll-viewport {
+    width: 100%;
+  }
+}
+
+.ng-content {
+  width: 700px;
+
+  @include media('<medium') {
+    width: 100%;
+  }
+}
+
+.ng-content-wide {
+  width: 1061px;
+  @include media('<xlarge') {
+    width: 701px;
+  }
+  @include media('<medium') {
+    width: 100%;
+  }
+}
+
+.dropdown-icon {
+  fill: $primary;
+}
+
+.underlined {
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.underlined-selected {
+  @include media('<large') {
+    padding-bottom: 10px;
+  }
+  border-bottom: 3px solid #00b7ff !important;
+}
+
+.popular {
+  span {
+    margin-right: 4px;
+  }
+}
+
+.selected {
+  height: 100%;
+  position: relative;
+}
+
+.selected::after {
+  border-radius: 16px;
+  border-top: 3px solid $primary;
+  bottom: -8px;
+  content: '';
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.personal-feed {
+  position: relative;
+}
+
+.has-dropdown {
+  height: 24px;
+  position: relative;
+}
+
+.popular-dropdown,
+.personal-feed-dropdown {
+  background: white;
+  border-radius: 15px;
+  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  box-sizing: border-box;
+  padding: 20px;
+  position: absolute;
+  right: -40px;
+  top: 50px;
+  width: 180px;
+  z-index: 100;
+
+  &:focus {
+    outline: none;
+  }
+
+  .button-1 {
+    &:not(:last-child) {
+      padding-bottom: 10px;
+    }
+
+    &:not(:first-child) {
+      padding-top: 10px;
+    }
+  }
+
+  &::after {
+    border-bottom: 19px solid transparent;
+    border-bottom-color: white;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-top: 19px solid transparent;
+    border-top: 0;
+    content: '';
+    height: 0;
+    left: 77%;
+    margin-left: -15px;
+    margin-top: -15px;
+    position: absolute;
+    top: 0;
+    width: 0;
+  }  
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  
+  // & > * {
+  //   max-width: unset;
+  // }
+
+  .empty-size {
+    --scrollbar-size: 0 !important;
+  }
+
+  .block {
+    box-sizing: border-box;
+    min-height: 350px;
+  }
+
+  .navigation {
+    margin-right: 40px;
+    width: 260px;
+  }
+
+  .trending {
+    margin-left: 60px;
+    width: 300px;
+  }
+}
+
+.overlay-background {
+  background: rgba(0, 0, 0, 0.6);
+  bottom: 0;
+  display: none;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+
+  &.shown {
+    display: block;
+  }
+}
+
+.scroll-block {
+  height: 85vh;
+
+  ng-scrollbar {
+    --scrollbar-padding: 8px;
+    --scrollbar-color: transparent;
+    --scroll-view-color: transparent;
+    --scrollbar-size: 0;
+
+    height: 100%;
+    width: 100%;
+  }
+
+  .nav {
+    width: 260px;
+  }
+
+  .trand {
+    width: 300px;
+  }
+}
+
+.sidebar {
+  display: flex;
+  height: 500px;
+  position: fixed;
+  right: -360px;
+  top: 40px + 200px + 40px + 50px;
+  transition: 1s ease;
+  z-index: 4;
+
+  @include media('height<830px') {
+    bottom: 0;
+    top: unset;
+  }
+
+  &.trending {
+    z-index: 10;
+  }
+
+  &.shown {
+    right: 0;
+
+    .icon-expand {
+      display: none;
+    }
+  }
+
+  &:not(.shown) {
+    .icon-collapse {
+      display: none;
+    }
+  }
+
+  .collapse {
+    align-items: center;
+    background: $primary;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 20px;
+    z-index: 4;
+  }
+
+  .content {
+    background: #ececec;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 360px;
+    z-index: 4;
+
+    ng-scrollbar {
+      --scrollbar-padding: 8px;
+      --scrollbar-color: transparent;
+      --scroll-view-color: transparent;
+      --scrollbar-size: 0;
+
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.overlay {
+  z-index: 50;
+}
+
+.secondary-header {
+  margin-bottom: 30px;
+  z-index: 4;
+
+  @include media('<large') {
+    margin-bottom: 35px;
+  }
+  @include media('<medium') {
+    margin-bottom: 30px;
+  }
+
+  .left-sidebar {
+    background: #ececec;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    position: absolute;
+    z-index: 4;
+
+    @include media('<1060px') {
+      margin-top: 30px;
+      .inside {
+        padding-top: 30px;
+      }
+    }
+
+    app-navigation-sidebar {
+      display: block;
+      width: 100%;
+      z-index: 4;
+    }
+  }
+
+  .right-sidebar {
+    background: #ececec;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    z-index: 4;
+    max-width: 290px !important;
+
+    app-trending-sidebar {
+      display: block;
+      width: 100%;
+      // z-index: 6;
+    }
+  }
+}
+
+.pos-sticky {
+  position: sticky !important;
+  top: 80px;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.bg-grey {
+  background: #fbfbfb !important;
+  border-radius: 15px;
+}
+
+app-live-content {
+  overflow-x: scroll;
+  overflow-y: visible;
+}
+
+.sidebar-article {
+  display: flex;
+  height: 500px;
+  position: fixed;
+  left: -360px;
+  top: 40px + 200px + 40px;
+  transition: 1s ease;
+  z-index: 4;
+
+  @include media('height<830px') {
+    bottom: 0;
+    top: unset;
+  }
+
+  &.trending {
+    z-index: 10;
+  }
+
+  &.shown {
+    left: 0;
+
+    .icon-expand {
+      display: none;
+    }
+  }
+
+  &:not(.shown) {
+    .icon-collapse {
+      display: none;
+    }
+  }
+
+  .collapse {
+    align-items: center;
+    background: $primary;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 20px;
+    z-index: 4;
+  }
+
+  .content {
+    background: #ececec;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 360px;
+    z-index: 4;
+
+    ng-scrollbar {
+      --scrollbar-padding: 8px;
+      --scrollbar-color: transparent;
+      --scroll-view-color: transparent;
+      --scrollbar-size: 0;
+
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

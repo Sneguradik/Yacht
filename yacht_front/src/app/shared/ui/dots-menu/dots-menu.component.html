@@ -1,0 +1,6 @@
+<svg name="more" [attr.fill]="svgColor" (click)="toggle($event)"></svg>
+<div class="dropdown" tabindex="-1" #dropdown *ngIf="shown | async" style="z-index: 5;">
+    <ul class="structural item-space-20" (click)="toggle($event)">
+        <ng-content></ng-content>
+    </ul>
+</div>

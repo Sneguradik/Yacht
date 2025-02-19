@@ -1,0 +1,18 @@
+<app-ui-icon *ngIf="item.info.name" class="margin-right-10" [src]="item.info.picture" [textAlternative]="item.info.name"></app-ui-icon>
+<app-ui-icon *ngIf="item.info.company" class="margin-right-10" [src]="item.info.picture" [textAlternative]="item.info.company.name"></app-ui-icon>
+<span *ngIf="item.info.name" class="subtitle-1 ellipsis" style="max-width: 140px;">{{ item.info.name }}</span>
+<span *ngIf="item.info.company" class="subtitle-1" style="max-width: 140px;">{{ item.info.company.name }}</span>
+<div class="align-right">
+    <svg
+        *ngIf="showAdd"
+        class="icon-24"
+        name="btn-add"
+        (click)="emitActionEvent(); $event.stopPropagation()"
+    ></svg>
+    <div *ngIf="!showAdd" class="icon-24 v-center" (click)="emitActionEvent(); $event.stopPropagation()">
+        <svg
+            name="tick"
+            size="15"
+        ></svg>
+    </div>
+</div>

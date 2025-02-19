@@ -1,0 +1,47 @@
+<ul class="structural" *ngIf="(data$ | async) as data">
+    <li class="caption fade-3" style="padding-bottom: 0 !important; cursor: default;">{{ 'COMMON.PROFILE' | translate }}</li>
+    <li class="profile-data" (click)="toggle.emit()">
+        <a style="all: inherit; cursor: pointer;" [routerLink]="['/user/me/posts']">
+            <div class="icon">
+                <app-ui-icon *ngIf="session.loggedIn$ | async" [src]="(session.user$ | async).info.picture" [textAlternative]="(session.user$ | async).info | personName" [size]="'small'"></app-ui-icon>
+                <div *ngIf="!(session.loggedIn$ | async)" class="no-session">
+                    <svg name="user-add"></svg>
+                </div>
+            </div>
+            <span class="subtitle-1 fade-0" style="max-width: 125px">{{ (session.user$ | async).info | personName }}</span>
+        </a>
+    </li>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.TOPICS, text: 'COMMON.TOPICS', link: ['/topics'], data: data.topics, icon: 'hash' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.AUTHORS, text: 'COMMON.AUTHORS', link: ['/authors'], data: data.authors, icon: 'user' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.COMPANIES, text: 'COMMON.COMPANIES', link: ['/companies'], data: data.companies, icon: 'group' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.PROMOTED, text: 'COMMON.BOOKMARKS', link: ['/user', id, 'promoted'], data: data.promoted, icon: 'bookmark' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.PUBLICATIONS, text: 'COMMON.PUBLICATIONS_', link: ['/user', id, 'posts'], data: data.posts, icon: 'notes' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.DRAFTS, text: 'COMMON.DRAFTS', link: ['/user', id, 'drafts'], data: data.drafts, icon: 'edit' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.COMMENTS, text: 'COMMON.COMMENTS', link: ['/user', id, 'comments'], data: data.comments, icon: 'comment' }"></ng-template>
+    <ng-template *ngIf="isCompany || isAdmin || isEditor" [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: false, text: 'COMMON.EVENT', link: ['/events/create'], data: null, icon: 'btn-add-gray' }"></ng-template> 
+    <ng-template *ngIf="isCompany || isAdmin || isEditor" [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: false, text: 'COMMON.VACANCIES', link: ['/jobs/create'], data: null, icon: 'btn-add-gray' }"></ng-template>
+    <ng-template [ngTemplateOutlet]="defaultItem" [ngTemplateOutletContext]="{ selected: currentRoute === userDropdownRouteEnum.SETTINGS, text: 'COMMON.SETTINGS', link: ['/user', id, 'edit'], data: null, icon: 'cog' }"></ng-template>
+    <li *ngIf="(session.user$ | async).roles.includes('ROLE_SUPERUSER') || (session.user$ | async).roles.includes('ROLE_SALES')" class="btn" (click)="toggle.emit()">
+        <a class="gui" [routerLink]="['/dashboard']" routerLinkActive="selected">
+            <svg name="cog" size="24" class="icon-24 f-gray"></svg>
+            <span class="subtitle-2 fade-0"><a>GUI</a></span>
+        </a>  
+    </li>
+    <li class="btn logout" style="padding-bottom: 0 !important;" (click)="logout()" (click)="toggle.emit()">
+        <span class="subtitle-2 fade-3">{{ 'COMMON.LOGOUT' | translate }}</span>
+        <svg name="logout" size="24" class="icon-24 f-gray align-right"></svg>
+    </li>
+</ul>
+
+<ng-template #defaultItem let-selected="selected" let-text="text" let-link="link" let-data="data" let-icon="icon">
+    
+    <li class="btn underline" (click)="toggle.emit()">
+        <a [routerLink]="link" [ngClass]="{ 'selected': selected }" routerLinkActive="selected" class="items">
+            <svg [name]="icon" class="icon-24 f-gray"></svg>
+            <span class="subtitle-2 fade-0"><a>{{ text | translate }}</a></span>
+            <div *ngIf="data" class="float-rigth"><span class="caption dark-gray float-right">{{ data }}</span></div>
+        </a>
+    </li>
+
+    
+</ng-template>

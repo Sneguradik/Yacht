@@ -1,0 +1,25 @@
+<li class="user-view">
+    <header class="user-view__header">
+        <a class="title" [routerLink]="data | accountUrl">
+            <app-ui-icon class="margin-right-20" size="{{ (responsive.lt.medium | async) ? 'medium' : 'large' }}" [src]="this.data.info.picture" [textAlternative]="this.data.info | personName"></app-ui-icon>
+            <div class="tname" style="min-width: 150px;">
+                <p class="name">{{ this.data.info | personName | trunk:22 }}</p>
+                <p *ngIf="this.data.info.username" class="username">@{{ this.data.info.username }}</p>
+            </div>
+        </a>
+        <aside>
+            <div *ngIf="!this.data.subscribers.you" class="button-1 margin-right-10 btn" (click)="toggleSubscribe()">
+                <span *ngIf="!(responsive.lt.medium | async)" class="margin-right-10">{{ 'COMMON.SUBSCRIBE' | translate }}</span>
+                <svg name="plus" size="18"></svg>
+            </div>
+            <div *ngIf="this.data.subscribers.you" class="button-1 margin-right-10 btn only-icon-click">
+                <span *ngIf="!(responsive.lt.medium | async)" class="margin-right-10" style="color: #92929D;">{{ 'COMMON.YOU_ARE_ALREADY' | translate }}</span>
+                <svg name="tick" size="18" (click)="toggleSubscribe()"></svg>
+            </div>
+            <app-action-menu-user *appLoggedIn [data]="this.data" (gone)="this.gone.next(data.meta.id)"></app-action-menu-user>
+        </aside>
+    </header>
+    <footer class="user-view__footer">
+        <ng-content></ng-content>
+    </footer>
+</li>

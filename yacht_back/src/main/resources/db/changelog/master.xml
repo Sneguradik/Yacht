@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <include relativeToChangelogFile="true" file="initial.sql"/>
+    <include relativeToChangelogFile="true" file="subscription-score.sql"/>
+    <include relativeToChangelogFile="true" file="attribute-rank.sql"/>
+    <include relativeToChangelogFile="true" file="article-stats.sql"/>
+    <include relativeToChangelogFile="true" file="user-migrations.sql"/>
+    <include relativeToChangelogFile="true" file="ranking-config.sql"/>
+    <include relativeToChangelogFile="true" file="stats-update.sql"/>
+    <include relativeToChangelogFile="true" file="stats-fix.sql"/>
+    <include relativeToChangelogFile="true" file="topic.sql"/>
+    <include relativeToChangelogFile="true" file="21-01-20-refactor.sql"/>
+    <include relativeToChangelogFile="true" file="views.sql"/>
+    <include relativeToChangelogFile="true" file="add-contact-info.sql"/>
+    <include relativeToChangelogFile="true" file="subscription-unique.sql"/>
+    <include relativeToChangelogFile="true" file="full-description.sql"/>
+    <include relativeToChangelogFile="true" file="tag-filter.sql"/>
+    <include relativeToChangelogFile="true" file="deadline-fixes.sql"/>
+    <include relativeToChangelogFile="true" file="roles.sql"/>
+    <include relativeToChangelogFile="true" file="user-to-company.sql"/>
+    <include relativeToChangelogFile="true" file="article-promotion-list.sql"/>
+    <include relativeToChangelogFile="true" file="company-membership.sql"/>
+    <include relativeToChangelogFile="true" file="init-notifications.sql"/>
+    <include relativeToChangelogFile="true" file="user-ban.sql"/>
+    <include relativeToChangelogFile="true" file="cleanup.sql"/>
+    <include relativeToChangelogFile="true" file="delete-cascade.sql"/>
+    <include relativeToChangelogFile="true" file="job.sql"/>
+    <include relativeToChangelogFile="true" file="event.sql"/>
+    <include relativeToChangelogFile="true" file="hide-user-topic.sql"/>
+    <include relativeToChangelogFile="true" file="showcase.sql"/>
+    <include relativeToChangelogFile="true" file="full-text-search.sql"/>
+    <include relativeToChangelogFile="true" file="tag-view.sql"/>
+    <include relativeToChangelogFile="true" file="article-publication-stage.sql"/>
+    <include relativeToChangelogFile="true" file="report.sql"/>
+    <include relativeToChangelogFile="true" file="rating.sql"/>
+    <include relativeToChangelogFile="true" file="additional-hide-services.sql"/>
+    <include relativeToChangelogFile="true" file="merging-accounts.sql"/>
+    <include relativeToChangelogFile="true" file="comment-update.sql"/>
+    <include relativeToChangelogFile="true"  file="stats-by-time.sql"/>
+    <include relativeToChangelogFile="true" file="article-tag.sql"/>
+    <include relativeToChangelogFile="true" file="user-password.sql"/>
+    <include relativeToChangelogFile="true" file="article-pinned.sql"/>
+    <include relativeToChangelogFile="true" file="refresh-tokens.sql"/>
+    <include relativeToChangelogFile="true" file="advertisement.sql"/>
+    <include relativeToChangelogFile="true" file="ranking-config-update.sql"/>
+    <include relativeToChangelogFile="true" file="user-pinned.sql"/>
+    <include relativeToChangelogFile="true" file="article_non_unique.sql"/>
+    <include relativeToChangelogFile="true" file="event-non-unique-views.sql"/>
+    <include relativeToChangelogFile="true" file="job-non-unique-view.sql"/>
+    <include relativeToChangelogFile="true" file="open-graph.sql"/>
+    <include relativeToChangelogFile="true" file="20210201110300_fix_article_rating.sql"/>
+</databaseChangeLog>

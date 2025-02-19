@@ -1,0 +1,47 @@
+<div class="content">
+  <app-article 
+      [data$]="data$"
+      [tags]="tags" 
+      [topics]="topics"
+      [user]="user"
+      [isLogged]="isLogged"
+      [comments]="comments"
+      [isBrowser]="isBrowser"
+      (bookmarked)="updateBookmark($event)">
+  </app-article>
+  <div class="ad">
+    <app-ad-banner [place]="bannerPlaceEnum.PUBLICATION_ABOVE_COMMENTS"></app-ad-banner>
+  </div>
+  <div class="events">
+    <div>
+      <div *ngIf="eventsJobs">
+        <app-events *ngIf="eventsJobs.publicationsBottom" [page]="0"></app-events>
+        <app-jobs *ngIf="!eventsJobs.publicationsBottom" [page]="0" [offBG]="true"></app-jobs>
+      </div>
+    </div>
+  </div>
+  <app-comment-section 
+      class="comments block margin-bottom-40" 
+      [isLogged]="isLogged" 
+      [articleComments]="comments" 
+      [id]="(data$ | async)?.meta.id"
+      [user]="user"
+      [attr.id]="'comments-block'"
+      (addCommentEmit)="addComment()"
+      (addWatchtEmit)="addWatch()">
+  </app-comment-section>
+  <div class="margin-bottom-40"><app-ad-banner [place]="bannerPlaceEnum.PUBLICATION_BELOW_COMMENTS"></app-ad-banner></div>
+  <div class="company-blogs block">
+    <div class="suggestions">
+      <h5 class="fade-0 margin-bottom-10">{{'COMMON.COMPANIES_ARTICLE' | translate}}</h5>
+      <div></div>
+      <div *ngFor="let i of companyArticles; let k = index" class="cont border-bottom-zero margin-bottom-20">
+        <app-feed-article-view *appLet="(companyTopics$[k] | async) as topics" [data]="i" [options]="{ pictureOn: false }" [topic]="topics ? topics[0] : null"></app-feed-article-view>
+      </div>
+      <a class="all-comp btn" [routerLink]="['/companies']">
+        <span class="subtitle-2 fade-2">{{'COMMON.LOOK_ALL_COMPANIES' | translate}}</span>
+        <svg name="chevron/right"></svg>
+      </a>
+    </div>
+  </div>
+</div>

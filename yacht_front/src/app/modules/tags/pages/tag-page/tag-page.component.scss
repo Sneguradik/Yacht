@@ -1,0 +1,22 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+.stats-item {
+  align-items: center;
+  color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+
+  &__value {
+    color: $primary;
+    padding-left: 6px;
+  }
+}
+
+:host {
+    width: 100%;
+}

@@ -1,0 +1,28 @@
+@import 'src/styles/responsive';
+@import 'src/styles/variables';
+
+.file-upload {
+  align-items: center;
+  display: flex;
+
+  &-hint {
+    color: $gray;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 10px 0;
+  }
+
+  label {
+    color: $primary;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+    margin-left: 10px;
+  }
+
+  input {
+    display: none;
+  }
+}

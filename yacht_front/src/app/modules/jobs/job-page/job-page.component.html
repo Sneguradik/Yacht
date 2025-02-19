@@ -1,0 +1,93 @@
+<app-ui-card [shadow]='false'>
+  <header class="margin-bottom-20">
+    <section class="v-center mobile-small">
+      <app-user-info class="margin-right-20" [user]="company"></app-user-info>
+      <span *ngIf="job.info.publicationStage !== publicationStageEnum.PUBLISHED" class="overline c-caption">Не опубликовано</span>
+      <div class="v-center align-right">
+        <span class="caption fade-3 margin-right-8">{{ job.info.publishedAt | customDate }}</span>
+        <svg name="bookmark" class="f-gray icon clickable margin-right-8" 
+          [class.active]="job.bookmarks.you" (click)="bookmark()"></svg>
+        <app-share class="margin-right-10" [url]="null | url"></app-share>
+        <app-action-menu-job *appLoggedIn [data]="job" [own]="own" (gone)="this.router.navigate(['/jobs'])">
+        </app-action-menu-job>
+      </div>
+    </section>
+  </header>
+  <article class="margin-bottom-30">
+    <section class="margin-bottom-20">
+      <h2 class="margin-bottom-30">{{ job.info.name }}</h2>
+      <div class="fade-1 v-center space-between items-h6">
+        <h6 class="item-h6" >{{ salary ? salary : ('COMMON.INTERVIEW_SALARY' | translate) }}</h6>
+        <h6 class="item-h6">{{ job.info.type === 'FULL' ? ('COMMON.FULL_TIME' | translate) : ('COMMON.PART_TIME' | translate) }}</h6>
+        <h6 class="item-h6">{{ job.info.place === 'OFFICE' ? ('COMMON.TO_OFFICE' | translate) : ('COMMON.REMOTE_' | translate) }}</h6>
+        <h6 class="item-h6" *ngIf="job.info.city">{{ job.info.city | trunk:14 }}</h6>
+      </div>
+    </section>
+    <hr class="blue-line margin-bottom-30">
+    <section class="margin-bottom-30">
+      <section class="margin-bottom-30">
+        <h3 class="fade-1 margin-bottom-10">{{ 'COMMON.TASKS' | translate }}</h3>
+        <div [innerText]="job.body.tasks"></div>
+      </section>
+      <hr class="blue-line margin-bottom-30">
+      <section class="margin-bottom-30">
+        <h3 class="fade-1 margin-bottom-10">{{ 'COMMON.JOB_CONDITIONS' | translate }}</h3>
+        <div [innerText]="job.body.workConditions"></div>
+      </section>
+      <hr class="blue-line margin-bottom-30">
+      <section>
+        <h3 class="fade-1 margin-bottom-10">{{ 'COMMON.REQUIREMENTS' | translate }}</h3>
+        <div [innerText]="job.body.requirements"></div>
+      </section>
+    </section>
+    <hr class="blue-line margin-bottom-30">
+    <section class="contact">
+      <div>
+        <ng-container *ngIf="!contactsRevealed">
+          <button class="primary-icon-button" (click)="contactsRevealed = true">
+            <span class="button-1">{{ 'COMMON.SEND_THE_RESUME' | translate }}</span>
+            <svg name="mail"></svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="contactsRevealed">
+          <div>
+            <h3 class="c-primary">{{ 'COMMON.CONTACTS' | translate }}</h3>
+            <div class="contact-card margin-bottom-20">
+              <span class="subtitle-1 fade-1">{{ 'COMMON.CONTACT_PERSON' | translate }}</span>
+              <div class="font-1">
+                {{ job.info.recruiterName }}
+                <svg class="f-gray" name="user"></svg>
+              </div>
+            </div>
+            <div class="contact-card">
+              <span class="subtitle-1 fade-1">Почта для соискателей</span>
+              <div class="font-1">
+                {{ job.info.email }}
+                <svg class="f-gray" name="mail"></svg>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <div>
+        <img *ngIf="job.body.image" [src]="job.body.image" [alt]="job.info.name">
+      </div>
+    </section>
+  </article>
+  <footer>
+    <section class="v-center margin-bottom-20">
+      <div class="c-gray v-center margin-right-20 clickable" [class.c-primary]="job.bookmarks.you" (click)="bookmark()">
+        <svg name="bookmark" class="margin-right-4 icon f-gray"
+          [class.active]="job.bookmarks && job.bookmarks.you"></svg>
+        <span class="subtitle-2">{{ job.bookmarks.count }}</span>
+      </div>
+      <div class="v-center margin-right-20">
+        <svg name="view" class="margin-right-4 icon f-gray"></svg>
+        <span class="subtitle-2 c-gray">{{ job.views.count }}</span>
+      </div>
+      <app-share [url]="null | url" style="width: 100%;" [wide]="true"></app-share>
+      <!--<app-contact-compact-list class="align-right" [contacts]="company.contacts"></app-contact-compact-list>-->
+    </section>
+    <hr class="blue-line">
+  </footer>
+</app-ui-card>

@@ -1,0 +1,17 @@
+<div class="admin-popup">
+    <div class="admin-popup__overlay"></div>
+    <div class="admin-popup__main">
+        <button class="btn admin-popup__close" (click)="cancelF()">
+            <svg id="btn-cross" viewBox="0 0 26 26" width="24px" height="24px">
+                <path d="M1.5 13C1.5 6.64873 6.64873 1.5 13 1.5C19.3513 1.5 24.5 6.64873 24.5 13C24.5 19.3513 19.3513 24.5 13 24.5C6.64873 24.5 1.5 19.3513 1.5 13Z" fill="white" stroke="#F0F0F0"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0015 11.9898L16.5371 8.45431C16.816 8.17537 17.2683 8.17537 17.5472 8.45431C17.8262 8.73326 17.8262 9.18552 17.5472 9.46447L14.0117 13L17.5472 16.5355C17.8262 16.8145 17.8262 17.2667 17.5472 17.5457C17.2683 17.8246 16.816 17.8246 16.5371 17.5457L13.0015 14.0102L9.466 17.5457C9.18705 17.8246 8.73479 17.8246 8.45584 17.5457C8.1769 17.2667 8.1769 16.8145 8.45584 16.5355L11.9914 13L8.45584 9.46447C8.1769 9.18552 8.1769 8.73326 8.45584 8.45431C8.73479 8.17537 9.18705 8.17537 9.466 8.45431L13.0015 11.9898Z" fill="#00B7FF"></path>
+            </svg>
+        </button>
+        <h2 class="admin-popup__title">{{ delete ? 'Внимание! Удаление Темы' : 'Создание Темы' }}</h2>
+        <p class="admin-popup__txt">Вы действительно хотите {{ delete ? ('COMMON.REMOVE' | translate) : 'создать' }} Тему <b>{{ topicName }}</b>?</p>
+        <div class="admin-popup__bar">
+            <button class="btn admin-btn_white" (click)="actionF()">Да, подтверждаю</button>
+            <button class="btn admin-btn_blue" (click)="cancelF()">{{ 'COMMON.UNDO' | translate }}</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+@import 'src/styles';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  > svg:hover,
+  &.open > svg {
+    fill: $primary;
+  }
+  svg.open {
+    margin-right: 5px;
+  }
+  a {
+    display: block;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    li:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+  @include media('<medium') {
+    position: relative;
+    ul{
+      padding-left: 5px;
+    }
+    svg.open {
+      margin-right: 0;
+    }
+  }
+
+  
+
+  .wide {
+    display: flex;
+    margin-left: auto;
+    height: 20px;
+  }
+}
+::ng-deep .quote-share{    
+  .structural{
+    position: static !important;
+  }
+  .right-direction{
+    right: auto;
+    left: 0;
+  }
+}
+
+::ng-deep .right-direction{    
+  .structural{
+    right: auto;
+    left: 0;
+  }
+}

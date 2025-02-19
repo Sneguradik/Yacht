@@ -1,0 +1,11 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+.has-dropdown {
+  height: 24px;
+  position: relative;
+}
+
+svg {
+  display: inline-block;
+}

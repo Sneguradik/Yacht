@@ -1,0 +1,38 @@
+<div class="v-center">
+    <div style="height: 100%;">
+        <app-feed-nav-item
+            [selected]="(homepageService.feedSource$ | async) === feedSourceEnum.PERSONAL"
+            [link]="['/']"
+            [dropdownConf]="personalDropdownConf"
+            [count]="unreadPersonal$ | async"
+            [text]="'COMMON.MY_NEWSFEED'"
+            [isSecondHeader]="isSecondHeader"
+            [handleClick]="handleClick" 
+            class="feed-nav__left">
+        </app-feed-nav-item>
+    </div>
+
+    <div style="height: 100%;">
+        <app-feed-nav-item
+            [selected]="(homepageService.feedSource$ | async) === feedSourceEnum.ALL"
+            [link]="['/all']"
+            [dropdownConf]="{ hasDropdown: false }"
+            [count]="unreadPopular$ | async"
+            [isSecondHeader]="isSecondHeader"
+            [text]="'COMMON.PUBLICATIONS'" 
+            class="feed-nav__middle">
+        </app-feed-nav-item>
+    </div>
+
+    <div style="height: 100%;">
+        <app-feed-nav-item
+            [selected]="(homepageService.feedSource$ | async) === feedSourceEnum.POPULAR"
+            [link]="['/popular']"
+            [dropdownConf]="popularDropdownConf"
+            [isSecondHeader]="isSecondHeader"
+            [text]="'COMMON.POPULAR'" 
+            [dropAction]="true"
+            class="feed-nav__right">
+        </app-feed-nav-item>
+    </div>
+</div>

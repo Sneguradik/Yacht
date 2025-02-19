@@ -1,0 +1,28 @@
+<ul class="c-primary structural item-space-10 subtitle-1">
+    <li #userTags *ngFor="let tag of tags; let i = index" style='position: relative!important;' class="v-center">
+        <input class="subtitle-2 margin-right-4 c-primary"
+               spellcheck="false"
+               type="text"
+               maxlength="32"
+               [(ngModel)]="tag.content"
+               (input)="input($event)"
+               (focus)="currentlyEdited = i"
+               (change)="change(tag)"
+               (keyup.Space)="add()"
+               (keydown.Enter)="$event.preventDefault()"
+               (keyup.Enter)="add()">
+        <svg name="report" class="f-primary clickable" size="14" (click)="remove(i)"></svg>
+    </li>
+    <li #addBtn *ngIf="tags.length < 10" (click)="add()">
+        <span class="subtitle-1 clickable">{{ ('COMMON.ADD_TAG' | translate) + ' (' + ('COMMON.MORE' | translate) + ' ' + (10 - tags.length) + ')' }}</span>
+    </li>
+</ul>
+
+<ng-container *ngIf="(suggestions || []) as data">
+    <ul #searchResults class="search-results block-card fade-1 subtitle-1 item-space-10"
+        [class.shown]="data.length">
+        <li *ngFor="let s of data" class="clickable" (mousedown)="accept(s)">
+            {{ s.content + ' (' + s.postCount + ')' }}
+        </li>
+    </ul>
+</ng-container>

@@ -1,0 +1,18 @@
+<ng-container *ngIf="hostClassArticle" class="article">
+  <div class="vote down" [ngClass]="{cast: castVote === -1}" (click)="handleVote('down')">
+    <svg class="inactive" name="vote/vote-down"></svg>
+    <svg class="active" name="vote/vote-down-active"></svg>
+  </div>
+  <span class="score subtitle-1"
+        [ngClass]="{negative: down > up}">{{ down > up ? (up - down) : ('+' + (up - down)) }}</span>
+  <div class="vote up" [ngClass]="{cast: castVote === 1}" (click)="handleVote('up')">
+    <svg class="inactive" name="vote/vote-up"></svg>
+    <svg class="active" name="vote/vote-up-active"></svg>
+  </div>
+</ng-container>
+<ng-container *ngIf="hostClassComment" class="comment">
+  <svg name="chevron/down" class="vote down" [ngClass]="{cast: castVote === -1}" (click)="handleVote('down')"></svg>
+  <span class="score subtitle-2"
+        [ngClass]="{negative: down > up}">{{ down > up ? (up - down) : ('+' + (up - down)) }}</span>
+  <svg name="chevron/up" class="vote up" [ngClass]="{cast: castVote === 1}" (click)="handleVote('up')"></svg>
+</ng-container>

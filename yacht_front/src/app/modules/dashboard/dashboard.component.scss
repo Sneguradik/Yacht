@@ -1,0 +1,112 @@
+@import 'shared/styles/dashboard-base-styles.scss';
+@import 'shared/styles/normalize.scss';
+@import 'shared/styles/styled-select.scss';
+// @import 'shared/styles/fonts.scss';
+
+:host {
+    width: 100%;
+}
+
+
+.main {
+    padding-top: 40px;
+}
+
+.admin-wrap {
+    max-width: 1024px;
+    padding: 0 20px;
+    margin: 0 auto;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    -ms-align-items: flex-start;
+    align-items: flex-start;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.admin-bar {
+    width: 260px;
+    margin-right: 40px;
+    margin-bottom: 30px;
+}
+
+.admin-blc {  
+    padding: 22px 20px;
+    margin-bottom: 30px;
+    border-radius: 20px;
+}
+
+.admin-blc__grey {
+    background-color: #FAFAFB;  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+}
+
+.admin-blc__title {
+    font-family: 'Roboto';
+    color: rgba(0, 0, 0, .87);
+    margin-bottom: 22px;
+}
+
+.admin-blc__title { 
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px; 
+    margin: 18px 0;
+    border-bottom: 1px solid #E5E5E5;
+    padding-bottom: 6px;
+}
+
+.admin-content{
+    width: calc(100% - 260px - 40px);
+}
+
+.admin-nav {
+    background: #fff;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.admin-nav li {
+    border-bottom: 1px solid #F6F6F6;
+}
+
+.admin-nav li:last-child {
+    border-bottom: none;
+}
+
+.admin-nav li a {
+    padding: 10px 0;
+    display: block;
+    font-family: 'Roboto';
+    font-size: 14px;
+    line-height: 16px;
+    color: rgba(0, 0, 0, .6);
+}
+
+.admin-nav li a:hover, .admin-nav li a.active {
+    color: #00b7ff;
+}
+
+@media only screen and (max-width : 767px) {
+    .admin-wrap {
+      padding: 0 15px;
+      display: block;
+    }
+
+    .admin-bar {
+      width: 100%;
+      margin: 0 0 20px;
+    }
+
+    .admin-content {
+        width: 100%;
+    }
+}

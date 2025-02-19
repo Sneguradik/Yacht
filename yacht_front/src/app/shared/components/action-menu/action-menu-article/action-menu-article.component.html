@@ -1,0 +1,74 @@
+<app-ui-dots-menu *appLoggedIn>
+    <app-ui-dots-menu-item *ngIf="!me"
+                       icon="do-not-show"
+                       [text]="'COMMON.REMOVE_FROM_NEWSFEED' | translate"
+                       (click)="hide()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *ngIf="data.status.publicationStage === 'PUBLISHED'"
+                       icon="bookmark"
+                       [text]="data.bookmarks.you ? ('COMMON.REMOVE' | translate)  : ('COMMON.TO_BOOKMARKS' | translate)"
+                       (click)="bookmark()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *ngIf="!me"
+                       icon="report"
+                       [text]="'COMMON.TO_FILE_A_COMPLAINT' | translate"
+                       appReport
+                       [object]="{ type: reportEntityTypeEnum.ARTICLE, id: data.meta.id }"
+                       (report)="hide()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *ngIf="me && data.status.publicationStage === 'PUBLISHED'"
+                       icon="star"
+                       [text]="data.pinned ? ('COMMON.UNPIN' | translate) : ('COMMON.TO_PIN' | translate)"
+                       (click)="pin(!data.pinned)">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or me and data.status.publicationStage !== 'DRAFT'"
+                       icon="edit"
+                       [text]="'COMMON.TO_DRAFTS' | translate"
+                       (click)="withdraw()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *ngIf="data.status.publicationStage === 'DRAFT' && me"
+                       icon="view"
+                       [text]="'COMMON.SEND_TO_MODERATION' | translate"
+                       (click)="submit()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'PRIV_USER$'; and data.status.publicationStage !== 'PUBLISHED' && data.status.publicationStage !== 'BLOCKED' && !company"
+                       icon="globe"
+                       [text]="'COMMON.PUBLISH' | translate"
+                       (click)="publish()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *ngIf="company && data.status.publicationStage !== 'PUBLISHED' && data.status.publicationStage !== 'BLOCKED'"
+                       icon="globe"
+                       [text]="'COMMON.PUBLISH' | translate"
+                       (click)="publish()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or me"
+                       icon="edit"
+                       [text]="'COMMON.EDIT'  | translate"
+                       (click)="edit()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'"
+                       icon="star"
+                       [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate"
+                       (click)="showcase()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'"
+                       icon="star"
+                       text="{{ (isPromoteDefault ? 'COMMON.REMOVE_FROM_YACHTSMAN' : 'COMMON.ADD_TO_YACHTSMAN') | translate }}"
+                       (click)="promote(!data.promotions.default)">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; and data.status.publicationStage !== 'BLOCKED'"
+                       icon="lock"
+                       [text]="'COMMON.BLOCK' | translate"
+                       (click)="block(true)">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; and data.status.publicationStage === 'BLOCKED'"
+                       icon="lock"
+                       [text]="'COMMON.UNBLOCK' | translate"
+                       (click)="block(false)">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or me"
+                       icon="report"
+                       [text]="'COMMON.REMOVE' | translate"
+                       (click)="delete()">
+    </app-ui-dots-menu-item>
+</app-ui-dots-menu>

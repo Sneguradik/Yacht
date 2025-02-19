@@ -1,0 +1,23 @@
+<div *ngIf="platformsService.isBrowser">
+    <app-article-editor 
+        *appLet="responsive$.lt.medium | async as isMediumResponsive"
+        [isMediumResponsive]="isMediumResponsive"
+        [article]="articleData" 
+        [initialData]="articleSource" 
+        [allTopics]="allTopics" 
+        [tags]="articleTags"
+        [suggestions]="suggestions$ | async"
+        (putSourceReq)="putSource($event)"
+        (updateTopicsReq)="updateTopics($event)"
+        (updateCoverReq)="updateCover($event)"
+        (updateSummaryReq)="updateSummary($event)"
+        (updateTitleReq)="updateTitle($event)"
+        (saveAndPublishReq)="saveAndPublish($event)"
+        (tagsSuggestionsReq)="tagsSuggestions($event)"
+        (tagsUploadReq)="tagsUpload($event)">
+    </app-article-editor>
+
+    <app-article-editor-preview *ngIf="openPreview" [article]="article" [topic]="topic"></app-article-editor-preview>
+
+    <app-article-republish *ngIf="published" (copyReq)="copy()"></app-article-republish>
+</div>

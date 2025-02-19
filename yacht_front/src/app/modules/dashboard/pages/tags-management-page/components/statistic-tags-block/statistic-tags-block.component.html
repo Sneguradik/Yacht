@@ -1,0 +1,20 @@
+<form class="admin-form">
+    <app-dashboard-range [params$]="range$"></app-dashboard-range>
+    <fieldset class="admin-form__fieldset">
+        <label class="admin-input-row">
+            <span class="admin-input-row__title">Всего тегов</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_short admin-input-row__input" disabled="true" [value]="(stat$ | async).all">
+            </span>
+        </label>
+      <label class="admin-input-row">
+            <span class="admin-input-row__title">Новых</span>
+            <span class="admin-input-row__inputgroup">
+                <input type="text" class="admin-input admin-input_short admin-input-row__input" disabled="true" [value]="(stat$ | async).new">
+            </span>
+      </label>
+    </fieldset>
+    <div class="admin-input-row">
+        <button class="btn admin-btn_white admin-btn_m" (click)="show()">Показать</button>
+    </div>
+</form>

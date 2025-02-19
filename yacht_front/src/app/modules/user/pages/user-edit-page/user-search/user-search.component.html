@@ -1,0 +1,20 @@
+<div>
+    <div class="search-field">
+        <input #searchInput 
+            class="margin-right-10" type="text"
+            [placeholder]="'COMMON.SEARCH_AUTHOR' | translate" (input)="onSearchChange($any($event.target).value)">
+        <svg name="search" class="icon f-gray align-right"
+            (click)="onSearchChange(searchInput.value)"></svg>
+    </div>
+  
+    <div *ngIf="filteredUsers.length" class="users">
+        <div *ngFor="let user of filteredUsers" class="user">
+            <app-ui-icon [src]="user.info.picture" [size]="'large'" [textAlternative]=""></app-ui-icon>
+                <div class="user-info fade-1">
+                <h4 class="margin-bottom-5">{{ user.info.firstName }} {{ user.info.lastName }}</h4>
+                <h6 *ngIf="user.info.username">@{{ user.info.username }}</h6>
+            </div>
+            <app-ui-button *ngIf="!isMember(user.meta.id)" type="button" (click)="onAddClick(user)" class="plus">Пригласить</app-ui-button>
+        </div>
+    </div>
+</div>  

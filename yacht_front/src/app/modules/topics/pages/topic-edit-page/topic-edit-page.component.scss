@@ -1,0 +1,165 @@
+@import 'src/styles/responsive';
+@import 'src/styles/variables';
+@import 'src/styles';
+
+:host {
+  width: 100%;
+
+  padding: 40px 0;
+  @include media('<500px') {
+    .mobile-small {
+      display: grid;
+      grid-row-gap: 20px;
+      grid-template-columns: 1fr 1fr;
+
+      h6 {
+        display: grid;
+        grid-column: 1 / 4;
+        order: 1;
+      }
+
+      .top-small {
+        order: 0;
+      }
+    }
+  }
+
+  .sub-button {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+  }
+
+  .pre-img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    height: 265px;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    @include media('<medium') {
+      height: 142px;
+      width: 375px;
+    }
+  }
+
+  form {
+    padding-top: 15px;
+  }
+
+  button[type='submit'] {
+    background: $primary;
+    border: 0;
+    border-radius: 15px;
+    color: white;
+    height: 35px;
+    padding: 0 10px 0 20px;
+    width: 150px;
+  }
+
+  .form-section,
+  .form-header {
+    border-bottom: 3px solid $light-gray;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+
+    h2 {
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 21px;
+      margin: 10px 0 20px;
+    }
+  }
+
+  header {
+    > * {
+      flex: 1 0 0;
+    }
+    h6 {
+      flex-grow: 2;
+      text-align: center;
+    }
+  }
+
+  .form-header,
+  .form-footer {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  app-ui-form-control {
+    margin-bottom: 30px;
+  }
+
+  .form-textarea {
+    border: 0;
+    border-bottom: 3px solid $light-blue;
+    display: block;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    outline: none;
+    padding: 5px 0 0;
+    resize: none;
+    transition: 0.2s ease-in-out border-color;
+    width: 100%;
+
+    &:focus {
+      border-color: $primary;
+    }
+
+    &:not(:valid) {
+      border-color: $error;
+    }
+  }
+
+  .ui-input-h1 {
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .cover-image {
+    height: 350px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .photo {
+    &-container {
+      display: flex;
+
+      app-ui-icon {
+        margin-right: 30px;
+      }
+
+      img {
+        object-fit: cover;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+    }
+  }
+
+  .form-contact {
+    display: flex;
+
+    svg {
+      height: 35px;
+      width: 35px;
+    }
+
+    app-ui-form-control {
+      margin-left: 20px;
+    }
+  }
+}

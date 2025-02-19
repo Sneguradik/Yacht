@@ -1,0 +1,9 @@
+<ng-container [ngTemplateOutlet]="entry" [ngTemplateOutletContext]="{ name: 'twitter' }"></ng-container>
+<ng-container [ngTemplateOutlet]="entry" [ngTemplateOutletContext]="{ name: 'vk' }"></ng-container>
+<ng-container [ngTemplateOutlet]="entry" [ngTemplateOutletContext]="{ name: 'telegram' }"></ng-container>
+
+<ng-template #entry let-name="name" let-iconName="iconName || 'social/' + name">
+    <a *ngIf="contacts[name]" [href]="contacts[name]">
+        <svg [name]="iconName" [size]="size"></svg>
+    </a>
+</ng-template>

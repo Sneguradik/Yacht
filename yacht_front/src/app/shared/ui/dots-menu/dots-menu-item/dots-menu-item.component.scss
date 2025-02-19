@@ -1,0 +1,28 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+.button-1 {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.clickable {
+  &:hover {
+    span {
+      color: $primary;
+    }
+    svg {
+      fill: $primary;
+    }
+  }
+}
+
+:host {
+  display: list-item;
+  text-align: left;
+  &:not(:last-child) {
+    div {
+      border-bottom: 1px solid #f6f6f6;
+    }
+  }
+}

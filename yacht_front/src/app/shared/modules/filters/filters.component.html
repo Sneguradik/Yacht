@@ -1,0 +1,8 @@
+<ul class="filters">
+    <li *ngFor="let filter of filters"
+        class="filters__item clickable"
+        [class.active]="activeFilter === filter.id"
+        (click)="selectFilter(filter)">
+        {{ filter.text }}
+    </li>
+</ul>

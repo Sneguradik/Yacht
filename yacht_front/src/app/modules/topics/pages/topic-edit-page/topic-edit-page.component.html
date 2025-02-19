@@ -1,0 +1,60 @@
+<app-ui-card>
+    <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+        <header class="v-center margin-bottom-30 mobile-small">
+            <span class="button-1 fade-5 top-small" (click)="onCancel()">{{ 'COMMON.UNDO' | translate }}</span>
+            <h6>{{ 'COMMON.EDIT_TOPIC' | translate }}</h6>
+            <div class="v-center top-small">
+                <button type="submit" class="v-center space-between align-right clickable">
+                    <span class="button-1">{{ 'COMMON.SAVE' | translate }}</span>
+                    <svg name="checkbox" class="f-white"></svg>
+                </button>
+            </div>
+        </header>
+  
+        <hr class="gray margin-bottom-30"/>
+  
+        <div class="form-section" formGroupName="info">
+            <app-ui-form-control>
+                <app-ui-label><h2 style="margin-bottom: 0 !important;">{{ 'COMMON.TOPIC' | translate }}</h2></app-ui-label>
+                <span class="caption c-caption">{{ 'COMMON.MAXIMUM_ALLOWED_26' | translate }}</span>
+                <input class="ui-input-h1" uiInput appearance="form" maxlength="26" placeholder="Напишите что-нибудь..." formControlName="name" />
+            </app-ui-form-control>
+            <h2>{{ 'COMMON.TOPIC_DESCRIPTION' | translate }}<span style="font-size: 14px; line-height: 16px; color: rgba(0, 183, 255); float: right; font-weight: normal;" [ngStyle]="{'color': form.get('info').get('description').value.length > 300 ? 'rgb(255, 91, 54)' : 'rgba(0, 183, 255)'}">{{ (300 - form.get('info').get('description').value.length) + '/300' }}</span></h2>
+            <textarea class="form-textarea" autosize [minRows]="1" formControlName="description" placeholder="Напишите что-нибудь..."></textarea>
+        </div>
+  
+        <div class="form-section" formGroupName="profile">
+            <h2>{{ 'COMMON.TOPIC_IMAGE' | translate }}</h2>
+            <img *ngIf="coverSrc" class="pre-img" src="{{ coverSrc }}" />
+            <app-file-upload [id]="'cover'" (onChange)="onCoverChange($event)"></app-file-upload>
+            <p class="caption c-caption">{{ 'COMMON.RECOMMENDED_IMAGE_SIZE_' | translate }}</p>
+            <span *ngIf="coverSrc" class="sub-button btn margin-bottom-20" (click)="onCoverRemove()">{{ 'COMMON.REMOVE_THE_PHOTO' | translate }}</span>
+        </div>
+  
+  
+        <div class="form-section" formGroupName="info">
+            <h2>{{ 'COMMON.TOPICS_ICON' | translate }}</h2>
+            <div class="photo-container">
+                <app-ui-icon [src]="photoSrc" [size]="'xlarge'" [textAlternative]="photoAlt"></app-ui-icon>
+                <div class="photo-actions">
+                    <app-file-upload [id]="'photo'" (onChange)="onPhotoChange($event)"></app-file-upload>
+                    <p class="file-upload-hint">{{ 'COMMON.RECOMMENDED_IMAGE_SIZE__' | translate }} JPG, 250 x 250 px</p>
+                    <span *ngIf="photoSrc" class="sub-button btn margin-bottom-20" (click)="onPhotoRemove()">{{ 'COMMON.REMOVE_THE_PHOTO' | translate }}</span>
+                </div>
+            </div>
+        </div>
+  
+        <div class="form-section" formGroupName="profile">
+            <h2>{{ 'COMMON.FULL_DESCRIPTION' | translate }}</h2>
+            <textarea class="form-textarea" autosize [minRows]="1" formControlName="fullDescription" placeholder="Напишите что-нибудь..."></textarea>
+        </div>
+  
+        <footer class="v-center space-between">
+            <span class="button-1 fade-5" (click)="onCancel()">{{ 'COMMON.UNDO' | translate }}</span>
+            <button type="submit" class="v-center space-between align-right clickable">
+                <span class="button-1">{{ 'COMMON.SAVE' | translate }}</span>
+                <svg name="checkbox" class="f-white"></svg>
+            </button>
+        </footer>
+    </form>
+</app-ui-card>

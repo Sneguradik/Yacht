@@ -1,0 +1,57 @@
+@import 'src/styles/variables';
+
+:host ::ng-deep {  
+  .dropdown {
+    width: 300px !important;
+  }
+}
+
+.ranges {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+  width: 100%;
+
+  &__item {
+    border-bottom: 2px solid $primary;
+    width: 100%;
+
+    &:not(.active) {
+      border-bottom: 1px solid #f6f6f6;
+    }
+  }
+}
+
+app-ui-dropdown-menu-item {
+  &::ng-deep {
+    .slctd {
+      border-bottom: 0;
+      padding: 0;
+    }
+  }
+}
+
+.mr-8 {
+  margin-right: 8px;
+}
+
+.has-dropdown {
+  height: 100%;
+  position: relative;
+}
+
+svg {
+  display: inline-block;
+  fill: $primary;
+}
+
+.button-1 {
+  padding: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.head .button-1{
+  padding: 10px 0;
+}

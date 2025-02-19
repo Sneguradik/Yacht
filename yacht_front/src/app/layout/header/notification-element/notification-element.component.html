@@ -1,0 +1,99 @@
+<div class="type fade-2 flex-item">
+    <svg class="f-gray margin-right-10" size="18"
+         [class.f-primary]="!item.read" [name]="TYPE_MAP[item.type].type.icon"></svg>
+    <span [class.c-primary]="!item.read" class="caption margin-right-20 fade-4">{{ TYPE_MAP[item.type].type.name | translate }}</span>
+    <span class="caption fade-3" style="margin-left: auto; margin-right: 20px;">{{ item.createdAt | customDate }}</span>
+</div>
+<p class="name button-1" style="margin-bottom: 0 !important;">
+    <ng-container [ngSwitch]="true">
+        <a *ngSwitchCase="!TYPE_MAP[item.type].custom" [routerLink]="url" [fragment]="fragment">{{ TYPE_MAP[item.type].message | translate }}</a>
+        <a *ngSwitchCase="item.type === 'content_report'" [href]="body.url">{{ TYPE_MAP[item.type].message | translate }}</a>
+        <span *ngSwitchCase="item.type === 'account_banned' || item.type === 'account_unbanned'">{{ TYPE_MAP[item.type].message | translate }}</span>
+        <ng-container *ngSwitchDefault>{{ item.type }}</ng-container>
+    </ng-container>
+</p>
+<div style="margin-bottom: 10px;">
+    <ng-container [ngSwitch]="bodyType">
+        <ng-container *ngSwitchCase="notificationBodyType.USER_BODY" [ngTemplateOutlet]="userBody"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.COMMENT_BODY" [ngTemplateOutlet]="commentBody"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.SHORT_POST_BODY" [ngTemplateOutlet]="shortPostBody"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.POST_BODY" [ngTemplateOutlet]="postBody"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.REPORT" [ngTemplateOutlet]="report"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.ACCOUNT_BANNED" [ngTemplateOutlet]="accountBanned"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.ACCOUNT_UNBANNED" [ngTemplateOutlet]="accountUnbanned"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.WATCHED_COMMENT_REPLY" [ngTemplateOutlet]="watchedCommentReply"></ng-container>
+        <ng-container *ngSwitchCase="notificationBodyType.COMMENT_MENTION" [ngTemplateOutlet]="commentMention"></ng-container>
+        <ng-container *ngSwitchDefault>{{ item.body | json }}</ng-container>
+    </ng-container>
+</div>
+
+<!-- TEMPLATES -->
+<ng-template #commentMention>
+    <div class="subtitle-2">
+        <a class="button-1" [routerLink]="['/user', item.body.owner.id]">{{ item.body.owner.info | personName }}</a>
+        <span class="subtitle-2"> {{ 'COMMON.ANOTHER_USER_MENTIONED' | translate }} </span>
+        <a class="button-1" [routerLink]="['/news', item.body.context.id]" [fragment]="'comment-' + item.body.id">{{ 'COMMON.COMMENTS' | translate }}</a>
+    </div>
+    <p class="caption fade-2" style="margin-top: 0 !important;"  [innerHTML]="item.body.html"></p>
+</ng-template>
+
+<ng-template #watchedCommentReply>
+    <div class="subtitle-2">
+        <a class="button-1" [routerLink]="['/user', item.body.reply.owner.id]">{{ item.body.reply.owner.info | personName }}</a>
+        <span class="fade-0">{{ 'COMMON.REPLIED' | translate }}</span>
+        <a class="button-1" [routerLink]="['/news', item.body.parent.context.id]" [fragment]="'comment-' + item.body.parent.id">{{ 'COMMON.COMMENTS' | translate }}</a>
+        <span class="fade-0">{{ 'COMMON.TO_PUBLICATION' | translate }}</span>
+        <a class="button-1" [routerLink]="['/news', item.body.parent.context.id]" [fragment]="'comment-' + item.body.reply.id">{{ item.body.parent.context.title }}</a>
+    </div>
+</ng-template>
+
+<ng-template #userBody>
+    <div class="v-center">
+        <app-ui-icon class="margin-right-10" [src]="body.info.picture" [size]="'small'"
+                     [textAlternative]="body.info | personName"></app-ui-icon>
+        <span style="margin-bottom: 0 !important;" class="subtitle-1">{{ body.info | personName }}</span>
+    </div>
+</ng-template>
+
+<ng-template #commentBody>
+    <div class="subtitle-2">
+        <a class="button-1" [routerLink]="['/', 'user', body.owner.id]">{{ body.owner.info | personName }}</a>
+        <span class="fade-0"> {{ 'COMMON.MADE_A_COMMENT' | translate }} </span>
+        <a class="button-1" [routerLink]="['/', 'news', body.context.id]">{{ body.context.title }}</a>
+    </div>
+</ng-template>
+
+<ng-template #postBody>
+    <div class="subtitle-2">
+        <a class="button-1" [routerLink]="['/', 'user', body.owner.id]">{{ body.owner.info | personName }}</a>
+        &ensp;<span class="fade-0">&ensp;{{ 'COMMON.AWAITING_POSTING' | translate }} </span>
+        <a class="button-1" [routerLink]="['/', 'news', body.id]">{{ body.info.title || ('COMMON.UNTITLED_ARTICLE' | translate) }}</a>
+    </div>
+</ng-template>
+
+<ng-template #report>
+    <div class="subtitle-2">
+        <p *ngIf="body.entity.name && body.entity.id" style="margin-top: 0 !important; margin-bottom: 0 !important;">
+            <span class="fade-0">{{ 'COMMON.COMPLIANT_ABOUT' | translate }}</span>
+            <a class="button-1" [href]="body.url">{{ body.entity.name + ' '  + body.entity.idMeta }} </a>
+            <span *appRoleGuard="'EDITOR$'; and body.owner" class="fade-0">{{ 'COMMON.FROM_USER' | translate }} </span>
+            <a *appRoleGuard="'EDITOR$'; and body.owner" class="button-1" [routerLink]="['/user/', body.owner.id]">{{ body.owner.info | personName }} </a>
+        </p>
+        <div *ngIf="body.message">
+            <span class="subtitle-1">{{ 'COMMON.FROM_USER' | translate }}</span>
+            <span>{{ body.message }}</span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #shortPostBody>
+    <p class="subtitle-2" style="margin-top: 0 !important;" [routerLink]="['/news', body.id]">{{ body.info.title }}</p>
+</ng-template>
+
+<ng-template #accountBanned>
+    <p style="margin-top: 0 !important;" class="subtitle-2">{{ 'COMMON.RECOVER_PRIVILLEGES' | translate }}</p>
+</ng-template>
+
+<ng-template #accountUnbanned>
+    <p style="margin-top: 0 !important;" class="subtitle-2">{{ 'COMMON.PRIVILLEGES_RECOVERED' | translate }}</p>
+</ng-template>

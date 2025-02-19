@@ -1,0 +1,9 @@
+@import '../../styles/styled-select.scss';
+
+:host {
+    width: 100%;
+
+    .select-container {
+        width: auto;
+    }
+}

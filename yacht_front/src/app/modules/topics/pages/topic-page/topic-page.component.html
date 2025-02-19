@@ -1,0 +1,68 @@
+<ng-container *ngIf="topic">
+    <app-ui-info-header
+        style="margin-bottom: 20px;"
+        [bgImage]="topic.profile.cover"
+        [profileImage]="topic.info.picture"
+        [profileText]="topic.info.name"
+        [subscribed]="topic.subscribers.you"
+        (subscribe)="subFunc(topic)">
+        <div class="info-header-name">{{ topic.info.name }}</div>
+        <div class="info-header-name-small">{{ topic.info.name }}</div>
+        <div class="info-header-down">
+            <div class="subs flex-item">
+                <span class="fade-1 subtitle-1 font-1">{{ 'COMMON.SUBSCRIBERS' | translate }}</span>
+                <span class="fade-1 subtitle-1 font-1 blue" style="margin-left: 3px">{{ topic.subscribers.count }}</span>
+            </div>
+            <app-action-menu-topic *appLoggedIn class="flex-item" [data]="topic"></app-action-menu-topic>
+        </div>
+        <div class="info-header-down-small">
+            <div class="subs flex-item">
+                <span class="fade-1 subtitle-1 font-1 blue">Интересы</span>
+            </div>
+            <div class="subs flex-item">
+                <span class="fade-1 subtitle-1 font-1">{{ 'COMMON.SUBSCRIBERS' | translate }}</span>
+                <span class="fade-1 subtitle-1 font-1 blue" style="margin-left: 3px">{{ topic.subscribers.count }}</span>
+            </div>
+            <app-action-menu-topic *appLoggedIn class="flex-item" [data]="topic"></app-action-menu-topic>
+        </div>
+        <div class="info-header-desc">
+            <span class="fade-1 font-2 body-2">
+                {{ topic.info.description }}
+            </span>
+        </div>
+        <div *ngIf="barItem$ | async; let barItem" class="info-header-bar">
+            <div class="flex-item btn" [ngClass]="{ selected: barItem == barItems.PUBLICATIONS }" (click)="switchBar(barItems.PUBLICATIONS)">
+                <span class="font-1 fade-1 h5 button-1" style="margin-bottom: 7px; display: inline-block;">{{ 'COMMON.PUBLICATIONS_' | translate }}</span>
+                <br />
+                <span class="font-1 fade-1 h5 button-1 numbers" [ngClass]="{ blue: barItem == barItems.PUBLICATIONS }">{{ topic.postCount }}</span>
+            </div>
+                <div class="flex-item btn" [ngClass]="{ selected: barItem == barItems.FAVORITES }" (click)="switchBar(barItems.FAVORITES)">
+                <span class="font-1 fade-1 h5 button-1" style="margin-bottom: 7px; display: inline-block;">{{ 'COMMON.FAVORITES' | translate }}</span>
+                <br />
+                <span class="font-1 fade-1 h5 button-1 numbers" [ngClass]="{ blue: barItem == barItems.FAVORITES }">{{ promotedCount$ | async }}</span>
+            </div>
+            <div class="flex-item btn" [ngClass]="{ selected: barItem == barItems.INFO }" (click)="switchBar(barItems.INFO)">
+                <span class="font-1 fade-1 h5 button-1" style="margin-bottom: 6px; display: inline-block;">{{ 'COMMON.INFORMATION' | translate }}</span>
+                <br>
+                <svg *ngIf="!(barItem == barItems.INFO)" class="numbers" name="btn-expand-h" style="width: 20px"></svg>
+                <svg *ngIf="barItem == barItems.INFO" class="numbers" name="btn-expand-v" style="width: 20px"></svg>
+            </div>
+        </div>
+    </app-ui-info-header>
+    <div style="margin-bottom: 45px;"></div>
+    <ul *ngIf="(barItem$ | async) === barItems.PUBLICATIONS || (barItem$ | async) === barItems.FAVORITES" class="block-card item-space-40">
+        <li *ngFor="let article of pageable.content; let i = index">
+            <app-feed-article-view [data]="article[0]" [topic]="article[1]" [options]="{ pictureOn: true, menuOn: true }"></app-feed-article-view>
+        </li>
+    </ul>
+    <div *ngIf="(barItem$ | async) === barItems.INFO" class="block-card" style="width: 100%;">
+        <span class="font-1 fade-1 body-1" style="font-weight: bold;">{{ 'COMMON.ABOUT_THE_TOPIC' | translate }}</span>
+        <br />
+        <br />
+        <span class="fade-1 font-2 body-2">
+            {{ topic.profile.fullDescription }}
+        </span>
+    </div>
+</ng-container>
+  
+<app-pagination [pageable]="pageable"></app-pagination>

@@ -1,0 +1,16 @@
+<section class="tag-card margin-bottom-44">
+    <app-ui-card [shadow]="false">
+        <div *ngIf="tag" class="current-tag">
+            <span># {{ tag ? tag.content : 'Неизвестный тег' }}</span>
+            <div class="publications-info">
+                <div *ngIf="tag" class="stats-item">
+                    {{ 'COMMON.PUBLICATIONS_' | translate}}
+                    <span class="stats-item__value">{{ tag.postCount }}</span>
+                </div>
+                <div class="current-tag__menu">
+                    <app-action-menu-tag *appLoggedIn [data]="tag" (gone)="this.router.navigate(['/tags'])"></app-action-menu-tag>
+                </div>
+            </div>
+        </div>
+    </app-ui-card>
+</section>

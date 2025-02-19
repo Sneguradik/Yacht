@@ -1,0 +1,8 @@
+<div class="select-container" [style.width.px]="dropdownWidth">
+    <div class="styled-select admin-select" [style.width.px]="dropdownWidth" (click)="switchDropdownState()">
+        <div class="select-selected" [ngClass]="{ 'select-arrow-active': dropdown }">{{ selected ? selected.title : '' }}</div>
+        <div class="select-items" [hidden]="!dropdown">
+            <div *ngFor="let item of items" [ngClass]="{ 'same-as-selected': item === selected }" (click)="select(item)">{{ item.title }}</div>
+        </div>
+    </div>
+</div>

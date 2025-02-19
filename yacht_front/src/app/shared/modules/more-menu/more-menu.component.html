@@ -1,0 +1,6 @@
+<div class="has-dropdown v-center">
+    <svg name="more" [attr.fill]="svgColor" (click)="toggle($event)"></svg>
+    <ng-template appMoreMenu #menu=moreMenu>
+        <ng-content></ng-content>
+    </ng-template>
+</div>

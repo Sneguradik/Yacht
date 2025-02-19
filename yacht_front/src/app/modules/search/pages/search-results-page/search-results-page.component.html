@@ -1,0 +1,17 @@
+<section class="block-card margin-bottom-30">
+    <h2 class="fade-1 margin-bottom-20">{{ 'COMMON.SEARCH_PUBLICATIONS' | translate }}<a [routerLink]="['/tags']">{{ 'COMMON.SEARCH_BY_TAGS' | translate }}</a></h2>
+    <app-ui-search [control]="query"></app-ui-search>
+</section>
+
+<ng-container *ngIf="query.value">
+    <h3 *ngIf="pageable.totalPages === 0" class="text-center fade-1">Ничего не найдено!</h3>
+    <h3 *ngIf="pageable.page === -1" class="text-center fade-2">Загрузка...</h3>
+</ng-container>
+
+<ul class="block-card item-space-20 no-empty">
+    <li *ngFor="let a of pageable.content">
+        <app-feed-article-view [data]="a[0]" [topic]="a[1]" [options]="{ pictureOn: true, menuOn: true }"></app-feed-article-view>
+    </li>
+</ul>
+
+<app-pagination [pageable]="pageable" [fireFirstPage]="false"></app-pagination>

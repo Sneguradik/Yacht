@@ -1,0 +1,25 @@
+<div class="admin-authors">
+    <div *ngFor="let user of users | async" class="admin-author">
+        <div class="admin-author__header">
+            <div class="admin-author__main">
+                <div style="margin-right: 20px;">
+                    <app-ui-icon [src]="user.icon" [textAlternative]="user.name" [size]="'large'"></app-ui-icon>
+                </div>
+                <div class="admin-author__name">{{ user.name }}</div>
+            </div>
+            <app-user-raw-drop
+                    [admin]="user.roles.indexOf('ROLE_SUPERUSER') != -1"
+                    [editor]="user.roles.indexOf('ROLE_CHIEF_EDITOR') != -1"
+                    [sales]="user.roles.indexOf('ROLE_SALES') != -1"
+                    (adminReq)="req.emit({ id: user.id, role: 'ROLE_SUPERUSER', status: $event })"
+                    (editorReq)="req.emit({ id: user.id, role: 'ROLE_CHIEF_EDITOR', status: $event })"
+                    (salesReq)="req.emit({ id: user.id, role: 'ROLE_SALES', status: $event })"
+            ></app-user-raw-drop>
+        </div>
+        <div class="admin-author__content">
+            <div class="admin-author__txt">{{ 'COMMON.AUTHORS_RATING' | translate }} <span>{{ user.rating }}</span></div>
+            <div class="admin-author__txt">{{ 'COMMON.PUBLICATIONS_' | translate }} <span>{{ user.publicationCount }}</span></div>
+            <div class="admin-author__txt">{{ 'COMMON.SUBSCRIBERS' | translate }} <span>{{ user.subscribers }}</span></div>
+        </div>
+    </div>
+</div>

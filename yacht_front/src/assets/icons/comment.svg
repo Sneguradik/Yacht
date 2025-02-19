@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 6.3499999 6.3500002"
+   height="24"
+   width="24">
+  <defs
+     id="defs2">
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient4613">
+      <stop
+         id="stop4611"
+         offset="0"
+         style="stop-color:#000000;stop-opacity:1;" />
+    </linearGradient>
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-290.64998)"
+     id="layer1">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,-0.93689486,291.87992)"
+       id="g3737"
+       style="fill-opacity:1">
+      <g
+         transform="translate(5.9103126,-6.2179777)"
+         id="g4836"
+         style="fill-opacity:1">
+        <path
+           style="clip-rule:evenodd;fill-rule:evenodd;fill-opacity:1"
+           d="m 10.118947,19.06333 -4.2260597,3.2307 c -0.95641,0.7312 -2.33264,0.0482 -2.33462,-1.154 l -0.00363,-2.2002 C 1.5869474,18.46663 0.13070736,16.68993 0.13070736,14.57933 V 9.0274999 c 0,-2.47566 2.00073994,-4.484051 4.47058994,-4.484051 H 14.660108 c 2.4699,0 4.4706,2.008391 4.4706,4.484051 V 14.57933 c 0,2.4756 -2.0007,4.484 -4.4706,4.484 z m -4.6621697,1.1724 3.76368,-2.8772 c 0.16567,-0.1267 0.36842,-0.1953 0.57696,-0.1953 h 4.8626907 c 1.4189,0 2.5706,-1.1561 2.5706,-2.584 V 9.0273999 c 0,-1.42794 -1.1517,-2.58405 -2.5706,-2.58405 H 4.6012973 c -1.41889,0 -2.57059,1.15611 -2.57059,2.58405 V 14.57923 c 0,1.401 1.11061,2.5449 2.49863,2.583 0.51372,0.0141 0.92309,0.4342 0.92394,0.9481 z"
+           id="path4825" />
+      </g>
+    </g>
+  </g>
+</svg>

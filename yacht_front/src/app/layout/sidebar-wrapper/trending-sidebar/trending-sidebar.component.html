@@ -1,0 +1,61 @@
+<ul class="structural sidebar-list">
+    <li class="side-list bg-grey">
+        <app-ui-expand-box [templateType]="expandBoxTemplateEnum.NEWS" [data]="news">
+            <svg name="news"></svg>
+            <span>{{ 'COMMON.NEWS'  | translate}}</span>
+        </app-ui-expand-box>
+    </li>
+    <li class="side-list">
+        <app-ui-expand-box [templateType]="expandBoxTemplateEnum.DISCUSSION" [data]="discussed">
+            <svg name="comment"></svg>
+            <span>{{ 'COMMON.THE_MOST_DISSCUSSED'  | translate}}</span>
+        </app-ui-expand-box>
+    </li>
+    <li class="side-list">
+        <app-ui-expand-box [templateType]="expandBoxTemplateEnum.TODAY" [data]="todayReading">
+            <svg name="view"></svg>
+            <span>{{ 'COMMON.THE_MOSTLY_VIEWED_TODAY'  | translate}}</span>
+        </app-ui-expand-box>
+    </li>
+    <li class="social-presence">
+        <div class="subtitle-2 fade-2">{{ 'COMMON.FOLLOW_THE_NEWS'  | translate}}</div>
+        <div class="icons">
+            <a href="https://twitter.com/diskursmedia" target="_blank"><svg size="35" name="social/twitter"></svg></a>
+            <a href="https://vk.com/diskursmedia" target="_blank"><svg size="35" name="social/vk"></svg></a>
+            <a href="https://www.youtube.com/channel/UC0sVeZ5NVvdvbuQNwYBN6eA" target="_blank"><svg size="35" name="social/yt"></svg></a>
+            <a href="https://t.me/diskursmedia" target="_blank"><img src="assets/icons/uncorrect/telegram.png" style ="width: 35px; height: 35px;" alt=""></a>
+        </div>
+    </li>
+    <li>
+        <nav class="sidebar-footer-nav">
+            <ul>
+                <li><a [routerLink]="['/news/10']">{{ 'COMMON.ABOUT_THE_RECOURCE'  | translate}}</a></li>
+                <li><a [routerLink]="['/news/12']">{{ 'COMMON.COMPANYS_BLOG'  | translate}}</a></li>
+                <li><a [routerLink]="['/company/Diskurs/info']">{{ 'COMMON.EDITORIAL'  | translate}}</a></li>
+                <li><a [routerLink]="['/news/15']">{{ 'COMMON.YOUR_SUGGESTIONS'  | translate}}</a></li>
+                <li><a [routerLink]="['/news/11']">{{ 'COMMON.RULES' | translate }}</a></li>
+                <li>
+                    <span>{{ 'COMMON.LANGUAGE'  | translate}}</span>
+                    <div class="lang">
+                        <div class="lang__active">
+                            <div class="lang__flag"><img [src]="translate.currentLang === 'ru' ? 'assets/icons/ru.svg' : 'assets/icons/en.svg'" alt="Selected"></div>
+                        </div>
+                        <div class="lang__hide">
+                            <ul class="lang__list">
+                                <li class="lang__item" style="cursor: pointer;" (click)="changeLang('ru')">
+                                    <div class="lang__flag"><img src="assets/icons/ru.svg" alt="Ru"></div>
+                                    <div class="lang__txt" lang="ru">Рус</div>
+                                </li>
+                                <li class="lang__item" style="cursor: pointer;" (click)="changeLang('en')">
+                                    <div class="lang__flag"><img src="assets/icons/en.svg" alt="En"></div>
+                                    <div class="lang__txt" lang="ru">En</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer-copyright">&copy; <a style="color: inherit;" (click)="scrollToTopAndNavigate()">2023 Diskurs.Media</a></div>
+    </li>
+</ul>

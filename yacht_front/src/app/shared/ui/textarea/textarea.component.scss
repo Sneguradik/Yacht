@@ -1,0 +1,37 @@
+@import 'src/styles/variables';
+
+div {
+  border-bottom: 3px solid rgba(0, 183, 255, 0.3);
+  box-sizing: content-box;
+  min-height: 22px;
+  overflow-wrap: break-word;
+  padding-bottom: 10px;
+  &:focus {
+    border-bottom-color: $primary;
+    outline: none;
+  }
+  &:empty:not(:focus)::before {
+    color: rgba(0, 0, 0, 0.5);
+    content: attr(placeholder);
+    pointer-events: none;
+  }
+}
+
+textarea {
+  border: 0;
+  border-bottom: 3px solid $light-blue;
+  display: block;
+  font-family: Open Sans, sans-serif;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 25px;
+  outline: none;
+  padding: 5px 0 0;
+  resize: none;
+  transition: 0.2s ease-in-out border-color;
+  width: 100%;
+
+  &:focus {
+    border-color: $primary;
+  }
+}

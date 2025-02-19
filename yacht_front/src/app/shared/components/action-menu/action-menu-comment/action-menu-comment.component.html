@@ -1,0 +1,10 @@
+<app-ui-dots-menu>
+    <app-ui-dots-menu-item *ngIf="!own" icon="report" text="{{ 'COMMON.TO_FILE_A_COMPLAINT' | translate}}" appReport
+                           [object]="{ type: reportEntityTypeEnum.COMMENT, id: data.meta.id }" (report)="report.next(data)">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or own" icon="edit" text="{{ 'COMMON.EDIT' | translate}}"
+                           (click)="edit.emit()">
+    </app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'; or own" icon="report" text="{{ 'COMMON.REMOVE' | translate}}" (click)="delete()">
+    </app-ui-dots-menu-item>
+</app-ui-dots-menu>

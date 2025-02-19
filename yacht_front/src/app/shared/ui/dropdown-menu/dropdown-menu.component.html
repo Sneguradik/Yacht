@@ -1,0 +1,44 @@
+<div class="has-dropdown v-center" [class.open]="state.shown">
+    <div (click)="toggle()">
+        <ng-content select=".head"></ng-content>
+    </div>
+    <ng-container *ngIf="!height && !width">
+        <ng-container *ngTemplateOutlet="standart"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!height && width">
+        <ng-container *ngTemplateOutlet="custom"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="height">
+        <ng-container *ngTemplateOutlet="scrollbar"></ng-container>
+    </ng-container>
+</div>
+
+<ng-template #standart>
+    <div #dropdown [class]="'dropdown ' + dropdownExtraClass" style="z-index: 5;" tabindex="-1" [ngClass]="{hidden: !state.shown}">
+        <div class="structural fade-2">
+            <ng-container *ngTemplateOutlet="content"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #custom>
+    <div #dropdown [class]="'dropdown ' + dropdownExtraClass" style="z-index: 5;" tabindex="-1" [ngClass]="{hidden: !state.shown}" [ngStyle]="{'width.px': this.width + 40, 'height.px': this.height + 40}">
+        <div class="structural fade-2">
+            <ng-container *ngTemplateOutlet="content" [ngStyle]="{'width.px': this.width}"></ng-container>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #scrollbar>
+    <div #dropdown [class]="'dropdown ' + dropdownExtraClass" style="z-index: 5;" tabindex="-1" [ngClass]="{hidden: !state.shown}" [ngStyle]="{'width.px': this.width + 40, 'height.px': this.height + 40}">
+        <div class="structural fade-2">
+            <ng-scrollbar [ngStyle]="{'width.px': this.width, 'height.px': this.height}">
+                <ng-container *ngTemplateOutlet="content"></ng-container>
+            </ng-scrollbar>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #content>
+    <ng-content></ng-content>
+</ng-template>

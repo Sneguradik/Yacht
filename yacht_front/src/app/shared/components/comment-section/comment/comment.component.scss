@@ -1,0 +1,123 @@
+@import 'src/styles/responsive';
+
+:host {
+  display: block;
+}
+
+.comment {
+  ::ng-deep {
+    .comment-text {
+      word-break: break-word;
+      white-space: normal;
+
+      a {
+        color: #00B7FF !important;
+      }
+    }
+  }
+
+  @include media('<medium') {
+    &.level-1 {
+      padding-left: 20px;
+
+      .info {
+        margin-left: -20px;
+      }
+
+      .info-extra {
+        margin-left: 0;
+      }
+      
+    }
+
+    .comment-text,
+    .info-extra{
+      margin-bottom: 16px;
+    }
+
+    .tool-wrap{
+      flex-wrap: wrap;
+      .timestamp{
+        width: 100%;
+      }
+    }
+
+    &.level-2 {
+      padding-left: 30px;      
+
+      .info {
+        margin-left: -20px;
+      }
+
+      .info-extra {
+        margin-left: 0;
+        align-items: center;        
+      }
+
+      .timestamp {
+        display: block;
+        margin-left: 0;
+      }
+    }
+  }
+
+  > .info {
+    display: flex;
+    margin-top: 10px;
+
+    app-ui-icon {
+      margin-right: 15px;
+    }
+
+    .meta {
+      display: grid;
+      flex-direction: column;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+
+  > .info-extra {
+    display: flex;
+    margin-top: 10px;
+
+    app-ui-icon {
+      margin-right: 15px;
+    }
+
+    .meta {
+      display: grid;
+      flex-direction: column;
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &.level-2 {
+    padding-left: 115px;
+
+    > .info .meta {
+      align-items: center;
+      flex-direction: row;
+    }
+
+    > .info-extra .meta {
+      align-items: center;
+      flex-direction: row;
+    }
+  }
+
+  &.level-1 {
+    padding-left: 70px;
+  }
+}
+
+app-voting {
+  width: 100px;
+}
+
+.padding-left-0 {
+  padding-left: 0 !important;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}

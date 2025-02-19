@@ -1,0 +1,257 @@
+@import 'src/styles/responsive';
+@import 'src/styles/variables';
+@import 'src/styles';
+
+app-ui-card {
+  ::ng-deep {
+    .card {
+      padding: 20px;
+    }
+  }
+}
+
+app-ui-form-control {
+  ::ng-deep {
+    input {
+      padding-top: 0 !important;
+    }
+  }
+}
+
+.error {
+  color: $error;
+}
+
+header {
+  > * {
+    flex: 1 0 0;
+  }
+  h6 {
+    flex-grow: 2;
+    text-align: center;
+  }
+}
+
+.sub-button {
+  color: rgba(0, 0, 0, 0.7);
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.pre-img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  height: 265px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  @include media('<medium') {
+    height: 142px;
+    // width: 335px;
+  }
+}
+
+button[type='submit'] {
+  background: $primary;
+  border: 0;
+  border-radius: 15px;
+  color: white;
+  height: 35px;
+  padding: 0 10px 0 20px;
+  width: 150px;
+}
+
+input.h5 {
+  @extend %font-1;
+
+  font-size: 20px;
+  font-weight: 500;
+}
+
+section[formGroupName='info'] {
+  section {
+    display: grid;
+    grid-template-columns: 200px min-content;
+    input {
+      border: 0;
+      border-bottom: 2px solid $light-blue;
+      transition: 0.2s ease-in-out border-color;
+      &:focus {
+        border-bottom-color: $primary;
+      }
+    }
+  }
+}
+
+:host {
+  width: 100%;
+
+  @include media('<500px') {
+    section.mobile-grid,
+    section.mob-label{
+      display: flex !important;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      h6{
+        width: 100px;
+        flex-shrink: 0;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      input{
+        width: calc(100% - 110px);
+        box-sizing: border-box;
+      }
+      .caption{
+        width: 100%;
+      }
+    }
+
+    .mobile-small {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;      
+
+      h6 {
+        display: grid;
+        grid-column: 1 / 4;
+        order: 1;
+      }  
+
+      .top-small {
+        order: 3; 
+        &:first-child{
+          order: 1;
+        }       
+        button{
+          width: 35px;
+          padding: 0;
+          text-align: center;
+          svg{
+            margin: 0 auto;
+          }
+        }
+        .button-1{
+          display: none;
+        }
+      }
+    }
+
+    .bar-under{
+      display: block;
+      .file-upload{margin: 12px 0;}
+    }
+
+    .mobile-grid {
+      grid-row-gap: 10px;
+      grid-template-columns: 1fr !important;
+    }
+
+    .mobile-hidden {
+      display: none;
+      width: auto;
+    }
+
+    .company-member {
+      width: 100%;
+    }
+  }
+  app-ui-form-control {
+    margin-bottom: 30px;
+  }
+
+  .file-upload {
+    align-items: center;
+    display: flex;
+
+    &-hint {
+      color: $gray;
+      font-size: 12px;
+      line-height: 16px;
+      margin: 10px 0 20px;
+    }
+
+    label {
+      color: $primary;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      line-height: 18px;
+      margin-left: 10px;
+    }
+
+    input {
+      display: none;
+    }
+  }
+
+  .cover-image {
+    height: 350px;
+    margin-bottom: 20px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .photo {
+    &-container {
+      display: flex;
+
+      app-ui-icon {
+        margin-right: 30px;
+      }
+
+      img {
+        object-fit: cover;
+      }
+
+      @media only screen and (max-width : 767px){
+        display: block;
+      }
+    }
+
+    &-actions {
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+    }
+  }
+
+  .form-contact {
+    display: flex;
+
+    svg {
+      height: 35px;
+      width: 35px;
+    }
+
+    app-ui-form-control {
+      margin-left: 20px;
+    }
+
+    input {
+      color: black;
+
+      &::placeholder {
+        color: #92929d !important;
+      }
+    }
+  }
+}
+
+.description-char-counter {
+  font-size: 14px;
+  line-height: 16px;
+  color: rgb(0, 183, 255);
+  float: right;
+  font-weight: normal;
+
+
+}
+
+.description-char-counter-err {
+  color:rgb(255, 91, 54)
+}

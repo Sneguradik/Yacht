@@ -1,0 +1,117 @@
+import { NotSettingEnum } from '@api/schemas/notification/not-setting.enum';
+
+export const NOTIFICATION_PARAMS = {
+    system: [
+        {
+            id: 0,
+            title: 'COMMON.NEW_SUBSCRIBER',
+            access: false,
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.EVENT_TYPE,
+        },
+        {
+            id: 1,
+            title: 'COMMON.MESSAGES_FROM_EDITORS',
+            access: false,
+            active: true,
+            disabled: true,
+        },
+        {
+            id: 2,
+            title: 'COMMON.A_COMPLIANT_FROM_USER',
+            access: true,
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.NOTIFY_REPORT,
+        },
+        {
+            id: 3,
+            title: 'COMMON.HURRAY_FUNCTIONALITY',
+            access: false,
+            active: true,
+            disabled: true,
+        },
+        {
+            id: 4,
+            title: 'COMMON.YOUR_PROFILE_BANNED',
+            access: false,
+            active: true,
+            disabled: true,
+        },
+    ],
+    comment: [
+        {
+            id: 0,
+            title: 'COMMON.NEW_COMMENT_FROM_BOOKMARK',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.BOOKMARKED_POST_COMMENT,
+        },
+        {
+            id: 1,
+            title: 'COMMON.NEW_REPLY_COMMENT',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.REPLY,
+        },
+        {
+            id: 2,
+            title: 'COMMON.NEW_COMMENT_PUBLICATION',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.AUTHORED_POST_COMMENT,
+        },
+        {
+            id: 3,
+            title: 'COMMON.NEW_MEANING',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.COMMENT_MENTION,
+        },
+        ],
+        publication: [
+        {
+            id: 0,
+            title: 'COMMON.PUBLICATION_PUBLISHED',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.NOTIFY_PUBLISHED,
+        },
+        {
+            id: 1,
+            title: 'COMMON.PUBLICATION_MODERATING',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.NOTIFY_REVIEWING,
+        },
+        {
+            id: 5,
+            title: 'COMMON.USER_SENT_MODERATION',
+            access: true,
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.NOTIFY_SUBMITTED,
+        },
+        {
+            id: 2,
+            title: 'COMMON.PUBLICATION_DRAFTED',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.NOTIFY_DRAFTED,
+        },
+        {
+            id: 3,
+            title: 'COMMON.PUBLICATION_BLOCKED',
+            active: true,
+            disabled: false,
+            type: NotSettingEnum.NOTIFY_BLOCKED,
+        },
+        {
+            id: 4,
+            title: 'COMMON.PUBLICATION_DELETED',
+            active: true,
+            disabled: true,
+        },
+    ],
+};

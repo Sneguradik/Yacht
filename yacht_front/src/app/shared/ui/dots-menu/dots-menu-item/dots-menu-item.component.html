@@ -1,0 +1,7 @@
+<div *ngIf="!(icon || text)" class="button-1">
+    <ng-content></ng-content>
+</div>
+<div class="v-center clickable">
+    <svg *ngIf="icon" class="icon-20 f-gray icon margin-right-10" [name]="icon" size="20"></svg>
+    <span class="subtitle-2 fade-2">{{ text }}</span>
+</div>

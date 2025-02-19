@@ -1,0 +1,26 @@
+yacht_front/node_modules
+yacht_front/dist
+
+yacht_back/.gradle
+yacht_back/**/build/
+yacht_back/!src/**/build/
+
+# Ignore Gradle GUI config
+yacht_back/gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+yacht_back/!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+yacht_back/!gradle-wrapper.properties
+
+# Cache of project
+yacht_back/.gradletasknamecache
+
+# Eclipse Gradle plugin generated files
+# Eclipse Core
+yacht_back/.project
+# JDT-specific (Eclipse Java Development Tools)
+yacht_back/.classpath
+
+yacht_back/pgdata

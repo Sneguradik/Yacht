@@ -1,0 +1,35 @@
+span {
+    font-weight: bold;
+    display: block;
+    margin: 1.5em 0 1em;
+}
+
+section {
+    display: flex;
+    margin-bottom: 1em;
+
+    .round  {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        // border: 1px solid #d6d6d6;
+        // border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-left: auto;
+
+        svg {
+            padding: 3px 2px;
+        }
+
+        .on {
+            display: inline-block;
+        }
+
+        // .off {
+        //     display: none;
+        // }
+    }
+}

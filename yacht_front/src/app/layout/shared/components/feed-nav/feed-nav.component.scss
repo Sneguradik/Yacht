@@ -1,0 +1,13 @@
+@import 'src/styles/responsive';
+
+:host {
+    flex-grow: 1;
+    margin-left: 44px;
+    @include media('<medium') {
+        margin-left: 0;
+    }
+}
+
+.v-center {
+    justify-content: space-around;
+}

@@ -1,0 +1,8 @@
+<app-ui-dots-menu>
+    <app-ui-dots-menu-item icon="do-not-show" text="{{ 'COMMON.REMOVE_FROM_NEWSFEED' | translate}}" (click)="hide()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item icon="report" text="{{ 'COMMON.TO_FILE_A_COMPLAINT' | translate}}" appReport
+                           [object]="{ type: reportEntityTypeEnum.TOPIC, id: data.meta.id }"
+                           (report)="hide()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="edit" text="{{ 'COMMON.EDIT' | translate}}" (click)="edit()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="star" [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate" (click)="showcase()"></app-ui-dots-menu-item>
+</app-ui-dots-menu>

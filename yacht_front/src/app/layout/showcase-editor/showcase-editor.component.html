@@ -1,0 +1,97 @@
+<div *ngIf="showcaseEditBlockService.getValue().value" class="rect">
+    <div class="w-100"></div>
+    <div class="preview">
+        <div *ngIf="item" class="add-element-on-bord">
+            <button class="add-element-on-bord__close" title="Закрыть" (click)="showcaseEditBlockService.toggle()">
+                <svg width="20" height="20" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.0015 8.98985L13.5371 5.45431C13.816 5.17537 14.2683 5.17537 14.5472 5.45431C14.8262 5.73326 14.8262 6.18552 14.5472 6.46447L11.0117 10L14.5472 13.5355C14.8262 13.8145 14.8262 14.2667 14.5472 14.5457C14.2683 14.8246 13.816 14.8246 13.5371 14.5457L10.0015 11.0102L6.466 14.5457C6.18705 14.8246 5.73479 14.8246 5.45584 14.5457C5.1769 14.2667 5.1769 13.8145 5.45584 13.5355L8.99138 10L5.45584 6.46447C5.1769 6.18552 5.1769 5.73326 5.45584 5.45431C5.73479 5.17537 6.18705 5.17537 6.466 5.45431L10.0015 8.98985Z" />
+                </svg>
+            </button>
+            <h2 class="add-element-on-bord__title">{{ 'COMMON.PLACING_ELEMENT' | translate }}</h2>
+            <form class="add-element-on-bord__form">
+                <div class="add-element-on-bord__group" style="justify-content: left !important;">
+                    <div class="add-element-on-bord__group-title"><span>{{ 'COMMON.ELEMENT' | translate }} {{ count }}:</span></div>
+                    <div class="add-element-on-bord__group-txt">{{ item.info.title ? item.info.title : 'Элемент витрины ' + count }}</div>
+                </div>
+                <label class="add-element-on-bord__group">
+                    <div class="add-element-on-bord__group-title"><span>{{ 'COMMON.ACTIVE_LINK' | translate }}:</span></div>
+                    <input type="url" class="add-element-on-bord__input" name="url" [(ngModel)]="item.info.url">
+                </label>
+                <div class="add-element-on-bord__row">
+                    <label class="add-element-on-bord__group">
+                        <div class="add-element-on-bord__group-title"><span>{{ 'COMMON.SHORT_ANNOUNCE' | translate}}:</span></div>
+                        <input type="text" class="add-element-on-bord__input" name="title" maxlength="64" [(ngModel)]="item.info.title">
+                        <span style="border-bottom: 2px solid rgba(0, 183, 255, 0.3); font-size: 14px; line-height: 16px; color: rgba(0, 183, 255);">{{ '&nbsp;' + (64 - item.info.title.length) }}</span>
+                    </label>
+                    <label class="add-element-on-bord__group add-element-on-bord__group_short">
+                        <div class="add-element-on-bord__group-title"><span>{{ 'COMMON.TAG' | translate}}:</span></div>
+                        <input type="text" class="add-element-on-bord__input" name="subtitle" maxlength="30" [(ngModel)]="item.info.subtitle">
+                        <span style="border-bottom: 2px solid rgba(0, 183, 255, 0.3); font-size: 14px; line-height: 16px; color: rgba(0, 183, 255);">{{ '&nbsp;' + (30 - item.info.subtitle.length) }}</span>
+                    </label>
+                </div>
+                <div class="add-element-on-bord__container">
+                    <div class="add-element-on-bord-upload">
+                        <label class="add-element-on-bord-upload__click">
+                            <span class="add-element-on-bord-upload__icn">
+                                <svg width="17" height="18" viewBox="0 0 17 18" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1.88774 7.79446L8.413 1.2692C10.1053 -0.423068 12.849 -0.423068 14.5413 1.2692C16.2335 2.96148 16.2335 5.70519 14.5413 7.39746L8.016 13.9227C6.97109 14.9205 5.31509 14.9062 4.28821 13.8793C3.24681 12.8379 3.24681 11.1494 4.28821 10.108L10.77 3.62623C11.1605 3.2357 11.7937 3.2357 12.1842 3.62623C12.5748 4.01675 12.5748 4.64992 12.1842 5.04044L5.70242 11.5223C5.44207 11.7826 5.44207 12.2047 5.70242 12.4651C5.96277 12.7254 6.38488 12.7254 6.64523 12.4651L13.127 5.98325C14.0383 5.07203 14.0383 3.59464 13.127 2.68342C12.2158 1.77219 10.7384 1.77219 9.82721 2.68342L3.3454 9.16523C1.7833 10.7273 1.7833 13.26 3.3454 14.8221C4.9075 16.3842 7.44016 16.3842 9.00226 14.8221L14.3056 9.51878C14.6961 9.12826 15.3292 9.12826 15.7198 9.51878C16.1103 9.90931 16.1103 10.5425 15.7198 10.933L10.4165 16.2363C8.07332 18.5794 4.27433 18.5794 1.93119 16.2363C-0.397459 13.9077 -0.411869 10.1411 1.88796 7.79468L1.88774 7.79446Z" />
+                                </svg>
+                            </span>
+                            <span class="add-element-on-bord-upload__txt">{{ 'COMMON.LOAD_THE_IMAGE' | translate}}</span>
+                            <input type="file" (change)="uploadCover($event.target['files'][0])">
+                        </label>
+                        <div class="add-element-on-bord-upload__note">{{ 'COMMON.RECOMMENDED_IMAGE_SIZE__' | translate}} JPG, 295 x 184 px</div>
+                    </div>
+                    <div class="add-element-on-bord-preview">
+                        <div class="add-element-on-bord-preview__title">{{ 'COMMON.PREVIEW' | translate}}</div>
+                        <div *ngIf="!item.info.cover" class="add-element-on-bord-preview__frame empty"></div>
+                        <a *ngIf="item.info.cover" class="item clickable prev" style="height: 200px;">
+                            <main>
+                                <header class="last-item-right v-center">
+                                    {{ item.info.subtitle }}
+                                </header>
+                                <section>
+                                    <h4 *ngIf="!(responsive.lt.large | async)">
+                                        {{ (item.info.title || ('COMMON.TITLE' | translate)) | trunk:50 }}
+                                    </h4>
+                                    <h4 *ngIf="responsive.lt.large | async">
+                                        {{ (item.info.title || ('COMMON.TITLE' | translate)) | trunk:20 }}
+                                    </h4>
+                                </section>
+                                <footer class="v-center">
+                                    <div *ngIf="item.info.options">
+                                        <div *ngIf="item.info.options.viewCount">
+                                            <svg name="view" class="f-white" size="18"></svg>
+                                            <span class="caption">{{ item.info.options.viewCount }}</span>
+                                        </div>
+                                        <div *ngIf="item.info.options.postCount">
+                                            <svg name="edit" class="f-white" size="18"></svg>
+                                            <span class="caption">{{ item.info.options.postCount }}</span>
+                                        </div>
+                                        <div *ngIf="item.info.options.subCount">
+                                            <svg name="user" class="f-white" size="18"></svg>
+                                            <span class="caption">{{ item.info.options.subCount }}</span>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </main>
+                            <div class="overlay"></div>
+                            <img class="background" [src]="item.info.cover"/>
+                        </a>
+                    </div>
+                    <div class="add-element-on-bord__bar">
+                        <button class="add-element-on-bord__reset" type="reset" (click)="showcaseEditBlockService.toggle()">{{ 'COMMON.UNDO' | translate}}</button>
+                        <button class="add-element-on-bord__submit" type="submit">
+                            <span (click)="publish()">{{ 'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate }}</span>
+                            <span>
+                                <svg width="19" height="21" viewBox="0 0 19 21" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.20898 14.5C5.34299 14.5 2.20898 11.366 2.20898 7.5C2.20898 3.63401 5.34299 0.5 9.20898 0.5C13.075 0.5 16.209 3.63401 16.209 7.5C16.209 11.366 13.075 14.5 9.20898 14.5ZM14.209 7C14.209 4.70056 12.1086 2.5 9.70898 2.5C9.43284 2.5 9.20898 2.72386 9.20898 3C9.20898 3.27614 9.43284 3.5 9.70898 3.5C11.5456 3.5 13.209 5.2427 13.209 7C13.209 7.27614 13.4328 7.5 13.709 7.5C13.9851 7.5 14.209 7.27614 14.209 7ZM18.1687 17.8032C18.3101 18.1331 18.0681 18.5001 17.7091 18.5001H14.9162L13.0626 20.3537C12.8213 20.595 12.4145 20.529 12.2619 20.2237L9.91275 15.8448C12.3267 15.6426 14.4359 14.3685 15.7628 12.5L18.1687 17.8032ZM6.15674 20.2237C6.00411 20.529 5.59729 20.595 5.35597 20.3537L3.50242 18.5001H0.709523C0.350565 18.5001 0.10855 18.1331 0.24995 17.8032L2.70923 12.5006C4.03633 14.3689 6.14557 15.6428 8.55954 15.8449L6.15674 20.2237Z" />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

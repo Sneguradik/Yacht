@@ -1,0 +1,44 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+:host {
+  display: block;
+  position: relative;
+}
+
+.dropdown {
+  background: white;
+  border-radius: 15px;
+  box-sizing: border-box;
+  //-webkit-filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  min-width: 200px;
+  padding: 20px;
+  position: absolute;
+  right: -15px;
+  top: 40px;
+  z-index: 100;
+
+  &::after {
+    border-bottom: 19px solid transparent;
+    border-bottom-color: white;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 19px solid transparent;
+    border-top: 0;
+    content: '';
+    height: 0;
+    left: 87%;
+    margin-left: -2px;
+    margin-top: -19px;
+    position: absolute;
+    top: 0;
+    width: 0;
+    z-index: 90;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

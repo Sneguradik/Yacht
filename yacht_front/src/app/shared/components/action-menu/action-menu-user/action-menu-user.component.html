@@ -1,0 +1,21 @@
+<app-ui-dots-menu>
+    <app-ui-dots-menu-item icon="do-not-show" text="{{ 'COMMON.REMOVE_FROM_NEWSFEED' | translate }}" (click)="hide()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item icon="report" text="{{ 'COMMON.TO_FILE_A_COMPLAINT' | translate }}" appReport
+                           [object]="{ type: reportEntityTypeEnum.USER, id: data.meta.id }" (report)="gone.next(data)"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="group"
+                           [text]="this.data.info.company.isCompany ? ('COMMON.TO_MAKE_A_USER' | translate) : ('COMMON.TO_MAKE_A_COMPANY' | translate)"
+                           (click)="setCompany(!this.data.info.company.isCompany)"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="lock" [text]="data.banned ? ('COMMON.UNBLOCK' | translate) : ('COMMON.BLOCK' | translate)" (click)="setBanned(!data.banned); data.banned = !data.banned"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="report" text="{{ 'COMMON.REMOVE'  | translate}}" (click)="delete()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="star" [text]="'COMMON.PLACE_AT_DISPLAY_WINDOW' | translate" (click)="showcase()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="['ROLE_SUPERUSER', 'ROLE_CHIEF_EDITOR']" icon="user" [text]="'COMMON.EDIT' | translate"
+                           (click)="edit()"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="'EDITOR$'" icon="user" [text]="hasRole('ROLE_PRIVILEGED_USER') ? ('COMMON.WITHDRAW_APPROVAL' | translate) : ('COMMON.APPROVE_THE_AUTHOR' | translate)"
+                           (click)="setRole('ROLE_PRIVILEGED_USER', !hasRole('ROLE_PRIVILEGED_USER'))"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="['ROLE_CHIEF_EDITOR', 'ROLE_SUPERUSER']" icon="user" [text]="hasRole('ROLE_CHIEF_EDITOR') ? ('COMMON.REMOVE_EDITOR' | translate) : ('COMMON.TO_PROVIDE_EDITORS' | translate)"
+                           (click)="setRole('ROLE_CHIEF_EDITOR', !hasRole('ROLE_CHIEF_EDITOR'))"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="['ROLE_SUPERUSER']" icon="user" [text]="hasRole('ROLE_SUPERUSER') ? ('COMMON.REMOVE_ADMIN' | translate) : ('COMMON.TO_PROVIDE_ADMINISTRATIVE' | translate)"
+                           (click)="setRole('ROLE_SUPERUSER', !hasRole('ROLE_SUPERUSER'))"></app-ui-dots-menu-item>
+    <app-ui-dots-menu-item *appRoleGuard="['ROLE_SUPERUSER']" icon="user" [text]="hasRole('ROLE_SALES') ? ('COMMON.TO_REMOVE_A_SALES' | translate) : ('COMMON.TO_SET_A_SALES' | translate)"
+                           (click)="setRole('ROLE_SALES', !hasRole('ROLE_SALES'))"></app-ui-dots-menu-item>
+</app-ui-dots-menu>

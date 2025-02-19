@@ -1,0 +1,75 @@
+@import 'src/styles/variables';
+@import 'src/styles/responsive';
+
+:host {
+  width: 100%;
+}
+
+app-navbar {
+  // margin-bottom: 50px;
+}
+
+.subscribers {
+  align-items: center;
+  display: flex;
+}
+
+.avatars {
+  align-items: center;
+  display: inline-flex;
+  list-style: none;
+  margin: 0 8px 0 0;
+  padding: 0;
+
+  &__item {
+    border: 1px solid white;
+    border-radius: 50%;
+
+    &:not(:first-child) {
+      margin-left: -9px;
+    }
+  }
+}
+
+.stats-item {
+  align-items: center;
+  color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+
+  &__value {
+    color: $primary;
+    padding-left: 6px;
+  }
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  width: 100%;
+  @media only screen and (max-width : 500px){
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+    & > .subscribers,
+    & > .stats-item{
+      line-height: 1.2;
+      width: 50%;
+      margin: 6px 0;
+      .stats-item{
+        margin: 0;
+      }
+    }
+  }
+
+  @include media('<medium') {  
+    // .subscribers{
+    //   display: none;
+    // }
+  }
+}

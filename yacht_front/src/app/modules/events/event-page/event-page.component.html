@@ -1,0 +1,76 @@
+<app-ui-card [shadow]='false'>
+  <header class="margin-bottom-20">
+    <section class="v-center mobile-small">
+      <app-user-info class="margin-right-20" [user]="event.company"></app-user-info>
+      <span *ngIf="event.info.publicationStage !== publicationStageEnum.PUBLISHED" class="overline c-caption">Не опубликовано</span>
+      <div class="v-center align-right without-margin">
+        <span class="caption fade-3 margin-right-8">{{ event.info.publishedAt | date:'d MMMM HH:mm' : null : pipeLng }}</span>
+        <svg name="bookmark" class="f-gray icon clickable margin-right-8" 
+          [class.active]="event.bookmarks.you" (click)="bookmark()"></svg>
+        <app-share [url]="null | url" class="margin-right-10"></app-share>
+        <app-action-menu-event *appLoggedIn [data]="event" [own]="own" (gone)="this.router.navigate(['/events'])"></app-action-menu-event>
+      </div>
+    </section>
+  </header>
+  <article class="margin-bottom-30">
+    <section class="event-info margin-bottom-30">
+      <h2 class="margin-bottom-20">{{ event.info.name }}</h2>
+      <div class="fade-1 v-center mobile-small">
+        <h6 *ngIf="event.info.city">{{ event.info.city }}</h6>
+        <h6 *ngIf="event.info.date">
+          {{ dateWithTime ? (event.info.date | date:'d MMMM HH:00' : null : pipeLng)
+          : (event.info.date | date:'d MMMM' : null : pipeLng) }}
+        </h6>
+        <h6 *ngIf="price">{{ price }}</h6>
+        <a class="button-1 button" [href]="event.body.registrationLink" target="_blank">
+          <span class="margin-right-4">{{'COMMON.REGISTER' | translate}}</span>
+          <svg class="f-white icon" name="calendar"></svg>
+        </a>
+      </div>
+    </section>
+    <app-wysiwyg-editor [initialData]="event.body.html" [readOnly]="true"></app-wysiwyg-editor>
+    <section>
+      <h3>{{ event.info.name }}</h3>
+      <table class="fade-1 f-primary info-table">
+        <tr *ngIf="event.info.date">
+          <td><svg name="calendar"></svg></td>
+          <td>
+            <h6>
+              {{ dateWithTime ? (event.info.date | date:(pipeLng === 'ru_RU' ? 'd MMMM в HH:00' : 'd MMMM in HH:00') : null : pipeLng)
+              : (event.info.date | date:'d MMMM' : null : pipeLng) }}
+            </h6>
+          </td>
+        </tr>
+        <tr>
+          <td><svg name="geo"></svg></td>
+          <td><h6>{{ event.body.address }}</h6></td>
+        </tr>
+        <tr *ngIf="price">
+          <td><svg name="star"></svg></td>
+          <td><h6>{{ price ? price : 'Цена не указана' }}</h6></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <a class="button-1 button" [href]="event.body.registrationLink" target="_blank">
+              <span class="margin-right-4">{{'COMMON.REGISTER' | translate}}</span>
+              <svg class="f-white icon" name="calendar"></svg>
+            </a>
+          </td>
+        </tr>
+      </table>
+    </section>
+  </article>
+  <footer>
+    <section class="v-center margin-bottom-20">
+      <div class="c-gray v-center margin-right-20 clickable" (click)="bookmark()">
+        <svg name="bookmark" class="margin-right-4 icon f-gray" [class.active]="event.bookmarks && event.bookmarks.you"></svg>
+        <span class="subtitle-2">{{ event.bookmarks.count }}</span>
+      </div>
+      <div class="v-center margin-right-20">
+        <svg name="view" class="margin-right-4 icon f-gray"></svg>
+        <span class="subtitle-2 c-gray">{{ event.views.count }}</span>
+      </div>
+      <app-share [url]="null | url"></app-share>
+    </section>
+  </footer>
+</app-ui-card>

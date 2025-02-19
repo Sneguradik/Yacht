@@ -1,0 +1,26 @@
+@import 'src/styles/variables';
+
+.ui-label {
+  color: $label;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+
+  &.error {
+    color: $error;
+  }
+
+  &.heading {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &.normal {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+  }
+}

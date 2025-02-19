@@ -1,0 +1,30 @@
+@import 'src/styles/responsive';
+
+:host {
+    width: 100%;
+
+
+    h2 {
+        width: 100%;
+        display: flex;
+        @include media('<medium') {
+            flex-direction: column;
+            font-size: 24px;
+        }
+        a {
+            // color: #00b7ff;
+            cursor: pointer;
+            font-weight: 500;
+            font-family: "Roboto", sans-serif;
+            font-size: 15px !important;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+            padding-right: 45px;
+            @include media('<medium') {
+                margin-left: 0 !important;
+            }
+        }
+    }
+
+}

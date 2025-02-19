@@ -1,0 +1,49 @@
+<section *ngIf="events.length" class="events" [ngClass]="blueClass">
+  <div class="events--header">
+    <h3 class="btn" ><a [routerLink]="['/events']">{{ 'COMMON.EVENT_' | translate }}</a></h3>
+    <div class="link"><a class="clickable" (click)="handleClick($event)">{{ 'COMMON.TO_SEND_YOUR' | translate }}</a></div>
+  </div>
+
+  <ul>
+    <li *ngFor="let event of (expanded ? events : events.slice(0, 5))" >
+      <a [routerLink]="['/events', event.meta.id]">
+        <div class="info">
+          <div class="date">
+            {{ dateWithTime(event) ? (event.info.date | date:(pipeLng === 'ru_RU' ? 'd MMMM в HH:00' : 'd MMMM in HH:00') :null:pipeLng)
+            : (event.info.date | date:'d MMMM':null:pipeLng) }}
+          </div>
+          <div class="title">
+            {{ event.info.name | trunk:35 }}
+          </div>
+          <div class="place" style="max-width: 140px;" *ngIf="event.info.city">
+            {{ event.info.city ? event.info.city : ''}}
+          </div>
+        </div>
+        <div class="desc">
+          <p>{{ event.info.announcement }}</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <div class="events-footer">
+    <span>
+      <div *ngIf="!expanded && events.length > 5" class="events-more">
+        <span class="anchor" (click)="toggleExpand()">{{ 'COMMON.SEE_MORE' | translate }}
+          <svg style="transform: rotate(90deg);" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M4.58579 6L0.292895 1.70711C-0.0976292 1.31658 -0.0976291 0.683417 0.292895 0.292893C0.68342 -0.0976304 1.31658 -0.0976303 1.70711 0.292894L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711L1.70711 11.7071C1.31658 12.0976 0.683418 12.0976 0.292893 11.7071C-0.0976309 11.3166 -0.0976308 10.6834 0.292894 10.2929L4.58579 6Z"
+              fill="#92929D"/>
+          </svg>
+        </span>
+      </div>
+    </span>
+    <a class="anchor" [routerLink]="['/events']">{{ 'COMMON.SHOW_ALL_EVENTS' | translate }}
+      <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M4.58579 6L0.292895 1.70711C-0.0976292 1.31658 -0.0976291 0.683417 0.292895 0.292893C0.68342 -0.0976304 1.31658 -0.0976303 1.70711 0.292894L6.70711 5.29289C7.09763 5.68342 7.09763 6.31658 6.70711 6.70711L1.70711 11.7071C1.31658 12.0976 0.683418 12.0976 0.292893 11.7071C-0.0976309 11.3166 -0.0976308 10.6834 0.292894 10.2929L4.58579 6Z"
+          fill="#92929D"/>
+      </svg>
+    </a>
+  </div>
+</section>

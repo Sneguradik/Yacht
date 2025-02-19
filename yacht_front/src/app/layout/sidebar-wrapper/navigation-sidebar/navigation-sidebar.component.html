@@ -1,0 +1,42 @@
+<ul class="structural sidebar-list">
+    <li *ngIf="!(sessionService.loggedIn$ | async)" [routerLink]="['/topics']" (click)="handleFeedConfiguration()">
+        <div class="v-center last-item-right">
+            <span class="subtitle-2 fade-2">{{ 'COMMON.SET_MY_NEWSFEED' | translate }}</span>
+            <svg name="cog" class="active ui-icon"></svg>
+        </div>
+    </li>
+  
+    <li>
+        <app-ui-expand-box [redirectToAll]="'/topics'"
+                           [templateType]="expandBoxTemplateEnum.ITEMS"
+                           [fallbackText]="'COMMON.MAIN_TOPICS_FALLBACK_TEXT' | translate"
+                           [customCD]="true"
+                           [data]="topics" [routerLinkPrefix]="'/topics'" (actionEvent)="handleSubscribe($event)">
+            {{ 'COMMON.MAIN_TOPICS' | translate }}
+        </app-ui-expand-box>
+    </li>
+  
+    <li>
+        <app-ui-expand-box [redirectToAll]="'/tags'"
+                           [templateType]="expandBoxTemplateEnum.LINKS"
+                           [data]="tags$ | async" [routerLinkPrefix]="'/tags'">
+            {{ 'COMMON.POPULAR_TAGS' | translate }}
+        </app-ui-expand-box>
+    </li>
+  
+    <li>
+        <app-ui-expand-box [redirectToAll]="'/companies'"
+                           [fallbackText]="'COMMON.DISPLAY_COMPANIES' | translate"
+                           [customCD]="true"
+                           [templateType]="expandBoxTemplateEnum.ITEMS" [data]="companies" [routerLinkPrefix]="'/company'" (actionEvent)="handleCompanySubscribe($event)">
+            {{ 'COMMON.MY_COMPANIES' | translate }}
+        </app-ui-expand-box>
+    </li>
+  
+    <li>
+        <app-ui-expand-box [fallbackText]="'COMMON.DISPLAY_AUTHORS' | translate" [redirectToAll]="'/authors'"
+                           [templateType]="expandBoxTemplateEnum.AUTHORS" [data]="authors$ | async">
+            {{ 'COMMON.MY_AUTHORS' | translate }}
+        </app-ui-expand-box>
+    </li>
+</ul>
